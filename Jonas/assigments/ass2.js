@@ -137,8 +137,50 @@ console.log(percentages);
 
 // ARRAY METHODS
 
+const neighbours = ["Italy", "Slovenia", "Hungary", "Serbia", "BiH", "Crna Gora"];
+
+    // adding Utopia to the end
+
+      neighbours.push("Utopia");
+      console.log(neighbours);
+
+    // removing Utopia
+
+      const popped = neighbours.pop("Utopia");
+      console.log(neighbours);
+      console.log(popped);
+
+    // conditional
+
+      if (neighbours.includes("Germany")) {
+        console.log("It is a central European country.");
+      } else {
+        console.log("It is probably not a central European country.");
+      }
 
 
+      // shorter
 
+      if (!neighbours.includes("Germany")) {
+        console.log("It is probably not a central European country.");
+      }
+
+
+    // changing the name of one of countries 
+
+        // splice()
+
+      console.log(neighbours.indexOf("BiH"));
+      neighbours.splice(4, 1, "Bosnia and Herzegovina");
+              // the first parameter stands for the index number to be removed, and the second parameter is how many items should be removed
+
+      console.log(neighbours);
+
+
+      // another way
+
+      neighbours [neighbours.includes("Slovenia")] = "Republic of Slovenia";
+      console.log(neighbours);
   
+
   
