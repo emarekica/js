@@ -181,6 +181,43 @@ const neighbours = ["Italy", "Slovenia", "Hungary", "Serbia", "BiH", "Crna Gora"
 
       neighbours [neighbours.includes("Slovenia")] = "Republic of Slovenia";
       console.log(neighbours);
+
+
+
+// OBJECTS
+
+      // Intro
+
+      const myCountry = {
+        countryName: "Croatia",
+        hasCoast: true,
+        mountains: [ "Učka", "Velebit", "Biokovo", "Dinara"],
+
+        capital: "Zagreb",
+        language: "Croatian",
+        population: 4,
+        neighbours: [ "Italy", "Slovenia", "Hungary", "Serbia", "BiH", "Montenegro" ]
+      };
+
+
+      
+
+      // Dot and Bracket Notation
   
+        console.log(`${myCountry.countryName} has ${myCountry.population} million Croatian-speaking people, ${myCountry.neighbours.length} neighbouring countries and a capital called ${myCountry.capital}.`);
+
+
+        // increasing/decreasing population by 2 mil
+
+          myCountry.population += 2;
+          console.log(myCountry);
+
+          myCountry["population"] -= 2;
+          console.log(myCountry);
+
+
+
+
+        // Object Methods
 
   
