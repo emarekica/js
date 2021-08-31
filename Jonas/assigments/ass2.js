@@ -196,16 +196,25 @@ const neighbours = ["Italy", "Slovenia", "Hungary", "Serbia", "BiH", "Crna Gora"
         capital: "Zagreb",
         language: "Croatian",
         population: 4,
-        neighbours: [ "Italy", "Slovenia", "Hungary", "Serbia", "BiH", "Montenegro" ]
+        neighbours: [ "Italy", "Slovenia", "Hungary", "Serbia", "BiH", "Montenegro" ],
+
+// Methods
+
+        describe: function() {
+          console.log(`${this.countryName} has ${this.population} million Croatian-speaking people, ${this.neighbours.length} neighbouring countries and a capital called ${this.capital}.`);
+        },
+
+        checkIsland: function() {
+          this.isIsland = this.neighbours.length === 0 ? true : false;
+        }
+
       };
 
 
-      
-
       // Dot and Bracket Notation
-  
+/*   
         console.log(`${myCountry.countryName} has ${myCountry.population} million Croatian-speaking people, ${myCountry.neighbours.length} neighbouring countries and a capital called ${myCountry.capital}.`);
-
+ */
 
         // increasing/decreasing population by 2 mil
 
@@ -216,8 +225,10 @@ const neighbours = ["Italy", "Slovenia", "Hungary", "Serbia", "BiH", "Crna Gora"
           console.log(myCountry);
 
 
+      myCountry.describe();
+      myCountry.checkIsland();
 
+      console.log(myCountry);
 
-        // Object Methods
 
   
