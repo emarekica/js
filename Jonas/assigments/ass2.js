@@ -231,4 +231,26 @@ const neighbours = ["Italy", "Slovenia", "Hungary", "Serbia", "BiH", "Crna Gora"
       console.log(myCountry);
 
 
+
+// ITERATION
+
+  // FOR loop
   
+      for(let v = 1; v <= 50; v++) {
+        console.log(`Voter number ${v} is currently voting.`);
+      }
+
+
+// Iterating through arrays
+
+
+const populations2 = [6, 1600, 2008, 343];
+const percentages2 = [];
+
+for(let i = 0; i < populations2.length; i++) {
+  const perc = percentageOfWorld(populations2[i]);
+  percentages2.push(perc);
+}
+
+console.log(percentages2);
+
