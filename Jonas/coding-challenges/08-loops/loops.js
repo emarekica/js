@@ -1,41 +1,27 @@
 "use strict";
 
-const bills = [22, 295, 176, 440, 37, 105, 10, 1100, 88, 52];
+const bills = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
 
 const tips = [];
 const totals = [];
-const totalValue = tips.concat(totals);
+
+const calcTip = function (bill) {
+  return bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2; 
+}
+
+for (let i = 0; i < bills.length; i++) {
+  const tip = calcTip(bills[i]);
+
+  tips.push(tip);
+  totals.push(tips + bills[i]);
+}
+
+  console.log(bills, tips, totals);
 
 
 
-
-  function tip (bills) {
-
-    if (bills >=50 && bills <= 300) {
-      return 0.15 * bills
-    } else {
-      return 0.2 * bills;
-    }
-  }  
-
-  function calcTip(bills) { 
-    const tipCalc = tip(bills);
-    return tipCalc;
-  }
-
-
-// for loop for 10 calculations 
-
-  for(let i = 0; i <= bills.length - 1; i++) {
-    const totalBill = calcTip(bills[i]);
-    totalValue.push(totalBill);
-  };
-
-  console.log(totalValue);
-
-
-
-// BONUS
+  
+// bonus
 
   // sum of the bills array
 
@@ -45,18 +31,7 @@ const totalValue = tips.concat(totals);
       return a + b;
     }, 0);
 
-    return arr / bills.length -1;
+    return arr / bills.length;
   }
 
-  console.log(calcAverage(bills));
-
-
-
-// Jonas's solution
-
-  // adding up all the values in the array 
-
-
-
-
-
+  console.log(calcAverage(totals));

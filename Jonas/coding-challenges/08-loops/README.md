@@ -18,7 +18,7 @@ Your tasks:
 
     tips + totals = totalValue
 
-    for(let i = 1; i <= bills.length; i++) {
+    for(let i = 1; i < bills.length; i++) {
       const all = calcTip(bills[i]);
 
       totalValue.push(all);
@@ -59,7 +59,7 @@ Your tasks:
 
   ## PSEUDOCODE
 
-  number of element in an array = array.length - 1
+  number of element in an array = array.length
 
   sum of number of element in an array 
 
@@ -77,8 +77,7 @@ Your tasks:
              console.log(sum);
 
 
-
-  This is a difficult challenge (we haven't done this before)! Here is how to solve it:
+ Here is how to solve it:
   
     4.1. First, you will need to add up all values in the array. To do the addition, start by creating a variable 'sum' that starts at 0.
     Then loop over the array using a for loop.
