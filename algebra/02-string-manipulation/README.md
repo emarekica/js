@@ -22,7 +22,7 @@ Input:
 ```js
 var template = '== CONFIDENTIAL ==\n\n::content::\n\n == CONFIDENTIAL ==';
 
-var content = 'Lorem    ipsum XXXdolor sitxxx amet.';
+var content = 'Lorem    ipsum XXXdolor sitXXX amet.';
 
 // ...
 

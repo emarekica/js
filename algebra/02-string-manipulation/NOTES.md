@@ -1,3 +1,8 @@
+- use replace() + RegEx to replace PATTERNS
+
+
+
+
 ## string manipulation 
 
 https://www.digitalocean.com/community/tutorials/how-to-work-with-strings-in-javascript
@@ -7,7 +12,10 @@ https://www.digitalocean.com/community/tutorials/how-to-index-split-and-manipula
 
 
 
-1. WHY STRING?
+## 1. 
+
+    WHY STRING?
+
 
 ### String
 
@@ -49,30 +57,34 @@ https://www.digitalocean.com/community/tutorials/how-to-index-split-and-manipula
   * not recommended as the properties involved are neither writable nor configurable
 
 
-2. HOW TO REPLACE A CHARACTER/specific word IN A STRING WITH ANOTHER CHARACTER?
 
 
-    ### Replace a word in a string
+## 2. 
 
-      const p = 'The quick brown fox jumps over the lazy dog. If the dog reacted, was it really lazy?';
-
-      console.log(p.replaceAll('dog', 'monkey'));
-
-      // expected output: "The quick brown fox jumps over the lazy monkey. If the monkey reacted, was it really lazy?"
+    HOW TO REPLACE A CHARACTER/specific word IN A STRING WITH ANOTHER CHARACTER?
 
 
-    ### replace a word in a sentence
+  ### Replace a word in a string
 
-      function replaceAll(str, find, replace) {
-        var escapedFind = find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-        return str.replace(new RegExp(escapedFind, 'g'), replace);
-      }
+  const p = 'The quick brown fox jumps over the lazy dog. If the dog reacted, was it really lazy?';
 
-      var sentence = "How many shots did Bill take last night? That Bill is so crazy!";
-      var blameSusan = replaceAll(sentence,"Bill","Susan"); 
+  console.log(p.replaceAll('dog', 'monkey'));
+
+  // expected output: "The quick brown fox jumps over the lazy monkey. If the monkey reacted, was it really lazy?"
 
 
-                                    ****** 
+  ### replace a word in a sentence
+
+  function replaceAll(str, find, replace) {
+    var escapedFind = find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+    return str.replace(new RegExp(escapedFind, 'g'), replace);
+  }
+
+  var sentence = "How many shots did Bill take last night? That Bill is so crazy!";
+  var blameSusan = replaceAll(sentence,"Bill","Susan"); 
+
+
+                                  ****** 
 
 
 
@@ -104,9 +116,9 @@ https://www.digitalocean.com/community/tutorials/how-to-index-split-and-manipula
                 break;
             case Node.DOCUMENT_NODE:
                 replaceInText(node, pattern, replacement);
+            }
         }
     }
-}
 
 
   3. 
@@ -171,7 +183,21 @@ https://www.digitalocean.com/community/tutorials/how-to-index-split-and-manipula
 
   ## JS String replace() Using Regex
 
-    - Regular expression, or regex(p), defines a search pattern
+    WHAT IS REGEX?
+
+    @: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+
+
+       - patterns used to match character combinations in strings
+       - in JS, regular expressions are also objects
+       - used with methods: 
+
+            RexExp: exec(), test()
+            String:  match(), matchAll(), replace(), replaceAll(), search(), split()
+
+
+    - defines a search pattern
+    - when you want to know whether a pattern is found in a string, use the test() or search() methods
     - regexp objects give us more control over our replace() function, so we can do more replacements
 
     ## example: replace "e" with "f"
@@ -185,7 +211,101 @@ https://www.digitalocean.com/community/tutorials/how-to-index-split-and-manipula
       console.log(ourNewString);  // "This string is interesting."
 
 
-      https://www.freecodecamp.org/news/javascript-string-replace-example-with-regex/
-      https://stackoverflow.com/questions/1162529/javascript-replace-regex
-      https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
-      
+
+
+@: https://www.freecodecamp.org/news/javascript-string-replace-example-with-regex/
+
+  - replace() used on strings in JavaScript to replace parts of string with character
+  - accepts two arguments: 
+        a) the string to be replaced
+        b) what the string would be replaced with
+
+          const str = 'JavaScript';
+          const newStr = str.replace("ava", "-");
+
+          console.log(newStr);  // J-Script
+
+--> replace() + RegEx to replace PATTERNS
+
+    // matches a number, some characters and another number
+
+        const reg = /\d.*\d/
+        const str = "Java3foobar4Script"
+        const newStr = str.replace(reg, "-");
+
+        console.log(newStr);  // "Java-Script"
+
+
+    ## replacement at multiple places
+
+        const reg = /\d{3}/g
+        const str = "Java323Scr995ip4894545t";
+        const newStr = str.replace(reg, "");
+
+        console.log(newStr);
+            // JavaScrip5t
+            // 5 didn't pass the test :(
+
+
+
+
+
+@: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
+
+## string.prototype.replace()
+
+  - returns a new string with some or all matches of a pattern replaced by a replacement
+    - the pattern can be a string or a RegExp
+    - replacement can be a string or a function to be called for each match
+    - if pattern is a string, only the first occurrence will be replaced
+
+  - returns a new string, doesn't change the calling string object
+
+
+    ### syntax
+
+      replace(regexp, newSubstr)
+      replace(regexp, replacerFunction)
+
+      replace(substr, newSubstr)
+      replace(substr, replacerFunction)
+
+        replacerFunction (replacement)
+      A function to be invoked to create the new substring to be used
+      to replace the matches to the given regexp or substr.
+
+
+
+  ##  Using an inline function that modifies the matched characters
+
+-->        ** dodavanje praznog prostora
+-->        ** zamjena svih određenih elemenata u tekstu
+
+
+  In this example, all occurrences of capital letters in the string are converted to lower case, and a hyphen is inserted just before the match location. The important thing here is that additional operations are needed on the matched item before it is given back as a replacement.
+
+  The replacement function accepts the matched snippet as its parameter, and uses it to transform the case and concatenate the hyphen before returning.
+
+
+    function styleHyphenFormat(propertyName) {
+      function upperToHyphenLower(match, offset, string) {
+        return (offset > 0 ? '-' : '') + match.toLowerCase();
+      }
+      return propertyName.replace(/[A-Z]/g, upperToHyphenLower);
+    }
+
+    console.log(styleHyphenFormat('borderTop'));  // border-top
+
+
+
+## 3. 
+
+      WHAT IS THE REGEX FOR MY PATTERN? 
+
+  '== CONFIDENTIAL ==\n\n::content::\n\n == CONFIDENTIAL =='
+  XXXdolor sitXXX
+
+  @: https://regexr.com/
+  @: https://www.youtube.com/watch?v=sa-TUpSx1JA
+
+  
