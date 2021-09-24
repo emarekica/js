@@ -8,7 +8,7 @@ var content = "Erat quibusdam blandit,    consequatur cupiditate? Adipisicing pr
 
 function prepareConfidentialDocument(content, template) {
 
-  let reg = /(XXX)\w+(.\s\w+)?(\s\w+)?(XXX)/g;
+  let reg = /(XXX)(.\w+)(.\s\w+)?(.\s\w+)?(XXX)/g;
   let confidential = content.replace(reg, template);
 
   return confidential;
