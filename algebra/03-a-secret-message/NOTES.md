@@ -4,6 +4,8 @@
 - string 1 containing ASCII code
 - string 2 containing the message
 
+- string methods to use (?): split(), replace()
+
 
 
 @: https://www.digitalocean.com/community/tutorials/how-to-index-split-and-manipulate-strings-in-javascript
@@ -23,10 +25,31 @@
 
         "How are you?"[5]; // r
  
+
+
+    ### return string value based on the index number
+
+
     b) charAt() method to return the character using the index number as a parameter
 
         "How are you?".charAt(5);  // r
 
+
+    ### slice()
+
+    - returns the characters between two index numbers
+    - first parameter will be the starting index number, second parameter will be the index number where it should end
+    - will return what is between, but not including, the last parameter
+
+        "How are you?".slice(8, 11);   // you
+
+    - if a second parameter is not included, slice() will return everything from the parameter to the end of the string
+
+        "How are you?".slice(8);   // you?
+
+
+
+    ### return index numbers based on the provided string character
 
 
     c) indexOf() to return the index number by the first instance of a character
@@ -38,14 +61,54 @@
         "How are you?".lastIndexOf("o");  // 9
 
 
-  ### slice()
 
-    - returns the characters between two index numbers
-    - first parameter will be the starting index number, second parameter will be the index number where it should end
+## split()
 
-        "How are you?".slice(8, 11);   // you
+  - splitting a string by a character and creating a new array out of the sections
+  - if an empty parameter is given, it will create a comma-separated array with each character in the string
+  - you can determine how many words are in a sentence
 
-    
+        const originalString = "How are you?";
+
+        // Split string by whitespace character
+        const splitString = originalString.split(" ");
+
+        console.log(splitString);    // [ 'How', 'are', 'you?' ]
+
+
+
+## replace()
+
+  - search a string for a value, and replace it with a new value
+  - only affects the first value
+  - it takes 2 parameters: 
+          1. the value to be found
+          2. the value to replace it with
+
+          const originalString = "How are you?"
+
+          // Replace the first instance of "How" with "Where"
+          const newString = originalString.replace("How", "Where");
+
+          console.log(newString);  // Where are you?
+
+
+     ### replace() + RegEx
+
+      - use the g (global) flag to catch all instances of a value
+      - use the i (case insensitive) flag to ignore case
+
+          const originalString = "Javascript is a programming language. I'm learning javascript."
+
+          // Search string for "javascript" and replace with "JavaScript"
+          const newString = originalString.replace(/javascript/gi, "JavaScript");
+
+          console.log(newString);  
+            // JavaScript is a programming language. I'm learning JavaScript.
+
+
+
+
 
 
  
