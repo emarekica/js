@@ -3,7 +3,7 @@
 console.log(document.querySelector(".message").textContent);
 
 
-// DOM manipulation = JS interacting with the webpage
+
   // DOM is part of web API's
 
 
