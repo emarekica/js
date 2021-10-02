@@ -149,13 +149,236 @@ https://theasciicode.com.ar/
 
 (https://medium.com/suyeonme/js-an-algorithm-a-day-caesar-cipher-77bc58cf3117)
 
+
+**The easiest way** to solve it uses ASCII.
+ASCII is a character encoding standard for electronic communication.
+ASCII codes represent text in computers.
+
+  You have to create a function(str, num) and return string pushed as input number.
+
+  *pseudocode*
+
+  Input string: “AB”
+  Input number: 1
+  output: “BC”
+  Input string: “z”
+  Input number: 1
+  output: “a”
+
+  ```js
+  function solution(s, n) {
+    return s
+      .split('')
+      .map(c => {
+        const ascii = c.charCodeAt(0);
+        if (' ' == c) return c;
+
+    return c.toUpperCase().charCodeAt(0) + n > 90
+          ? String.fromCharCode(ascii + n - 90 + 64)
+          : String.fromCharCode(ascii + n);
+      })
+      .join('');
+  }
+  ```
+  
+  1. Select all alphabets both of uppercase and lowercase.
+  2. Loop strings and check unicode of each of them. In unicode, Alphabet starts at 65. Uppercase is between 65 and 90. Lowercase is between 97 and 122.
+  3. Convert ASCII to string and return it
+
+  **Methods**
+  - `string.charCodeAt()` : Convert string to unicode.
+  - `string.fromCharCode()` : Convert unicode to string.
+
+  [Unicode list](https://en.wikipedia.org/wiki/List_of_Unicode_characters)
+
+---
+
 (https://www.codegrepper.com/code-examples/javascript/Caesar+cipher+js)
+
+```js
+function rot13(str) {
+  var charcode = [];
+  var words = [];
+
+  for(let i = 0; i < str.length; i++){
+    
+    var asc = str.charCodeAt(i)
+    
+    charcode.push(asc)
+  }
+
+  var converted = charcode.map(function(a){
+    return a-13
+  })
+  
+  console.log(converted)
+  
+  converted.forEach((letter)=>{
+    if(letter >= 65){
+      var final =String.fromCharCode(letter)
+      words.push(final)
+    }
+    else if(letter>=52){
+      final = String.fromCharCode(letter+26)
+      words.push(final)
+    }
+    else {
+      final = String.fromCharCode(letter+13)
+      words.push(final)
+    }
+  
+  })
+  return words.join("")
+}
+
+console.log(rot13("SERR YBIR?"));
+```
+
+```js
+   var myCipher = [];
+      var myArray = []; 
+      
+      for (i=0; i < str.length; i++) {
+        // convert character - or don't if it's a punctuation mark.  Ignore spaces.
+        if (str.charCodeAt(i) > 64 && str.charCodeAt(i) < 78) {
+             myArray.push(String.fromCharCode(str.charCodeAt(i) + 13));
+         } else if (str.charCodeAt(i) > 77 && str.charCodeAt(i) < 91) { 
+             myArray.push(String.fromCharCode(77 - (90 - str.charCodeAt(i))));
+         } else if (str.charCodeAt(i) > 32 && str.charCodeAt(i) < 65) {
+             myArray.push(str.charAt(i));
+         }
+       
+        // push word onto array when encountering a space or reaching the end of the string
+        
+        if (str.charCodeAt(i) == 32) {
+          myCipher.push(myArray.join(''));
+          myArray.length = 0;      
+        }
+        
+        if (i == (str.length - 1)) {
+           myCipher.push(myArray.join(''));
+        }
+      }
+      return myCipher.join(" ");
+    }
+```
+
+---
 
 (https://www.thatsoftwaredude.com/content/11425/implementing-a-caesar-cipher-in-javascript)
 
+-- involves shifting the letters of the alphabet by 'n' amount ether to the **left or right**
+-- single character replacement mechanism
+
+**method** 
+
+We create the new shifted alphabet ahead of time and perform a 1 to 1 lookup to find the new character to replace.
+
+Start by creating 2 different variables.
+  1. represents the original alphabet in the original language, stored as one large string. 
+  2. represents the new shifted alphabet based on the 'n' shift parameter. That value will be empty by default.
+
+  ```js
+  var alphabet = "abcdefghijklmnopqrstuvwxyz";
+  var newalpha = "";
+  ```
+
+Next, setup a **function to create the newly shifted alphabe**t.
+The algorithm essentially looks ahead by 'n' characters and it wraps around back to the beginning once it reaches the end of the alphabet.
+
+This will give you the new alphabet to work with for the encoding phase.
+
+```js
+function shift(n){
+	for (let i = 0; i < alphabet.length; i++){
+		let offset = (i + n) % alphabet.length;
+		newalpha += alphabet[offset];
+	}
+}
+```
+
+#### encoding phase
+
+Create the actual **encoding function**.
+Take each of the letters in a given message and find its replacement character in the new alphabet
+See it in action with a n = 1 shift to the righ.
+
+```js
+function encode(message){
+    let result = "";
+    message = message.toLowerCase();
+    for (let i = 0; i < message.length; i++){
+        let index = alphabet.indexOf(message[i]);
+        result += newalpha[index];
+    }
+    return result;
+}
+```
+
+#### decoding phase
+
+You have to work our backwards to decode the new message.
+The process is essentially identical to the encoding, only the **new alphabet will be used as the lookup table**.
+
+```js
+function decode(message){
+    let result = "";
+    message = message.toLowerCase();
+    for (let i = 0; i < message.length; i++){
+        let index = newalpha.indexOf(message[i]);
+        result += alphabet[index];
+    }
+    return result;
+}
+```
+
+---
+
 (http://codeniro.com/caesars-cipher-algorithm-javascript/)
 
+```js
+var mode = "ceaser";
+var shift;
+function encrypt(text, shift) {
+    var result = "";
+    if (mode == "ceaser"){
+ 
+        //loop through each caharacter in the text
+        for (var i = 0; i < text.length; i++) {
+              
+             //get the character code of each letter
+            var c = text.charCodeAt(i);
+ 
+            // handle uppercase letters
+            if(c >= 65 && c <=  90) {
+               result += String.fromCharCode((c - 65 + shift) % 26 + 65); 
+ 
+            // handle lowercase letters
+            }else if(c >= 97 && c <= 122){
+                result += String.fromCharCode((c - 97 + shift) % 26 + 97);
+ 
+            // its not a letter, let it through
+            }else {
+                result += text.charAt(i);
+            }
+        }
+    }
+    return result;
+}
+ 
+function decrypt(text,shift){
+    var result = "";
+    shift = (26 - shift) % 26;
+    result = encrypt(text,shift);
+    return result;
+}   
+````
+
+---
+
 (https://stackoverflow.com/questions/44232645/caesar-cipher-in-javascript)
+
+
 
 (https://gist.github.com/EvanHahn/2587465)
 
