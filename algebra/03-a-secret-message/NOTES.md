@@ -1,19 +1,12 @@
-1. string manipulation
-2. string methods 
-3. string 1 containing ASCII code
-4. string 2 containing the message
-5. string methods to use (?): split(), replace()
 
-6. **uppercase letters only (65-90 ASCII), RegEx /A-Z/g**
+### STEPS
 
-7.
-  **Methods**
-  - **`string.charCodeAt()`** : Convert string to unicode.
-  - **`string.fromCharCode()`** : Convert unicode to string.
+**decription only**
 
-8. [most helpful link](https://www.thatsoftwaredude.com/content/11425/implementing-a-caesar-cipher-in-javascript)
+1. loop through the encoded text (each character) *UPPERCASE ONLY*
+2. get unicode number for each letter (if not a letter, let through)
+3. decode with given shift
 
-9. [ASCII table](https://theasciicode.com.ar/)
 
 ---
 
@@ -35,7 +28,7 @@ const string = "How are you?";
 "How are you?"[5]; // r
 ```
 
->### Return string value based on the index number 
+### Return string value based on the index number 
 
 b) charAt() method to return the character using the index number as a parameter
 ```
@@ -56,7 +49,7 @@ b) charAt() method to return the character using the index number as a parameter
 ```
 
 
->### Return index numbers based on the provided string character
+### Return index numbers based on the provided string character
 
 c) **indexOf()** to return the index number by the first instance of a character
 
@@ -69,9 +62,11 @@ d) **lastIndexOf()** is used to find the last instance
 
 
 **split()**
+
   -- splitting a string by a character and creating a new array out of the sections
   -- if an empty parameter is given, it will create a comma-separated array with each character in the string
   -- you can determine how many words are in a sentence
+  
   
 ```js
 const originalString = "How are you?";
@@ -167,6 +162,7 @@ console.log(elements.join('-'));
 **Two situations** can be considered:
 
 1. an attacker knows (or guesses) that some sort of simple substitution cipher has been used, but not specifically that it is a Caesar scheme;
+
 2. an attacker knows that a Caesar cipher is in use, but does not know the shift value.
 
   >2a. Since there are only a limited number of possible shifts (25 in English), they can each be tested in turn in a brute force attack. 
@@ -200,123 +196,6 @@ definira kodove za 33 kontrolna znaka, kojima se utječe na način ispisa teksta
 
 **potencijalna rješenja**
 
-(https://medium.com/suyeonme/js-an-algorithm-a-day-caesar-cipher-77bc58cf3117)
-
-
-**The easiest way** to solve it uses ASCII.
-ASCII codes represent text in computers.
-Every key on the keyboard has its ASCII number.
-
-  You have to create a function(str, num) and return string pushed as input number.
-
-  *pseudocode*
-
-  Input string: “AB”
-  Input number: 1
-  output: “BC”
-  Input string: “z”
-  Input number: 1
-  output: “a”
-
-  ```js
-  function solution(s, n) {
-    return s
-      .split('')
-      .map(c => {
-        const ascii = c.charCodeAt(0);
-        if (' ' == c) return c;
-
-    return c.toUpperCase().charCodeAt(0) + n > 90
-          ? String.fromCharCode(ascii + n - 90 + 64)
-          : String.fromCharCode(ascii + n);
-      })
-      .join('');
-  }
-  ```
-  
-  1. Select all alphabets both of uppercase and lowercase.
-  2. Loop strings and check unicode of each of them. In unicode, Alphabet starts at 65. Uppercase is between 65 and 90. Lowercase is between 97 and 122.
-  3. Convert ASCII to string and return it
-
-  **Methods**
-  - `string.charCodeAt()` : Convert string to unicode.
-  - `string.fromCharCode()` : Convert unicode to string.
-
-  [Unicode list](https://en.wikipedia.org/wiki/List_of_Unicode_characters)
-
----
-
-(https://www.codegrepper.com/code-examples/javascript/Caesar+cipher+js)
-
-```js
-function rot13(str) {
-  var charcode = [];
-  var words = [];
-
-  for(let i = 0; i < str.length; i++){
-    
-    var asc = str.charCodeAt(i)
-    
-    charcode.push(asc)
-  }
-
-  var converted = charcode.map(function(a){
-    return a-13
-  })
-  
-  console.log(converted)
-  
-  converted.forEach((letter)=>{
-    if(letter >= 65){
-      var final =String.fromCharCode(letter)
-      words.push(final)
-    }
-    else if(letter>=52){
-      final = String.fromCharCode(letter+26)
-      words.push(final)
-    }
-    else {
-      final = String.fromCharCode(letter+13)
-      words.push(final)
-    }
-  
-  })
-  return words.join("")
-}
-
-console.log(rot13("SERR YBIR?"));
-```
-
-```js
-var myCipher = [];
-var myArray = []; 
-      
-      for (i=0; i < str.length; i++) {
-        // convert character - or don't if it's a punctuation mark.  Ignore spaces.
-        if (str.charCodeAt(i) > 64 && str.charCodeAt(i) < 78) {
-             myArray.push(String.fromCharCode(str.charCodeAt(i) + 13));
-         } else if (str.charCodeAt(i) > 77 && str.charCodeAt(i) < 91) { 
-             myArray.push(String.fromCharCode(77 - (90 - str.charCodeAt(i))));
-         } else if (str.charCodeAt(i) > 32 && str.charCodeAt(i) < 65) {
-             myArray.push(str.charAt(i));
-         }
-       
-        // push word onto array when encountering a space or reaching the end of the string
-        
-        if (str.charCodeAt(i) == 32) {
-          myCipher.push(myArray.join(''));
-          myArray.length = 0;      
-        }
-        
-        if (i == (str.length - 1)) {
-           myCipher.push(myArray.join(''));
-        }
-      }
-      return myCipher.join(" ");
-    }
-```
-
----
 
 (https://www.thatsoftwaredude.com/content/11425/implementing-a-caesar-cipher-in-javascript)
 
@@ -387,7 +266,7 @@ function decode(message){
 
 ---
 
-**(http://codeniro.com/caesars-cipher-algorithm-javascript/)**
+(http://codeniro.com/caesars-cipher-algorithm-javascript/)
 
 ```js
 var mode = "ceaser";
@@ -429,34 +308,9 @@ function decrypt(text,shift){
 
 ---
 
-(https://stackoverflow.com/questions/44232645/caesar-cipher-in-javascript)
+**(https://gist.github.com/EvanHahn/2587465)**
 
-```js
-function rot13(str) {
-
-var alphabets =['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'," ", "-", "_", ".", "&","?", "!", "@", "#", "/"];
-
-var alphabets13 = ['N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M', " ", "-", "_", ".", "&","?", "!", "@", "#", "/"];
-
-var resultStr = [];
-for(let i=0; i<str.length; i++){
-    for(let j =0; j<alphabets.length; j++){
-        if(str[i] === alphabets[j]){
-        resultStr.push(alphabets13[j]);
-        }
-    }
-}
-return resultStr.join("");
-};
-
-rot13("SERR CVMMN!");
-```
-
-
----
-
-(https://gist.github.com/EvanHahn/2587465)
-
+**useful explanations**
 
 "Encrypt" like this:
 
@@ -482,6 +336,22 @@ caesarShift('Mffmow mf pmiz!', -12);    // Returns "Attack at dawn!"
   2 C ...
   so then you can easily go to the begining of alphabet when you go past 25th letter which has code 90 - Z (when moved to the left by 65 it's code is 25)
   But then at the end you have to add again this 65 so you have your letter code and not the position in alphabet.
+
+65 A         78 N
+66 B         79 O
+67 C         80 P
+68 D         81 Q
+69 E         82 R
+70 F         83 S
+71 G         84 T
+72 H         85 U
+73 I         86 V
+74 J         87 W 
+75 K         88 X
+76 L         89 Y 
+77 M         90 Z
+
+
 
 ```js
 var caesarShift = function (str, amount) {
@@ -575,7 +445,7 @@ return s.replace(/[A-Za-z]/g, char => {
 ```
 ---
 
-(https://learnersbucket.com/examples/algorithms/caesar-cipher-in-javascript/)
+**(https://learnersbucket.com/examples/algorithms/caesar-cipher-in-javascript/)**
 
 *pseudocode*
 
@@ -648,38 +518,25 @@ console.log(ceaserCipher('prashantyadav', 13));
 // "cenfunaglnqni"
 ```
 
-
-
-
-
 ---
 
-(https://www.tutorialspoint.com/encrypting-a-string-using-caesar-cipher-in-javascript)
+**helpful things**
 
-```js
-const str = 'thisIsAString';
-const getMap = (legend, shift) => {
-   return legend.reduce((charsMap, currentChar, charIndex) => {
-      const copy = { ...charsMap };
-      let ind = (charIndex + shift) % legend.length;
-      if (ind < 0) {
-         ind += legend.length;
-      };
-      copy[currentChar] = legend[ind];
-      return copy;
-   }, {});
-};
-const encrypt = (str, shift = 0) => {
-   const legend = 'abcdefghijklmnopqrstuvwxyz'.split('');
-   const map = getMap(legend, shift);
-   return str
-   .toLowerCase()
-   .split('')
-   .map(char => map[char] || char)
-   .join('');
-};
+1. string manipulation
+2. string methods 
+3. string 1 containing ASCII code
+4. string 2 containing the message
+5. string methods to use (?): split(), replace()
 
-console.log(encrypt(str, 6));
-```
+6. **uppercase letters only (65-90 ASCII), RegEx /A-Z/g**
 
----
+7.
+  **Methods**
+  - **`string.charCodeAt()`** : Convert string to unicode.
+  - **`string.fromCharCode()`** : Convert unicode to string.
+
+8. [most helpful link](https://www.thatsoftwaredude.com/content/11425/implementing-a-caesar-cipher-in-javascript)
+
+9. [ASCII table](https://theasciicode.com.ar/)
+
+
