@@ -1,34 +1,35 @@
 # DOM and Event fundamentals
----
 
-### selecting an HTML element through JS 
-> 
-  -- HTML is important for class names of elements
-  -- we select them through JS
+
+## selecting an HTML element through JS 
+
+-- HTML important for class names of elements
+-- we select them through JS
 
     
-        document.querySelector()
-    
+    document.querySelector()
 
 
 **querySelector() is a method available on the document object**
-    -- you need to pass a SELECTOR into the method > the same one you would use in CSS
-    -- you pass in an element with a class name you want (ex. message)
-    -- you need to add the "..." 
+
+-- you need to pass a SELECTOR into the method > the same one you would use in CSS
+-- you pass in an element with a class name you want (ex. message)
+-- you need to add the "..." 
 
 
-    document.querySelector(".message").textContent;    
+`document.querySelector(".message").textContent;`
   
 -- result is a selection of the element
--- `.textContent` reads the text content property
--- when we have multiple dot operators(`.message .textContent`), they are executed **L > R**
+-- .textContent reads the text content property
+-- when we have multiple dot operators(.message .textContent), they are executed L > R
+-- there are another methods for selecting DOM elements
 
----
+
 
 ## What is the DOM?
 
-**DOM (document object model)**
-  = structured representation of HTML documents
+  **= DOM (document object model)**
+  **= structured representation of HTML documents**
 
 -- allows JS to access HTML elements & styles and manipulate them (change txt, HTML attributes, CSS styles...)
 -- connection point between HTML documents and JS code
@@ -39,52 +40,183 @@
 -- each tree HTML element is an object
 
 
-
  ### DOM structure
-
--- each element is an object
--- for **each HTML element** there is an element **NODE in the DOM tree**
--- we can access each element node using JS
+>    -- each element is an object
+    -- for each HTML element there is an element NODE in the DOM tree
+    -- we can access each element node using JS
 
 **DOCUMENT is a special object that we have access to in JS.**
-
-  -- the DOM always starts with the document object
+ > -- the DOM always starts with the document object
   -- it serves as an entry point into the DOM (we need it to start selecting elements)
 
-     document.querySelector()
+    document.querySelector()
 
-  -- `<html>` element is child element of document
+  >-- `<html>` element is child element of document
   -- a root element in HTML documents
-  -- adjacent elements in the DOM are called **"siblings"**
+  -- adjacent elements in the DOM are called "siblings" 
     ( `<head>` and `<body>` )
-  -- the DOM has nodes also for text, comments and other stuff
-  
+  -- the DOM has **nodes** also for text, comments and other stuff
   **Whatever is in the HTML document, also has to be in the DOM.**
 
 
 
- **DOM !== JavaScript**
+  ### DOM !== JavaScript
   -- properties and methods that can be used to manipulate the DOM are not part of JS.
   -- JS is just a dialect of the Ecmascript specification
 
 
-**DOM & methods & properties are part of WEB API's**
- -- web API's are like libraries that browsers implement
- -- accessible through JS code
+  ### DOM & methods & properties are part of WEB API's
+  -- web API's are like libraries that browsers implement
+  -- accessible through JS code
 
-**API = application programming interface**
-**= libraries written in JS**
+            API = application programming interface
+
+  **= libraries written in JS**
   -- automatically available for us to use
   -- it all happens behind the scenes, we don't have to import nor manipulate anything
   -- there are many more API's
 
-***
+## DOM manipulation
 
-## What is DOM manipulation?
-**= making JS interact with a webpage**
+  **= making JS interact with a webpage**
 
- -- official DOM specification that browsers implement is why DOM manipulation works the same in all browsers
+  -- [official DOM specification](https://dom.spec.whatwg.org/) that browsers implement is why DOM manipulation works the same in all browsers
 
-[DOM specs](https://dom.spec.whatwg.org/)
 
+
+**emojis: CMND + CONTROL + SPACE**
+
+
+## SETTING THE CONTENT OF AN ELEMENT
+
+**_textContent_ property**
+
+-- to change the the content (text) of an element
+-- select the class, then add textContent
+
+```js
+document.querySelector(".message").textContent = "Correct number!";
+console.log(document.querySelector(".message").textContent = "Correct number!");
+
+// Correct number!
+
+document.querySelector(".number").textContent = 4;
+document.querySelector(".score").textContent = 9;
+```
+
+**_value_ property**
+
+-- getting / setting the value on an Input field
+
+```js
+// getting the value
+    console.log(document.querySelector(".guess").value);
+
+// setting the value
+    console.log(document.querySelector(".guess").value = 23;
+```
+
+---
+
+## HANDLING CLICK EVENTS
+
+**= making the code react to something that happens in the DOM**
+**--use event listeners**
+
+[List of HTML/DOM events](https://developer.mozilla.org/en-US/docs/Web/Events)
+
+1. **Select the element** where the event should happen.
+
+2. **Call `addEventListener()` method** on that element.
+   -- (there are more ways to listen to events in JS, but this method is the best and most used one)
+
+3. Pass in the **type of the event** into the event listener method.
+
+  -- it is an argument that we pass into the event listener function
+  -- it is a special kind of function because it expects the event handler as a second function
+
+4. **Specify the reaction** to the event (tell the event listener what to do):
+
+     -- define a function that contains the code that should be executed whenever the event happens on that element
+     -- that function is called **the event handler**
+     -- `addEventListener()` method expects the event handler function as a second argument after the event type
+     -- we don't call the function, we only define it and pass it into the event handler - **JS engine will call this function as soon as the event happens**
+
+      **function = value, can be passed to another function as an argument**
+
+      ```js
+      document.querySelector(".check").addEventListener("click", function(){
+        console.log(document.querySelector(".guess").value)
+      });
+      ```
+
+5. Specify what should happen:
+              
+    -- log to the console value in the input field
+
+    `console.log(document.querySelector(".guess").value);`
+
+6. Store the value from the input field into a variable and log it.
+
+```js
+document.querySelector(".check")
+  .addEventListener("click", function() {
   
+    const guess = document.querySelector(".guess").value;
+    console.log(guess);
+    console.log(typeof guess);
+
+    // DOM manipulation, visible after clicking on the button
+    document.querySelector(".message").textContent = "Nice pick!";
+
+  });
+```
+7. **Convert the string into a number**
+
+    -- eventually, you will have to compare the input field value with a random number later
+    -- whenever we get something from the UI (for example, an input field), it is usually a string
+    -- we need a to convert that string to a number
+
+    ```js
+      document.querySelector(".check")
+        .addEventListener("click", function() {
+  
+          const guess = Number(document.querySelector(".guess").value);
+          console.log(guess);
+          console.log(typeof guess);
+
+          // DOM manipulation, visible after clicking on the button
+          document.querySelector(".message").textContent = "Nice pick!";
+
+        });
+    ```
+
+[JS event types](https://data-flair.training/blogs/javascript-event-types/)
+
+---
+
+## IMPLEMENTING GAME LOGIC
+
+When you work with an **app with user input**...
+
+
+**1st scenario: There is no input.**
+
+... **Check if there is a value**.
+
+   If there is no value, print something to the console as a response.
+
+   We want the argument to be TRUE.
+
+* when the input field is empty, it is zero = falsey > the argument is false --> we used NOT operator (!guess) to convert it to true so we can make the block of code execute.
+
+
+```js
+    if(!guess) {
+      document.querySelector(".message").textContent = "💔 No number!";
+    }
+```
+
+---
+
+[Dillinger](https://dillinger.io/?ref=tiny-helpers)
