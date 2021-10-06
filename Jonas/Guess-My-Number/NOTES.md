@@ -139,7 +139,7 @@ document.querySelector(".score").textContent = 9;
 
      -- define a function that contains the code that should be executed whenever the event happens on that element
      -- that function is called **the event handler**
-     -- `addEventListener()` method expects the event handler function as a second argument after the event type
+     -- `addEventListener()` method expects the **event handler function** as a second argument after the event type
      -- we don't call the function, we only define it and pass it into the event handler - **JS engine will call this function as soon as the event happens**
 
       **function = value, can be passed to another function as an argument**
@@ -197,8 +197,9 @@ document.querySelector(".check")
 
 ## IMPLEMENTING GAME LOGIC
 
-When you work with an **app with user input**...
+**= implementing how the game works**
 
+When you work with an **app with user input**...
 
 **1st scenario: There is no input.**
 
@@ -217,6 +218,89 @@ When you work with an **app with user input**...
     }
 ```
 
+
+
+
+**3 scenarios:**
+
+1. what happens when the guess is correct (equal to the secret number)
+
+2. what happens when the guess is too low
+
+3. what happens when the guess is too high
+
+
+
+**DEFINING THE SECRET NUMBER**
+
+
+Start with this.
+Otherwise you have nothing to compare the guess to.
+
+**Define it outside of the event handler function** because you want it defined only once, when the app starts.
+(If you define it inside the event handler function, with each click we would get a new secret number and the game would make no sense.)
+
+`const secretNumber = Math.trunc(Math.random() * 20) + 1;`
+
+
+
+
+**_Math_ object**
+
+-- a built-in object that JS gives us
+-- has properties and methods for mathematical constants and functions
+-- it’s not a function object
+-- `random()` will give us number between 0-1
+
+  **decimal** number between 0-50:
+
+    `Math.random()*50`
+
+
+  **`trunc()`** will remove decimals:
+  integer between 0-19:
+
+    `Math.trunc(Math.random()*20)`
+
+
+  integer between 0-20:
+
+    `Math.trunc(Math.random()*20)+1`
+
+
+[MDN Math object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math)
+
+
+
+**COMPARE THE SECRET NUMBER TO USERS' GUESS**
+
+
+(inside event handler function)
+
+_if the guess is correct:_
+
+```js
+    else if(guess === secretNumber) {
+      document.querySelector(".message").textContent = "Correct number!";
+    }
+```
+
+_if the guess is too high:_
+
+```js
+    else if(guess > secretNumber) {
+      document.querySelector(".message").textContent = "Too high!"; 
+    }
+```
+
+_if the guess is too low:_
+
+```js
+    else if(guess < secretNumber) {
+      document.querySelector(".message").textContent = "Too low!";
+    }
+```
+    
 ---
 
 [Dillinger](https://dillinger.io/?ref=tiny-helpers)

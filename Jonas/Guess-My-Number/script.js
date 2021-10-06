@@ -31,10 +31,31 @@
 
 
 
-// HANDLING CLICK EVENTS
+// HANDLING CLICK EVENTS - 1
 
     // get the data from input field whenever "Check!" button is clicked
+    // add event listener
+    // make an event handler function
 
+
+// IMPLEMENTING THE GAME LOGIC - 2
+
+  // Implement when the guess is correct / equal to the secret number
+  // Implement what happens when the guess is too low
+  // Implement what happens when the guess is too high
+
+
+// defining the secret number
+// it will be picked randomly, but defined only once
+      
+const secretNumber = Math.trunc(Math.random() * 20) + 1;
+
+// to see it instead of "?"
+
+document.querySelector(".number").textContent = secretNumber;
+
+
+// event handler function
 
 document.querySelector(".check")
   .addEventListener("click", function() {
@@ -46,35 +67,25 @@ document.querySelector(".check")
     // DOM manipulation, visible after clicking on the button
     document.querySelector(".message").textContent = "Nice pick!";
 
-    // implementing game logic
-    // check if there is a value
+// implementing game logic: SCENARIOS
 
+    // check if there is a value/any number at all
     if(!guess) {
       document.querySelector(".message").textContent = "💔 No number!";
+    } 
+    
+    // if the guess is correct
+    else if(guess === secretNumber) {
+      document.querySelector(".message").textContent = "Correct number!";
     }
 
+    // if the guess is too high
+    else if(guess > secretNumber) {
+      document.querySelector(".message").textContent = "⬆️ Too high!"; 
+    }
+
+    // if the guess is too low
+    else if(guess < secretNumber) {
+      document.querySelector(".message").textContent = "⬇️ Too low!";
+    }
   });
-
-
-
- 
-
-
-
-    // document.querySelector(".check").addEventListener("click", function () {
-    //   const guess = Number(document.querySelector(".guess").value); // 6
-    //   console.log(guess, typeof guess);
-
-
-      // starting to implement the game logic - guess that there is no guess
-
-      // 1st scenario: THERE IS NO IMPUT
-              // 1 - check if there is a value
-              // 2 - if there is, print the response to the console / in the message element
-              // when there is no guess, we get zero > zero is falsey, but we convert it to true by adding "!" so the code gets executed
-
-        // if (!guess) {
-        //   document.querySelector(".message").textContent = "No number!";
-        // }
-
-      // you need to respond to "no imput scenario"
