@@ -363,7 +363,46 @@ Change score > 1, else the game will not end when the score reaches 0.
     ```
 ---
 
-### MANIPULATING CSS STYLES
+### MANIPULATING CSS with JS
+
+**DOM includes CSS styles.**
+
+
+  ### Change the background color
+  Change the background to green whenever the player guesses the right number. 
+In this scenario: 
+
+    ```js
+    else if(guess === secretNumber) {
+          document.querySelector(".message").textContent = "Correct number!";
+    }
+    ```
+
+**Steps:**
+
+1. Select the element that you want to manipulate ( the whole <body> of the page).
+
+    `document.querySelector("body")`
+
+2. To change CSS, access style property and then the name of the property you want to change.
+Properties that have multiple words are written in camelCase.
+
+    `document.querySelector("body").style.backgroundColor`
+
+3. Set the value.
+It has to be a string.
+
+    `document.querySelector("body").style.backgroundColor = "#60b347";`
+
+
+**Whenever we are manipulating a style, we need to specify a string.**
+
+### Increase the width of the central number.
+
+    document.querySelector(".number").style.width = "30rem";
+
+Both changed styles are going to be **inline styles**.
+We are not changing the CSS file with JS.
 
 ---
 

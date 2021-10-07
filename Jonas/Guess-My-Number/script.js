@@ -50,6 +50,12 @@
 
   // SCORE - start with 20, decrease if guess is wong - b
   // only while score > 0, change score, else display a message and change highscore to 0 - c
+
+
+// CSS MANIPULATION - 3
+
+  // change the background color to green whenever the player guesses the right number
+
       
 const secretNumber = Math.trunc(Math.random() * 20) + 1; // a
 let score = 20; // b
@@ -71,14 +77,21 @@ document.querySelector(".check")
     document.querySelector(".message").textContent = "Nice pick!";
 
 // implementing game logic: SCENARIOS
-    // check if there is a value/any number at all
+
+    // when there is no input
     if(!guess) {
       document.querySelector(".message").textContent = "💔 No number!";
     } 
     
-    // if the guess is correct
+    // if the guess is correct / WIN
     else if(guess === secretNumber) {
       document.querySelector(".message").textContent = "Correct number!";
+
+      //changing the background color
+      document.querySelector("body").style.backgroundColor = "#60b347";
+
+      // increase the width of central number
+      document.querySelector(".number").style.width = "30rem";
     }
 
     // if the guess is too high
@@ -109,4 +122,5 @@ document.querySelector(".check")
       }
     }
   });
+
 
