@@ -301,6 +301,70 @@ _if the guess is too low:_
     }
 ```
     
+### Decrease the score
+
+Each time there is a wrong guess, the score should decrease by 1.
+  -- we start with 20
+  -- in scenarios where the guess is too high/low, we want to decrease the score by 1
+  
+**How?**
+-- create a variable for the score
+-- update / decrease it
+    `score = score - 1;`
+    `score--;`
+-- display the variable in the score label
+    `document.querySelector(".score").textContent = score;`
+
+    ```js
+    const score = 20;
+    
+    // if the guess is too high
+        else if(guess > secretNumber) {
+          document.querySelector(".message").textContent = "⬆️ Too high!"; 
+          score = score - 1;
+          document.querySelector(".score").textContent = score;
+        }
+    
+    // if the guess is too low
+        else if(guess < secretNumber) {
+          document.querySelector(".message").textContent = "⬇️ Too low!";
+          score--;
+          document.querySelector(".score").textContent = score;
+        } 
+    ```
+
+### It is better to store the value in a variable than to rely on the DOM to hold the data.
+It is a **state variable** because the score is part of **the application state** = all the data relevant to the application.
+
+Instead of keeping the score in the DOM, reading it from there, decreasing it and returning back to the DOM, we are storing the value in the variable (in the code) and decreasing it each time the guess is wrong.
+
+**We want all the data to be always available in the code, not just in the DOM.**
+
+### Checking the score should happen while the score is above 0.
+When the score reaches 0, we should **get a message**.
+
+We need to add another **_if statement_** inside else if blocks for wrong guesses.
+Change score > 1, else the game will not end when the score reaches 0.
+
+    ```js
+    if (score > 1) {
+        only then execute the code
+    }
+    ```
+
+    Add **_else statement_** when the score comes to 0.
+    Also, change the score to 0.
+    ```js
+    else { 
+            document.querySelector(".message")
+                .textContent = "😭 You've lost the game. Try again!";
+            document.querySelector(".score").textContent = 0;
+          }
+    ```
+---
+
+### MANIPULATING CSS STYLES
+
 ---
 
 [Dillinger](https://dillinger.io/?ref=tiny-helpers)
