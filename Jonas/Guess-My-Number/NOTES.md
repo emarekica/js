@@ -404,6 +404,83 @@ It has to be a string.
 Both changed styles are going to be **inline styles**.
 We are not changing the CSS file with JS.
 
+
+---
+
+### SETTING THE HIGHSCORE
+
+To set the highscore, check if the final score is bigger than the highscore.
+Under the logic where the player wins.
+
+
+```js
+ // if the guess is correct / WIN
+    else if(guess === secretNumber) {
+      document.querySelector(".message").textContent = "Correct number!";
+ 
+      //changing the background color
+      document.querySelector("body").style.backgroundColor = "#60b347";
+ 
+      // increase the width of central number
+      document.querySelector(".number").style.width = "30rem";
+ 
+      // setting the highscore
+      if (score > highscore) {
+        highscore = score;
+        document.querySelector(".highscore").textContent = highscore;
+      }
+    }
+```
+---
+
+## DRY PRINCIPLE
+
+__Don't repeat yourself.__
+
+If you have the code that repeats itself, you need to make changes in many places.
+**Avoid duplicate code wherever you can.**
+You can start with it, then change it.
+
+### REFACTORING
+Restructuring the code without changing how it works.
+
+1. Detect (almost) duplicate code.
+2. Find if you can nest it all under the same code.
+
+
+```js
+    // when guess is wrong (DRY)
+    else if(guess !== secretNumber) {
+      if (score > 1) { // c
+ 
+        document.querySelector(".message").textContent
+        = guess > secretNumber ? "⬆️ Too high!" : "⬇️ Too low!";
+        
+        score = score - 1;  // b
+        document.querySelector(".score").textContent = score;  // b
+      } else {  // c
+        document.querySelector(".message").textContent = "😭 You've lost the game. Try again!";
+        document.querySelector(".score").textContent = 0;
+      }
+    }
+ ````
+   
+3. Make a function and call it wherever you would otherwise have duplicate code.
+= refactor the functionality into a function and reuse it again
+
+    ```js
+    const displayMessage = function(message) {
+      document.querySelector(".message").textContent = message;
+    }
+    
+    // when there is no input
+        if(!guess) {
+          // document.querySelector(".message").textContent = "💔 No number!";
+          displayMessage("💔 No number!");
+        } 
+    ```
+    
+
 ---
 
 [Dillinger](https://dillinger.io/?ref=tiny-helpers)

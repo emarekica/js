@@ -56,9 +56,13 @@
 
   // change the background color to green whenever the player guesses the right number
 
+
+// HIGHSCORE - 4
+
       
-const secretNumber = Math.trunc(Math.random() * 20) + 1; // a
+let secretNumber = Math.trunc(Math.random() * 20) + 1; // a
 let score = 20; // b
+let highscore = 0;
 
 
 // to see it instead of "?"
@@ -92,6 +96,12 @@ document.querySelector(".check")
 
       // increase the width of central number
       document.querySelector(".number").style.width = "30rem";
+
+      // setting the highscore - 4
+      if (score > highscore) {
+        highscore = score;
+        document.querySelector(".highscore").textContent = highscore;
+      }
     }
 
     // if the guess is too high
@@ -124,7 +134,7 @@ document.querySelector(".check")
   });
 
 
-  
+
 // RESTORING INITIAL CONDITIONS  
 
 document.querySelector(".again")
