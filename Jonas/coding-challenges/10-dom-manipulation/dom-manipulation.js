@@ -63,3 +63,24 @@ document.querySelector(".check")
   });
 
 
+// RESTORING INITIAL CONDITIONS  
+
+document.querySelector(".again")
+        .addEventListener("click", function() {
+
+          // reasigning initial values to score and sercetNumber
+              let score = 20;
+              let secretNumber = Math.trunc(Math.random() * 20) + 1;
+              
+          // Restoring the initial conditions of the message, number, score and guess 
+            
+            document.querySelector(".message").textContent = "Start guessing...";
+            document.querySelector(".number").textContent = "?";
+            document.querySelector(".score").textContent = score;
+            // setting an empty value to the input field
+            document.querySelector(".guess").value = "";
+          
+          // Restoring background and number width
+            document.querySelector("body").style.backgroundColor = "#222";
+            document.querySelector(".number").style.width = "15rem";
+        });

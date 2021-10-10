@@ -4,12 +4,12 @@ Implement a game rest functionality, so that the player can make a new guess!
 
 ### Your tasks:
 
-[] Select the element with the 'again' class and attach a click event handler.
+[x] Select the element with the 'again' class and attach a click event handler.
 
-[] In the handler function, restore initial values of the 'score' and
+[x] In the handler function, restore initial values of the 'score' and
 'secretNumber' variables.
 
-[] Restore the initial conditions of the message, number, score and guess input
+[x] Restore the initial conditions of the message, number, score and guess input
 fields.
 
-[] Also restore the original background color (#222) and number width (15rem).
+[x] Also restore the original background color (#222) and number width (15rem).
