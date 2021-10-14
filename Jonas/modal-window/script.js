@@ -47,7 +47,7 @@ console.log(openButtons);
     //   });
 
 
-    
+
 // DRY version of the code to OPEN and CLOSE the Modal window
 
 const openModal = function() {
@@ -68,3 +68,22 @@ closeButton.addEventListener("click", closeModal);
 overlay.addEventListener("click", closeModal);
 
 
+
+// KEYPRESS (keyboard) EVENTS
+
+  // global events > don't happen on one specific element
+  // event listener for the whole document - for any keypress on the page
+
+  // accessing the EVENT OBJECT by giving the event handler function a parameter (e)
+  
+
+  document.addEventListener("keydown", function(e) {
+      //console.log("A key was pressed.");
+      console.log(e.key);
+
+// closing the modal: if the pressed key is ESC && the modal DOES NOT contain class "hidden"
+
+      if(e.key === "Escape" && !modal.classList.contains("hidden")) {
+            closeModal();
+      }
+  });
