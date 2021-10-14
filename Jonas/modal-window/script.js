@@ -10,12 +10,61 @@ const openButtons = document.querySelectorAll(".show-modal");
 console.log(openButtons);
 
 
-    // looping through "Show modal" buttons
-    // logging the text content of each button
 
-    for( let i = 0; i < openButtons.length; i++) {
-      console.log(openButtons[i].textContent);
-    }
+        // looping through "Show modal" buttons
+
+        for(let i = 0; i < openButtons.length; i++) {
+          console.log(openButtons[i].textContent);
+        }
 
 
-# MANIPULATING CLASSES WITH JS
+// attaching event listener
+// removing the class "hidden" 
+
+    // for(let i = 0; i < openButtons.length; i++) {
+    //   openButtons[i]
+    //     .addEventListener("click", function(){
+    //         modal.classList.remove("hidden");
+    //         overlay.classList.remove("hidden");
+    //       });
+    // }
+
+
+// Hiding the modal window with "x" button
+// adding an event listener
+
+  // closeButton.addEventListener("click", function(){
+  //     modal.classList.add("hidden");
+  //     overlay.classList.add("hidden");
+  //   });
+
+
+// close modal window also when I click on the overlay (background)
+
+    // overlay.addEventListener("click", function() {
+    //       modal.classList.add("hidden");
+    //       overlay.classList.add("hidden");
+    //   });
+
+
+    
+// DRY version of the code to OPEN and CLOSE the Modal window
+
+const openModal = function() {
+  modal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+}
+
+for(let i = 0; i < openButtons.length; i++) {
+  openButtons[i].addEventListener("click", openModal);
+}
+
+const closeModal = function() {
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
+}
+
+closeButton.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
+
+
