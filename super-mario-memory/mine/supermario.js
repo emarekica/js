@@ -50,3 +50,13 @@ const cardsArray = [
     img: "img/goomba.png",
   },
 ]
+
+// Grab the root element <div id="game">
+const game = document.getElementById("game");
+
+// Create a <secton class="grid">
+const grid = document.createElement("section")
+grid.setAttribute("class", "grid");
+
+// Append the grid section to the game div 
+game.appendChild(grid);

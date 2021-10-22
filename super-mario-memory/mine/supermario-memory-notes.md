@@ -41,7 +41,22 @@ The premise of the game is to have a grid of 24 face-down cards. The card faces 
 -- will be adjusted as we add more features
 
 **JS**
--- display 12 cards, each with a different value: create an array of objects, put it in the `cardsArray` variable. Each object will contain a name and an image
+-- display 12 cards, each with a different value: 
+
+1. create an array of objects
+2. put it in the `cardsArray` variable
+Each object will contain a name and an image.
+
+Displaying the cards:
+
+1. grab the root element <div ide="game">
+2. through JS, create new <section class="grid">
+3. append to the DOM insige the root element
+
+
+
+
+
 
 source: [Tania Rascia's blogue](https://www.taniarascia.com/how-to-create-a-memory-game-super-mario-with-plain-javascript/)
 
