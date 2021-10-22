@@ -35,7 +35,13 @@ The premise of the game is to have a grid of 24 face-down cards. The card faces 
 -- app will be contained in the game div, so this file won't change at all
 
 **CSS**
+-- flex grid
+-- each card is 150x150px
+-- has background properties because we'll be adding the card images soon as background images
+-- will be adjusted as we add more features
 
+**JS**
+-- display 12 cards, each with a different value: create an array of objects, put it in the `cardsArray` variable. Each object will contain a name and an image
 
 source: [Tania Rascia's blogue](https://www.taniarascia.com/how-to-create-a-memory-game-super-mario-with-plain-javascript/)
 
