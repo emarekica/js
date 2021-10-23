@@ -91,4 +91,8 @@
 -  [How does Math.random work to sort an array?](https://forum.freecodecamp.org/t/how-does-math-random-work-to-sort-an-array/151540)
 
 
+**JS sorting algorithms**
+
+[JS sorting algorithms](https://khan4019.github.io/front-end-Interview-Questions/sort.html)
+
 ---

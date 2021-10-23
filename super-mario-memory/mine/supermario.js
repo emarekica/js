@@ -1,3 +1,5 @@
+"use strict";
+
 // 1
 
 // Card data
@@ -92,15 +94,19 @@ const cardsArray = [
 // })
 
 
-//////////////////////////////////////////////////////////////////////////////// 
+/////////////////////////////////////////////////////////////
 
-// 2
+// 2, 3, 5
 
 // DUPLICATING CARDS TO HAVE 2 SETS OF 12
+// RANDOMIZE THE DISPLAY CARDS
+// ONLY ALLOW 2 CARDS SELECTED AT A TIME
 
-// createa a match for each card
+// create a match for each card
 let gameGrid = cardsArray.concat(cardsArray);
 gameGrid.sort(() => 0.5 - Math.random());
+
+let count = 0;
 
 // for displaying cards
   const game = document.getElementById("game");
@@ -118,3 +124,27 @@ gameGrid.forEach((item) => {
   grid.appendChild(card);
 });
 
+
+
+/////////////////////////////////////////////////////////////
+
+// 4
+
+// ADD EVENT LISTENER TO GRID
+
+grid.addEventListener("click", function (event) {
+
+  // The event target is our clicked item
+  let clicked = event.target;
+
+  // Do not allow the grid section itself to be selected, only select divs inside the grid
+  if (clicked.nodeName === "SECTION") {
+    return
+  }
+  if (count < 2) {
+    count++;
+
+    // Add selected class
+    clicked.classList.add("selected");
+  }
+});

@@ -14,9 +14,9 @@ The premise of the game is to have a grid of 24 face-down cards. The card faces 
 
 ## PLANNING
 
-[ ] Display 12 cards.
-[ ] Duplicate the cards to have 2 sets of 12.
-[ ] Randomize the display of cards.
+[x] Display 12 cards.
+[x] Duplicate the cards to have 2 sets of 12.
+[x] Randomize the display of cards.
 [ ] Add selected style for selected cards.
 [ ] Only allow two cards to be selected at a time.
 [ ] Determine if two selected cards are a match and hide them.
@@ -92,10 +92,40 @@ Display the images:
 
 Place this code right after the declaration of gameGrid.
 
-  
+---
 
+## STEP 4 - Add selected style for selected cards
+
+**CSS**
+-- add a simple CSS style so we can see selected items easily
+
+**JS**
+-- add event listener to the entire grid
+-- add it to the bottom of the JS script
+-- anytime an element is clickeg, `selected` class will be applied
       
-      
+---
+
+## STEP 5 - Only allow two cards to be selected at a time
+
+We're testing if two selected cards match.
+
+-- store the counter
+-- store the guesses
+    modify the event listener to have `if` statement that counts to two, and only adds `selected` to two cards
+-- add the selected CSS inside the statement
+
+---
+
+## STEP 6 - Determine if two selected cards are a match and hide them
+
+-- create CSS for matches
+-- give them a red border to differentiate them
+-- remove the background image
+
+**We won't remove them from the DOM because we need to preserve the space they used to be - otherwise, all the elements would shift and it would no longer be a proper memory game.**
+
+--- 
 
 
 
