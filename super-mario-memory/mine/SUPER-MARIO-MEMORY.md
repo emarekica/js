@@ -49,14 +49,14 @@ The premise of the game is to have a grid of 24 face-down cards. The card faces 
 2. put it in the `cardsArray` variable
 Each object will contain a name and an image.
 
-Displaying the cards:
+**Displaying the cards:**
 
 1. grab the root element <div ide="game">
 2. through JS, create new <section class="grid">
 3. append to the DOM insige the root element
 
 
-Display the images:
+**Display the images:**
 
 1. loop through each item in `cardsArray` with `forEach()`
     (_`forEach()` method executes a provided function once for each array element_)
@@ -67,13 +67,13 @@ Display the images:
 (we will get 12 divs in total)
 
 
-    -- [Dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset)
-    -- [HTMLElement & Properties](https://developer.mozilla.org/en-US/docs/Web/API/Element)
+-- [Dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset)
+-- [HTMLElement & Properties](https://developer.mozilla.org/en-US/docs/Web/API/Element)
 
 
-    **`data-name` attributes**
-    -- allow us to store extra data in an HTML element
-    -- any non-standard attribute should begin with `data-`
+  **`data-name` attributes**
+  -- allow us to store extra data in an HTML element
+  -- any non-standard attribute should begin with `data-`
 
 
 ---
@@ -81,7 +81,7 @@ Display the images:
 ## STEP 2 - Duplicate the cards to have 2 sets of 12
 
 1. create `gameGrig` variable
-2. duplicate array with `concat()``
+2. duplicate array with `concat()`
 3. loop through
 
 ---
@@ -97,9 +97,11 @@ Place this code right after the declaration of gameGrid.
 ## STEP 4 - Add selected style for selected cards
 
 **CSS**
+
 -- add a simple CSS style so we can see selected items easily
 
 **JS**
+
 -- add event listener to the entire grid
 -- add it to the bottom of the JS script
 -- anytime an element is clickeg, `selected` class will be applied
@@ -119,19 +121,37 @@ We're testing if two selected cards match.
 
 ## STEP 6 - Determine if two selected cards are a match and hide them
 
+**CSS**
 -- create CSS for matches
 -- give them a red border to differentiate them
 -- remove the background image
 
 **We won't remove them from the DOM because we need to preserve the space they used to be - otherwise, all the elements would shift and it would no longer be a proper memory game.**
 
+
+**JS**
+
+1.
+-- where we had a `count` variable before, we'll add a place to store the first and second guess as well
+
+2.
+-- make a function for matching elements
+-- loop through all `selected` elements when called
+-- add `match` class
+
+3.
+-- have to call the `match()` function at the right time in the code
+-- in event listener, assign the first and second guess to their respective variables
+-- if they're both not empty and match, the `match()` function will be called.
+
+
 --- 
 
-
+## STEP 7 - 
 
 ---
 
-source: [Tania Rascia's blogue](https://www.taniarascia.com/how-to-create-a-memory-game-super-mario-with-plain-javascript/)
+source: [Tania Rascia's blog](https://www.taniarascia.com/how-to-create-a-memory-game-super-mario-with-plain-javascript/)
 
 
 

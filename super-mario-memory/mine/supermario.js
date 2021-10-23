@@ -94,19 +94,21 @@ const cardsArray = [
 // })
 
 
-/////////////////////////////////////////////////////////////
 
-// 2, 3, 5
 
 // DUPLICATING CARDS TO HAVE 2 SETS OF 12
 // RANDOMIZE THE DISPLAY CARDS
 // ONLY ALLOW 2 CARDS SELECTED AT A TIME
+// DETERMINE IF 2 SELECTED CARDS ARE A MATCH AND HIDE THEM
 
 // create a match for each card
 let gameGrid = cardsArray.concat(cardsArray);
 gameGrid.sort(() => 0.5 - Math.random());
 
+let firstGuess = "";
+let secondGuess = "";
 let count = 0;
+
 
 // for displaying cards
   const game = document.getElementById("game");
@@ -125,10 +127,15 @@ gameGrid.forEach((item) => {
 });
 
 
+// Add match CSS
 
-/////////////////////////////////////////////////////////////
+const match = () => {
+  var selected = document.querySelectorAll(".selected");
+  selected.forEach((card) => {
+    card.classList.add("match");
+  });
+}
 
-// 4
 
 // ADD EVENT LISTENER TO GRID
 
