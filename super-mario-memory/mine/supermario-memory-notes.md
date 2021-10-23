@@ -28,7 +28,9 @@ The premise of the game is to have a grid of 24 face-down cards. The card faces 
 [All of the steps](https://gist.github.com/taniarascia/a3b550d568f3e6b693e89786eb333988)
 
 
-## Setup
+---
+
+## STEP 1 - Setup
 
 **HTML**
 -- create index.html (add CSS + JS)
@@ -54,9 +56,45 @@ Displaying the cards:
 3. append to the DOM insige the root element
 
 
+Display the images:
+
+1. loop through each item in `cardsArray` with `forEach()`
+    (_`forEach()` method executes a provided function once for each array element_)
+2. create a new card div for each object
+3. set the data-name attribute and background-image style property of the div
+4. append that div to the grid.
+
+(we will get 12 divs in total)
 
 
+    -- [Dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset)
+    -- [HTMLElement & Properties](https://developer.mozilla.org/en-US/docs/Web/API/Element)
 
+
+    **`data-name` attributes**
+    -- allow us to store extra data in an HTML element
+    -- any non-standard attribute should begin with `data-`
+
+
+---
+
+## STEP 2 - Duplicate the cards to have 2 sets of 12
+
+1. create `gameGrig` variable
+2. duplicate array with `concat()``
+3. loop through
+
+---
+
+## STEP 3 - Randomize the display of cards
+
+1. shuffle the array using `sort()` and `Math.random()`
+
+Place this code right after the declaration of gameGrid.
+
+ [How does Math.random work to sort an array?](https://forum.freecodecamp.org/t/how-does-math-random-work-to-sort-an-array/151540)
+
+ 
 
 source: [Tania Rascia's blogue](https://www.taniarascia.com/how-to-create-a-memory-game-super-mario-with-plain-javascript/)
 
@@ -66,3 +104,6 @@ source: [Tania Rascia's blogue](https://www.taniarascia.com/how-to-create-a-memo
 -- zvuk kad pogodiš
 -- na kraju muzika "pređeni leven"
 -- win na ekranu na kraju
+
+[YT SuperMario music](https://www.youtube.com/watch?v=NTa6Xbzfq1U&t=4s)
+[TY SuperMario sound effects](https://www.youtube.com/watch?v=5yrFdhNG2Sk)
