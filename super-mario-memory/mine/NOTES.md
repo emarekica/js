@@ -40,9 +40,10 @@
 
   Function compares each pair of values:
 
+  `
   a - b = negative --> a, b
   a - b = positive --> b, a
-
+  `
 
 2. If you want descending numbers:
 
@@ -53,9 +54,10 @@
   console.log(arr.sort(numDescending));
   // returns [ 41, 25, 12, 7, 5, 2, 1 ] 
   ```
+  `
   a - b = negative --> b, a
   a - b = positive --> a, b
-
+  `
 
  3. If you want randomized order:
 
@@ -69,11 +71,13 @@
 
     `Math.random` returns a random number between 0 and 1.
 
+     `
       0,5 - 0 = 0,5
       0,5 - 0,2 = 0,3
       0,5 - 0,5 = 0
       0,5 - 0,7 = -0,2
       0,5 - 1 = -0,5
+      `
 
    **Because the function returns a number that is equally likely to be either negative or positive it will cause a random order.**
 
@@ -81,8 +85,8 @@
 
 **sort()**
 
-- [more](http://www.javascriptkit.com/javatutors/arraysort.shtml)
-- [even more](https://www.digitalocean.com/community/tutorials/how-to-use-array-methods-in-javascript-mutator-methods)
+- [array.sort()](http://www.javascriptkit.com/javatutors/arraysort.shtml)
+- [Digital ocean - array methods](https://www.digitalocean.com/community/tutorials/how-to-use-array-methods-in-javascript-mutator-methods)
 
 
 **shufle**
@@ -91,7 +95,7 @@
 -  [How does Math.random work to sort an array?](https://forum.freecodecamp.org/t/how-does-math-random-work-to-sort-an-array/151540)
 
 
-**JS sorting algorithms**
+
 
 [JS sorting algorithms](https://khan4019.github.io/front-end-Interview-Questions/sort.html)
 
