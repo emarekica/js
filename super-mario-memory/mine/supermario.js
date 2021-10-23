@@ -57,39 +57,39 @@ const cardsArray = [
 // DISPLAYING THE CARDS
 
 
-// Grab the root element <div id="game">
-const game = document.getElementById("game");
+// // Grab the root element <div id="game">
+// const game = document.getElementById("game");
 
-// Create a <secton class="grid">
-const grid = document.createElement("section")
-grid.setAttribute("class", "grid");
+// // Create a <secton class="grid">
+// const grid = document.createElement("section")
+// grid.setAttribute("class", "grid");
 
-// Append the grid section to the game div 
-game.appendChild(grid);
+// // Append the grid section to the game div 
+// game.appendChild(grid);
 
 
 
 // DISPLAYING THE IMAGES
 
-// For each item in the cardsArray ...
-cardsArray.forEach((item) => {
+// // For each item in the cardsArray ...
+// cardsArray.forEach((item) => {
 
-  // Create a div
-  const card = document.createElement("div");
+//   // Create a div
+//   const card = document.createElement("div");
 
-  //Apply a card class to the div
-  card.classList.add("card");
+//   //Apply a card class to the div
+//   card.classList.add("card");
 
-  // Set the data-name attribute of the div to the cardsArray name
-  card.dataset.name = item.name;
+//   // Set the data-name attribute of the div to the cardsArray name
+//   card.dataset.name = item.name;
 
-  // Apply the background image of the div to the cardsArray image
-  card.style.backgroundImage = `url(${item.img})`;
+//   // Apply the background image of the div to the cardsArray image
+//   card.style.backgroundImage = `url(${item.img})`;
 
-  // Append the div to the grid section
-  grid.appendChild(card);
+//   // Append the div to the grid section
+//   grid.appendChild(card);
 
-})
+// })
 
 
 //////////////////////////////////////////////////////////////////////////////// 
@@ -100,7 +100,15 @@ cardsArray.forEach((item) => {
 
 // createa a match for each card
 let gameGrid = cardsArray.concat(cardsArray);
+gameGrid.sort(() => 0.5 - Math.random());
 
+// for displaying cards
+  const game = document.getElementById("game");
+  const grid = document.createElement("section");
+  grid.setAttribute("class", "grid");
+  game.appendChild(grid);
+
+// creating a match for each card  
 gameGrid.forEach((item) => {
   const card = document.createElement("div");
 
@@ -109,3 +117,4 @@ gameGrid.forEach((item) => {
   card.style.backgroundImage = `url(${item.img})`;
   grid.appendChild(card);
 });
+
