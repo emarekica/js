@@ -92,25 +92,12 @@ Display the images:
 
 Place this code right after the declaration of gameGrid.
 
-  `gameGrid.sort(() => 0.5 - Math.random());`
-
- [How does Math.random work to sort an array?](https://forum.freecodecamp.org/t/how-does-math-random-work-to-sort-an-array/151540)
-
-  -- `Math.random` returns a random number between 0 and 1
   
-  [How does SHUFFLE work](https://www.codecademy.com/forum_questions/4f609c49e0bd2b0003011313)
 
-  -- the function is not called anywhere because it’s actually an argument to the sort method
-  -- the function in its entirety is passed as an argument
-  -- `gameGrid.sort()` is called
-  
-  -- `sort()` method without any arguments sorts values alphabetically
-  -- If you pass a function, you’re telling the method how to sort when it compares two values
-  -- When comparing numerical values, the difference between 2 values is either less than 0, equal to 0, or greater than equal
-  -- If the result is < 0, then the first value comes first >  **this method provides a random comparison value** 
+      
+      
 
-    [more](http://www.javascriptkit.com/javatutors/arraysort.shtml)
-    [even more](https://www.digitalocean.com/community/tutorials/how-to-use-array-methods-in-javascript-mutator-methods)
+
 
 ---
 
