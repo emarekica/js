@@ -145,13 +145,28 @@ grid.addEventListener("click", function (event) {
   let clicked = event.target;
 
   // Do not allow the grid section itself to be selected, only select divs inside the grid
-  if (clicked.nodeName === "SECTION") {
+  if (clicked.nodeName === "SECTION" || clicked === prevousTarget) {
     return
   }
   if (count < 2) {
     count++;
-
-    // Add selected class
-    clicked.classList.add("selected");
-  }
+    if (count === 1) {
+      // Assign first guess
+      firstGuess = clicked.dataset.name;
+      // Add selected class
+      clicked.classList.add("selected");
+    } else {
+      // Assign second guess
+      secondGuess = clicked.dataset.name;
+      clicked.classList.add("selected");
+    }
+    
+    // If both guesses are not empty... 
+    if (firstGuess !== "" && secondGuess !== "") {
+      // run the match function
+      match();
+    }
+    
+    previousTarget = clicked;
+  }  
 });
