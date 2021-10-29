@@ -128,8 +128,8 @@ const match = () => {
 
 
 // ALLOW MULTIPLE GUESSES
-// Reset guess count after 2 guesses
-
+// function to reset the guess count after 2 guesses
+// will set all counts and guesses back to their original values, remove the selected CSS
 const resetGuesses = () => {
   firstGuess = '';
   secondGuess = '';
@@ -149,6 +149,7 @@ grid.addEventListener("click", function (event) {
   let clicked = event.target;
 
   // Do not allow the grid section itself to be selected, only select divs inside the grid
+  // prevent flipping already matched items
   if (clicked.nodeName === "SECTION" || clicked === previousTarget || clicked.parentNode.classList.contains("selected")) {
     return;
   }
@@ -158,6 +159,7 @@ grid.addEventListener("click", function (event) {
     count++;
     if (count === 1) {
 
+      // add parentNode since data-name is on outer div (card), and clicks are on inner div (front, back)
       // Assign first guess
       firstGuess = clicked.parentNode.dataset.name;
       console.log(firstGuess);
@@ -172,9 +174,11 @@ grid.addEventListener("click", function (event) {
       clicked.parentNode.classList.add("selected");
     }
     
+    // add the resetGuesses() function to the match checker, on success or fail.
     // If both guesses are not empty... 
     if (firstGuess !== "" && secondGuess !== "") {
-      
+
+      // functions from before become callbacks
       // and the first guess matches the second match...
       if(firstGuess === secondGuess) {
         setTimeout(match, delay);
