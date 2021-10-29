@@ -230,16 +230,12 @@ To make FLIP work:
   -- set back and front as absolute
 All three will have the same height and width.
 
+The front of each card (technically the back if you're thinking like a deck of cards, but I'm calling it the front because it's the default view) will be a question mark box.
+
+The back will have all the properties for the background image to style property, and it will be rotated for the flip animation.
+
+Selected items will be rotated, and matched items will become white, which will override the background image applied through JavaScript.
 ---
 
 source: [Tania Rascia's blog](https://www.taniarascia.com/how-to-create-a-memory-game-super-mario-with-plain-javascript/)
 
-
-
--- ubaciti muziku dok igraš
--- zvuk kad pogodiš
--- na kraju muzika "pređeni leven"
--- win na ekranu na kraju
-
-[YT SuperMario music](https://www.youtube.com/watch?v=NTa6Xbzfq1U&t=4s)
-[TY SuperMario sound effects](https://www.youtube.com/watch?v=5yrFdhNG2Sk)

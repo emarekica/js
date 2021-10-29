@@ -1,7 +1,5 @@
 "use strict";
 
-// 1
-
 // Card data
 
 const cardsArray = [
