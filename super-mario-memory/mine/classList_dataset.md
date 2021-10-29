@@ -44,3 +44,10 @@ examples:
   article.dataset.indexNumber // "12314"
   article.dataset.parent // "cars"
   ```
+
+# PARENT NODE
+
+- parentNode property returns the parent node of the specified node, as a Node object
+- read-only
+
+`parentNode = node.parentNode`
