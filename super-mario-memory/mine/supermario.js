@@ -52,22 +52,19 @@ const cardsArray = [
   {
     name: "goomba",
     img: "img/goomba.png",
-  },
-]
+  }];
 
 
 
 // create a match for each card
-let gameGrid = cardsArray
-  .concat(cardsArray)
-  .sort(() => 0.5 - Math.random());
+let gameGrid = cardsArray.concat(cardsArray).sort(function () {
+  return 0.5 - Math.random();
+});
 
-let firstGuess = "";
-let secondGuess = "";
+let firstGuess = '';
+let secondGuess = '';
 let count = 0;
-
 let previousTarget = null;
-
 let delay = 1200;
 
 
@@ -79,12 +76,14 @@ let delay = 1200;
 
 
 // creating a match for each card  
-gameGrid.forEach((item) => {
-  const { name, img } = item;
+gameGrid.forEach(function (item) {
+  let name = item.name,
+  img = item.img;
 
   // create card element with the name dataset
   const card = document.createElement("div");
   card.classList.add("card");
+  card.dataset.name = name;
 
   // create front of card
   const front = document.createElement("div");
@@ -97,8 +96,8 @@ gameGrid.forEach((item) => {
 
   // Append card to grid, and front and back to each card
   grid.appendChild(card);
-  grid.appendChild(front);
-  grid.appendChild(back);
+  card.appendChild(front);
+  card.appendChild(back);
 });
 
 
@@ -116,16 +115,15 @@ const match = () => {
 // Reset guess count after 2 guesses
 
 const resetGuesses = () => {
-  firstGuess = "";
-  secondGuess = "";
+  firstGuess = '';
+  secondGuess = '';
   count = 0;
 
   var selected = document.querySelectorAll(".selected");
-  selected.forEach(card => {
+  selected.forEach((card) => {
     card.classList.remove("selected");
   });
 };
-
 
 
 // ADD EVENT LISTENER TO GRID
@@ -137,7 +135,7 @@ grid.addEventListener("click", function (event) {
 
   // Do not allow the grid section itself to be selected, only select divs inside the grid
   if (clicked.nodeName === "SECTION" || clicked === previousTarget || clicked.parentNode.classList.contains("selected")) {
-    return
+    return;
   }
   if (count < 2) {
     count++;
