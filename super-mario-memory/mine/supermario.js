@@ -1,7 +1,20 @@
 "use strict";
 
-// Card data
+/* STEPS
 
+- Display 12 cards.
+- Duplicate the cards to have 2 sets of 12.
+- Randomize the display of cards.
+- Add selected style for selected cards.
+- Only allow two cards to be selected at a time.
+- Determine if two selected cards are a match and hide them.
+- Reset guess count after 2.
+- Add delay to selections.
+- Show back of card initially and flip on select
+*/
+
+
+// Card data
 const cardsArray = [
   {
     name:"shell",
@@ -54,13 +67,17 @@ const cardsArray = [
 
 
 
-// create a match for each card
+// Duplicate array to create a match for each card
+// Randomize game grid on each load
 let gameGrid = cardsArray.concat(cardsArray).sort(function () {
   return 0.5 - Math.random();
 });
 
+// store the first and second guess
 let firstGuess = '';
 let secondGuess = '';
+
+// store the count
 let count = 0;
 let previousTarget = null;
 let delay = 1200;
@@ -100,6 +117,7 @@ gameGrid.forEach(function (item) {
 
 
 // Add match CSS
+// function for matching CSS loops through all `selected` elements when called; adds `match` class
 
 const match = () => {
   var selected = document.querySelectorAll(".selected");
@@ -124,8 +142,7 @@ const resetGuesses = () => {
 };
 
 
-// ADD EVENT LISTENER TO GRID
-
+// Add event listener to grid
 grid.addEventListener("click", function (event) {
 
   // The event target is our clicked item
@@ -135,9 +152,12 @@ grid.addEventListener("click", function (event) {
   if (clicked.nodeName === "SECTION" || clicked === previousTarget || clicked.parentNode.classList.contains("selected")) {
     return;
   }
+
+  // counter that counts to 2; only adds "selected" to two cards
   if (count < 2) {
     count++;
     if (count === 1) {
+
       // Assign first guess
       firstGuess = clicked.parentNode.dataset.name;
       console.log(firstGuess);
@@ -154,6 +174,7 @@ grid.addEventListener("click", function (event) {
     
     // If both guesses are not empty... 
     if (firstGuess !== "" && secondGuess !== "") {
+      
       // and the first guess matches the second match...
       if(firstGuess === secondGuess) {
         setTimeout(match, delay);
