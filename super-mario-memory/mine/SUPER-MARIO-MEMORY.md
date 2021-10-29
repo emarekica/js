@@ -144,10 +144,91 @@ We're testing if two selected cards match.
 -- in event listener, assign the first and second guess to their respective variables
 -- if they're both not empty and match, the `match()` function will be called.
 
+The guesses don't reset, so we can only select or match one thing at a time.
+
+_problem_
+
+  _If I select the same element twice, it will consider it a match, because they both have the same data-name property. I shouldn't be able to select the same element twice._
+
+_solution: Ignore the 2nd click on the same element_
+
+  1. add a previousTarget variable = null
+  2. assign the clicked value to prevousTarget after the first click
+  3. add that check to our return statement at the top of the counter
+
+    ```js
+    if (clicked.nodeName === "SECTION" || clicked === previousTarget) {
+      return
+    }
+    ```
+
+Right now, we only get two guesses.
+If they're a match, the match style will show.
+If they're not, the regular selected style will show.
 
 --- 
 
-## STEP 7 - 
+## STEP 7 - Reset guess count after 2
+
+We want to allow multiple guesses.
+-> do this by resetting the guess count after two guesses, whether they matched or not
+
+1. create a function to reset the guesses
+    - set all counts and guesses back to their original values
+    - removes selected CSS
+2. add the `resetGuesses()` function to the match checker, on success or fail
+
+
+Select style will disappear immediately if it's not a match because we haven't set any delays to allow it to display longer.
+
+---
+
+## STEP 8 - Add delay to selections
+
+Right now, everything happens immediately.
+We want a delay after we make a selection so the user can see what their selection was before the card is hidden again.
+
+1. set a delay time with `setTimeout()`
+2. put the functions from before in the `setTimeout()`, with the delay variable as the amount of time for the timeout to last
+
+      ```js
+      if (firstGuess !== "" && secondGuess !== "") {
+            // and the first guess matches the second match...
+            if(firstGuess === secondGuess) {
+              setTimeout(match, delay);
+              setTimeout(resetGuesses, delay);
+            } else {
+              setTimeout(resetGuesses,delay);
+            }
+      ```  
+
+Now we can see selections and matches for 1.2 seconds before they disappear.
+
+---
+
+## STEP 9 - Show back of card initially and flip on select
+
+- Hide the cards initially
+- Flip them over when selected
+- Make matches disappear
+
+**JS**
+-to implement the flip, each div will need to consist of three divs
+- we change structure through JS
+
+  <div class="card">
+    <div class="front"></div>
+    <div class="back"></div>
+  </div>
+
+Where we had `clicked.dataset.name` and `clicked.classList.add`, we'll have to add `parentNode` now, since we'll be clicking on an inner div (`front` or `back`) and the data-name is still on the outer div (`card`).
+
+
+**CSS**
+To make FLIP work:
+  -- set each card as relative
+  -- set back and front as absolute
+All three will have the same height and width.
 
 ---
 
