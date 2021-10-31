@@ -51,3 +51,20 @@ examples:
 - read-only
 
 `parentNode = node.parentNode`
+
+---
+
+`.class1.class2`  --->	Selects all elements with both class1 and class2 set within its class attribute
+
+`.class1 .class2`	 ---> Selects all elements with class2 that is a descendant of an element with class1 
+
+In out example, these will work: 
+
+  `.match .front` ---> matched element and its front
+  `.match.front` ---> every element with both .match and .front classes
+
+This won't:
+
+  `.match, .front` ---> every matched element and every element with class front
+
+[CSS Selectors](https://www.w3schools.com/cssref/css_selectors.asp)
