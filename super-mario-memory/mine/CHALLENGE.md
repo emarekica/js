@@ -21,3 +21,5 @@ https://learningsolutionsmag.com/articles/coding-sound-with-javascript-beginner-
 https://stackoverflow.com/questions/34254616/addeventlistener-sound-on-click
 https://www.codegrepper.com/code-examples/javascript/how+to+add+sound+to+click+listener+javascript
 https://dev.to/parth_codes/play-audio-on-click-in-javascript-kba
+
+[Build a music player](https://www.youtube.com/watch?v=QTHRWGn_sJw)
