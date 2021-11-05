@@ -7,9 +7,22 @@
 
 ---
 
-## Steps:
+# Steps:
 
-### Step 1 - Put scores to zero
+select all elements, save them to variables
+
+1 [x] Put scores to zero
+2 [x] Hide the dice
+3 [x] Rolling the dice
+4 [x] Switching active player
+5 [x] Reset the current score
+6 [x] Holding current score
+7 [x] Check for reaching 100 points
+8 [] Disable continuation of the game
+9 [] Reset the game
+
+
+## 1 - Put scores to zero
 
 **2 ways of selecting elements by ID**
 
@@ -25,7 +38,7 @@ We are writing numbers, JS will auto-convert them to strings to display them.
 
 ___
 
-## Step 2 - Hide the dice
+## 2 - Hide the dice
 
 Create a hidden class and add it at the beginning.
 We will remove it as we implement _roll dice_ functionality.
@@ -37,14 +50,15 @@ We will remove it as we implement _roll dice_ functionality.
 }
 ```
 
-Now add that class to the dice at the beginning of the game (JS).
+**JS**
+Now add that class to the dice at the beginning of the game.
 Use  `classList.add()`  to add a class.
 
   1. select the element: `const diceEl = document.querySelector(".dice");`
   2. add `.hidden` : `diceEl.classList.add("hidden");`
 ___
 
-## Step 3 - Rolling the dice
+## 3 - Rolling the dice
 
   3a - generate dice roll
   3b - display it
@@ -52,16 +66,39 @@ ___
     YES - add dice to the current score
     NO - go to next player
 
-Generate dice roll --> react to clicking of a button
+ 3a. Generate dice roll --> react to clicking of a button
 
-  1. select button element
+  1. select button element: 
+    `const btnNew = document.querySelector(".btn--new");`
+
   2. add event listener
 (when we define variables inside the function, those variables are not global)
+
+  ```js
+  btnRoll.addEventListener("click", function() {
+      ...
+  });
+
+  ```
+
+Buttons are accessable only if the game is playing
+  1. generate random dice roll
+  
+  2. display the dice 
+    - remove `hidden` class
+    - display dice img according to the dice number
+        
+      `diceEl.src = `dice-${dice}.png`;`
+
+  3. check for rolled 1
+    yes --> Add dice to the current score
+    no --> Switch to next player
 
   `Math.random()` gives numbers between 0 - 0.99
   `Math.trunc()` removes decimals
 
-## Switching Active player
+
+## 4 - Switching Active player
 
 Keep track which player is active in the moment the dice was rolled (i.e. the button was clicked).
 
@@ -77,7 +114,7 @@ Dynamically building ID name:
 
   `document.getElementById(`current--${activePlayer}`).textContent = currentScore;`
 
-When switching players, you need to change the value in `activePlayer`:
+When switching players, you need to change the value in `activePlayer` section:
 
   0 --> 1
   1 --> 0
@@ -92,9 +129,16 @@ Switching (pseudo code)
   }
   ```
 
+Make a function with this steps:
+
+  // Change text content to 0 before changing players
+  // Reset the current score
+  // Switching players
+  // Base for changing background
+
 ___
 
-## Step 4 - Reset the current score
+## 5 - Reset the current score
 
 Also, **change background** when the player changes.
 
@@ -143,7 +187,7 @@ if the class is there, it will remove it
 
 ___
 
-## Step 5 - Holding current score
+## 6 - Holding current score
 
 -- it happens whenever the user clicks on the button to hold the score (btn HOLD)
 -- we add the current score to the total score
@@ -175,7 +219,7 @@ Call the function where you need it.
   ```
 ___
 
-## Step 6 - Check for reaching 100 points
+## 7 - Check for reaching 100 points
 
 -- when that happens, game is over = no more reaction to click events
 -- assign `player--winner` class
@@ -194,7 +238,7 @@ ___
 
 ___
 
-## Step 7 - Disable continuation of the game
+## 8 - Disable continuation of the game
 
 -- disable roll the dice
 -- remove the dice
@@ -238,9 +282,8 @@ ___
         ...
   }
   ```
-___
 
-## Step 8 - Reset the game
+## 9 - Reset the game
 
 Set back all the initial conditions of the game.
 
