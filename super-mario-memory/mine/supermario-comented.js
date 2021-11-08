@@ -65,15 +65,18 @@ const cardsArray = [
     img: "img/goomba.png",
   }];
 
-const cardFlipAudio = new Audio("sound/card-flip-1.wav");
-const cardMatchAudio = new Audio("sound/card-match.wav");
-const winAudio = new Audio("sound/win.wav");
 
-const supermarioTheme = new Audio("sound/supermario-bros-theme.mp3");
-supermarioTheme.addEventListener("canplaythrough", event => {
-  /* the audio is now playable; play it if permissions allow */
-  myAudioElement.play();
+
+// Sound
+const themeSong = document.getElementById("theme-song");   
+const cardFlipSound = document.getElementById("card-flip");
+const cardMatchSound = document.getElementById("card-match");
+const winSound = document.getElementById("win-sound");
+
+themeSong.addEventListener("click", function(){ 
+  mySound.play(); 
 });
+
 
 // Duplicate array to create a match for each card
 // Randomize game grid on each load
@@ -149,6 +152,18 @@ const resetGuesses = () => {
 };
 
 
+const mySound = document.getElementById("sound");   
+const correctButton = document.getElementById("correct");   
+const wrong1 = document.getElementById("wrong1");   
+const wrong2 = document.getElementById("wrong2");   
+const wrong3 = document.getElementById("wrong3");   
+correctButton.addEventListener("click", function(){ mySound.play(); })  
+wrong1.addEventListener("click", wrongAnswer);   
+wrong2.addEventListener("click", wrongAnswer);   
+wrong3.addEventListener("click", wrongAnswer);   
+function wrongAnswer(e){ document.getElementById("wrongSound").play(); } 
+
+
 // Add event listener to grid
 grid.addEventListener("click", function (event) {
 
@@ -156,7 +171,7 @@ grid.addEventListener("click", function (event) {
   let clicked = event.target;
 
   // add sound to clicking cards
-  cardFlipAudio.play();
+  cardFlipSound.play();
 
   // Do not allow the grid section itself to be selected, only select divs inside the grid
   // prevent flipping already matched items
@@ -192,6 +207,7 @@ grid.addEventListener("click", function (event) {
       // and the first guess matches the second match...
       if(firstGuess === secondGuess) {
         setTimeout(match, delay);
+        cardMatchSound.play();
         setTimeout(resetGuesses, delay);
       } else {
         setTimeout(resetGuesses,delay);

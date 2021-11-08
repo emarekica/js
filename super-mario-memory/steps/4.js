@@ -24,6 +24,7 @@ gameGrid.forEach(item => {
   grid.appendChild(card);
 });
 
+
 // Add event listener to grid
 grid.addEventListener('click', function (event) {
   // The event target is our clicked item
