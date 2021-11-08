@@ -82,7 +82,6 @@ let count = 0;
 let previousTarget = null;
 let delay = 1200;
 
-
 // for displaying cards
   const game = document.getElementById("game");
   const grid = document.createElement("section");
@@ -147,6 +146,9 @@ grid.addEventListener("click", function (event) {
 
   // The event target is our clicked item
   let clicked = event.target;
+
+  // add sound to clicking cards
+  
 
   // Do not allow the grid section itself to be selected, only select divs inside the grid
   // prevent flipping already matched items
