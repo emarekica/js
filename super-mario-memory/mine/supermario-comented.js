@@ -65,7 +65,15 @@ const cardsArray = [
     img: "img/goomba.png",
   }];
 
+const cardFlipAudio = new Audio("sound/card-flip-1.wav");
+const cardMatchAudio = new Audio("sound/card-match.wav");
+const winAudio = new Audio("sound/win.wav");
 
+const supermarioTheme = new Audio("sound/supermario-bros-theme.mp3");
+supermarioTheme.addEventListener("canplaythrough", event => {
+  /* the audio is now playable; play it if permissions allow */
+  myAudioElement.play();
+});
 
 // Duplicate array to create a match for each card
 // Randomize game grid on each load
@@ -148,7 +156,7 @@ grid.addEventListener("click", function (event) {
   let clicked = event.target;
 
   // add sound to clicking cards
-  
+  cardFlipAudio.play();
 
   // Do not allow the grid section itself to be selected, only select divs inside the grid
   // prevent flipping already matched items
