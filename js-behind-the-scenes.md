@@ -3,6 +3,8 @@
 * An High-Level Overview of JavaScript
 * The JavaScript Engine and Runtime
 * Execution Contexts and The Call Stack
+* Scope and the Scope Chain
+* Scoping in practice
 
 ___ 
 
@@ -264,4 +266,235 @@ Example of CALLBACK QUEUE: callback function from DOM event listener
 
   ___
 
-  ## Execution Contexts and The Call Stack
+## Execution Contexts and The Call Stack
+
+How it JS code executed?
+Where? 
+
+**In the call stack, in the JS Engine.**
+
+compilation > creation of GLOBAL EXECUTION CONTEXT for top-level code
+
+1. step: **Creation of global execution context (EC)**
+
+  = environment in which piece of JS is executed
+  = like a box that stores all necessary info for code to be executed (local variables, arguments passed into a function... )
+
+  - JS code always runs inside execution context
+  - for every JS project there is only one EC (default), where top level code will execute
+
+
+2. step: **Execution of top-level code**
+
+  = only the code outside functions (because functions should only be executed when called)
+
+  -computer CPU processes received machine code
+
+
+
+3. step: **Execution of functions, waiting for callbacks**
+
+  One execution context per function call/method (they're functions attached to objects).
+
+      GLOBAL EXECUTION CONTEXT + EXECUTION CONTEXT PER FUNCTION/method = **JS engine's CALL STACK**
+
+
+When all functions are executed, JS Engine waits for callback functions to arrive.
+Callback loop provides them.
+
+
+
+### WHAT IS EXECUTION CONTEXT MADE OF?
+
+**1. variable environment**
+
+  - let, const, var declarations
+  - functions
+  - arguments object - all the arguments passed into the function that the current execution context belongs to
+
+
+**2. scope chain**
+
+  - consists of references to variables located outside of the current function
+
+
+**3. this keyword**
+
+  Content is generated during creation phase, right before the execution.
+
+
+__Exception: arrow functions () => {}__
+
+    - no argument object
+    - no `this` keyword
+    - can use them from their closest regular function parent.
+
+
+**Technically, values only become known during execution phase.**
+
+
+### When there are a lot of function execution contexts:
+
+  How does the engine keep track of the order in which the functions are called?
+  How will it know where it currently is in the execution?
+
+
+
+  **CALL STACK**
+
+  = "place" where execution contexts get stacked on top of each other, to keep track of where we are in the execution
+
+  - execution context on the top is the on that is running
+  - after it finishes, it is removed
+  - the one "underneath" starts running
+
+  **Call stack is like a "map" for the order of the execution of the code.**
+
+
+Program stays in the state with the global execution context forever, until it is actually finished.
+= closing of the browser tab/window
+
+Only then is the global execution context popped off the JS engine call stack.
+
+
+___ 
+
+## Scope and the Scope Chain
+
+**VARIABLE ENVIRONMENT**
+How the variables are created
+
+**EXECUTION CONTEXT is made of: **
+
+  - variable environment
+  - scope chain
+  - `this` keyword
+
+
+WHAT IS SCOPE CHAIN?
+WHY IS IT SO IMPORTANT?
+HOW DOES IT WORK?
+
+
+
+### SCOPING
+
+  Where do variables live?
+  Where can we access a certain variable and where not?
+  Answers the question how our program's variables are organised and accessed.
+
+**Lexical scoping**
+
+Scoping is controlled/ way variables are organised and accessed is entirely controlled by the placement of functions and blocks in the code.
+
+  example: _Function written inside another function has access to the variables of the parend function._
+
+
+**Scope**
+
+= space/environment in which a variable is **declared**
+
+- in case of functions, the function itself is a variable environment, stored in the function execution context
+
+
+**Scope of a variable**
+
+= entire region of the code where a certain variable can be accessed
+
+	
+**Difference between scope and variable environment**
+
+In case of functions, it is the same because functions are just values stored in variables.
+
+
+* GLOBAL SCOPE
+* FUNCTION SCOPE
+* BLOCK SCOPE (ES6)
+
+    #### Global scope
+
+    - for top level code
+    - outside of any function or block
+    - variables declared in GS are accessible everywhere in the program (in all functions or blocks)
+
+    ```js
+    const me = "Mari";
+    const job = "programmer";
+    const year = "2021";
+    ```
+
+
+    #### Functions scope
+
+    - each function creates a local scope.
+    - variables are accessible only inside function, not outside
+
+    ```js
+    function calcAge(birthYear) {
+      const now = 2037;
+      const age = now - birthYear;
+      return age;
+    }
+    
+    console.log(now); // Reference error - variable is inside of local scope, can't be reached
+    console.log(calcAge);
+    ```
+
+
+    #### Block scope (ES6)
+
+    - variables are accessible only inside block
+    - only applies to let, const variables
+    - LET, CONST are BLOCK SCOPED
+
+    - **var is FUNCTION SCOPED**
+
+        - they only care about functions
+        - they ignore blocks
+
+    - in _strict mode_, functions are block scoped (from ES6)
+    - functions declared inside a block are only accessible inside of this block
+
+    ```js
+    if(year >= 1981 && year <= 1996) {
+      const millenial = true;
+      const food = "Avocado toast";
+    }
+    
+    console.log(millenial); // Reference error
+    ```
+
+
+  ### SCOPE CHAIN 
+
+  **Every scope has access to the variables from all the outer scopes.**
+
+  **Variable lookup**
+
+  If one scope can't find the variable in its parent scope, it will look up the scope chain to see if it can find it in other parent scopes.
+
+  In this process, variables are **not copied from one scope to another**, only used.
+
+  **It doesn't work the other way around:**
+
+      child scope can use parent scope,
+      parent scope can't use child scope.
+
+  **Sibling scopes** don't have access to one another.
+  Scope chain does not work SIDEWAYS nor DOWN, only UP.
+
+  *Works the same for function arguments.
+
+**global variables** = variables in the global scope
+
+
+
+**Scope chain vs call stack**
+
+  Scope chain is the order in which functions are written in the code.
+  It has nothing to do with order in which functions are called and executed in the call stack.
+
+
+___
+
+## Scoping in practice
