@@ -6,9 +6,11 @@
 * Scope and the Scope Chain
 * Scoping in practice
 * Variable Environment: Hoisting and The TDZ
-* Hoisting and TDZ in practice
-* The _this_ keyword
-
+* Hoisting and TDZ in practic
+* The `this` keyword in practice
+* Regular Functions vs. Arrow Functions
+* Primitives vs. Objects (Primitive vs. Reference Types)
+* Primitives vs. Objects in Practice
 
 ___ 
 
@@ -1156,3 +1158,446 @@ this = _undefined_
 year cannot be read
 
 `this` is now _undefined_ because `f();` is now just a regular function call, without no "owner", it isn't attached to any object.
+
+___
+
+## Regular Functions vs. Arrow Functions
+
+`this`
+
+**REGULAR vs ARROW FUNCTIONS**
+
+Starting point: OBJECT LITERAL
+(the way we literally define objects; doesn't create its own scope, is not code block)
+
+  ```js
+  const jonas = {
+    firstName: "Jonas",
+    year: 1987,
+    calcAge: function() {
+      console.log(this);
+      console.log(2021 - this.year);
+    },
+  
+    greet: () => {
+      console.log(`Hey, ${this.firstName}.`);
+    }
+  };
+  
+  jonas.greet();  // Hey, undefined.
+  ```
+
+We get _undefined_ because arrow function doesn't have its own `this`, it uses the one from its own surroundings.
+
+**And the parent scope of `greet()` method is the global scope.**
+
+`this` points to the Window object.
+On the Window object, there is no firstName, so we get _undefined_.
+
+
+Using `this` with arrow functions can be dangerous if we declare variables with `var`.
+`Var` creates properties on a global object (`window`).
+
+  ```js
+  var firstName = "Matilda";
+  
+  const jonas = {
+    firstName: "Jonas",
+    year: 1987,
+    calcAge: function() {
+      console.log(this);
+      console.log(2021 - this.year);
+    },
+  
+    greet: () => {
+      console.log(this);
+      console.log(`Hey, ${this.firstName}.`);
+    }
+  };
+  
+  jonas.greet(); // Hi, Matilda
+  ```
+
+Inside `greet()` function, `window` is pointed by `this` keyword, although the function was called by the `jonas` object.
+
+`Window` contains `firstName` property with value Matilda and it will be printed.
+
+**Takeaway: never use arrow function as a method (as a function inside of an object).**
+
+
+  ### Having a function inside of a method
+
+  `isMillenial()` will be called when `calcAge()` is called
+
+  ```js
+  const jonas = {
+    firstName: "Jonas",
+    year: 1987,
+    calcAge: function() {
+      console.log(this);
+      console.log(2021 - this.year);
+  
+      const isMillenial = function() {
+        console.log(this.year <= 1996 && this.year >= 1981);
+      }
+      isMillenial();
+    },
+  
+    greet: function() {
+      console.log(this);
+      console.log(`Hey, ${this.firstName}!`);
+    }
+  };
+  
+  jonas.calcAge();
+  // TypeError: Cannot read properties of undefined (reading 'year')
+  ```
+
+Inside of the `isMillenial()` function, `this` is undefined.
+
+`isMillenial()` is a **regular function call**, even though it happens inside of a method (`calcAge()`). Inside of a regular function call, `this` is undefined, that is why we get the error.
+
+**The behaviour is as if the functin `isMillenial()` was outside of the object.**
+
+
+ ### 2 solutions to the problem of .this  used in function inside of a method:
+
+    1. pre-ES6: **use extra variable, self / that outside of the function**
+
+      There you still have access to .this set to jonas object because of the scope chain.
+      Then use it in the function.
+
+      ```js
+      calcAge: function() {
+          console.log(this);
+          console.log(2021 - this.year);
+      
+          // Solution 1
+          const self = this;
+          const isMillenial = function() {
+            console.log(self.year <= 1996 && self.year >= 1981);
+          }
+          isMillenial();
+        },
+      (...)
+      }
+      
+      jonas.calcAge(); 
+      // 34
+      // true
+      ```
+
+    
+    2. ES6 solution: **use an arrow function**
+
+      It is going to work because arrow function does not have its own `this` keyword.
+      It will use `this` of its parent scope > `calcAge()` method, where `this` points to jonas object
+
+      ```js
+      // Solution 2
+      const isMillenial = () => {
+        console.log(this.year <= 1996 && this.year >= 1981);
+      }
+      isMillenial();
+      
+      jonas.calcAge();
+      // 34
+      // true
+      ```
+
+
+  ### `arguments` keyword
+
+  Functions also get access to arguments keyword (function declarations and expressions).
+  `arguments` is only available in regular functions.
+
+
+  ```js
+  const addExpression = function (a, b) {
+    console.log(arguments);
+    return a + b;
+  }
+  
+  addExpression(2, 5);
+  addExpression(2, 6, 8, 9);
+  
+  // > Arguments(2) [2, 5, 8, 9 callee: (...), Symbol(Symbol.iterator): ƒ]
+  ```
+
+  We get an array with parameters that we passed in.
+  Useful when we need more parameters than specified.
+  We could loop over arguments array and loop all numbers together.
+
+  ***
+
+  **Arrow function doesn't get `arguments` keyword.**
+
+  ```js
+  var addArrow =  (a, b) => {
+    console.log(arguments);
+    return a + b;
+  }
+  
+  addArrow(2, 6);
+  // ReferenceError: arguments is not defined at addArrow
+  ```
+
+
+This keyword is not so important in > ES6, there is better way of dealing with arguments.
+
+___
+
+## Primitives vs. Objects (Primitive vs. Reference Types)
+
+**PRIMITIVES vs OBJECTS (Primitive vs Reference type)**
+Difference in how primitive types and objects are stored in memory
+
+
+**PRIMITIVES:**
+
+number
+string
+boolean
+udefined
+null
+symbol
+BigInt
+
+**OBJECTS:** everything else
+
+
+
+example with primitives:
+
+  ```js
+  let age = 30;
+  let oldAge = age;
+  age = 31;
+  
+  console.log(age);       // 31 
+  console.log(oldAge);    // 30
+  ```
+
+example with object:
+
+  ```js
+  const me = {
+    name: "Mari",
+    age: 30, 
+  }
+  
+  const friend = me;
+  friend.age = 27; 
+  
+  console.log("Friend:", friend);  // Friend: {name: 'Mari', age: 27}
+  console.log("Me:", me);          // Me: {name: 'Mari', age: 27}
+  ```
+
+
+**In context of memory:**
+
+  primitives = **primitive types**
+  objects = **reference types**
+
+They are stored differently.
+
+
+**JS engine:**
+
+  **call stack** (where the code is executed)
+  **heap** (where objects are stored in memory)
+
+**Primitive types** are stored in the **call stack**, in the **execution contexts** in which they are declared.
+**Objects** are stored in JS Engine's **heap**.
+
+
+  ### Storing primitive types 
+
+  When we declare a variable const age = 30;, here is what happens inside JS Engine and computer's memory.
+
+
+  **IN CALL STACK:**
+
+  1. JS creates unique identifier with variable name (age).
+  2. A piece of memory gets allocated, with a certain address (000 1).
+  3. Value gets stored in memory at the specified address (30).
+
+
+  ***Identifier points to the ADDRESS, not to the value.**
+
+  no: Age is equal to 30.
+  yes: Age is equal to the address 0001, which holds the value of 30.
+
+  When we reassign the value to the variable, we reassign it a different address that holds that new value.
+  We don't reassign a new value to the existing address.
+
+  **Value at a certain address is immutable.**
+
+  
+  
+  ### Storing reference types
+
+  **in the CALL STACK:**
+
+  1. created unique identifier
+  2. points to new memory address
+  3. memory address references to the **memory address of the object in the heap** (used as its value)
+
+
+  **in the HEAP:**
+
+  1. assigned a memory address
+  2. address has an assigned
+
+  The identifier doesn't point directly to the new created address in the heap.
+  That is why we call objects - reference types, in this context.
+
+  Objects might be too large to be stored in the stack.
+  Instead, the are stored in the stack (unlimited), and only reference is stored in the call stack.
+
+
+  
+  ### Changing a property in the object
+  (as seen from the memory perspective)
+
+    `friend.age = 27;`
+
+  1. object is found in the heap
+  2. age is changed to 27
+
+  Now we have 2 different identifiers (me, friend) pointing to the same value in the call stack, that is referencing the same object address in the heap, and they will have the same value.
+
+  **Only primitive values defined with const are immutable.
+  Reference values defined with const are mutable.**
+
+    ```js
+    const friend = me;
+    friend.age = 27; 
+    ```
+
+  Although the object is defined with `const`, you can still change its value because you're not changing the value at the address in the call stack (which is reference to the object).
+
+  **When you are copying an object, you are creating a new variable that is pointing to the exact same object.**
+
+
+___
+
+## Primitives vs. Objects in Practice
+
+**Mutating a primitive**
+
+Each primitive value will be saved into its own piece of memory in the stack.
+
+  ```js
+  // initial value
+  let lastName = "Williams";
+ 
+  // person is getting married so we save the old last name
+  let oldLastName = lastName;
+ 
+  // at this point in the code, the person is married and has new last name
+  lastName = "Davis";
+ 
+  console.log(lastName, oldLastName); // Davis, Williams
+  ```
+
+### Mutating objects (reference values)
+
+  ```js
+  const jessica = {
+    firstName: "Jessica",
+    lastName: "Williams",
+    age: 32,
+  };
+  
+  // Jessica is getting married and will change her last name
+  const marriedJessica = jessica;
+  marriedJessica.lastName = "Davis";
+  
+  console.log("Before marriage:", jessica);         // "Davis"
+  console.log("After marriage:", marriedJessica);   // "Davis"
+  ```
+
+It looks like we are copying the whole object. Behind the scenes, we are copying the reference that points to the same  object. Those are two names for the same object.
+
+`marriedJessica` **is not a new object in the heap.**
+**It is just a new variable in the stack, which holds the reference to the original object,** `jessica`,
+So we change the property in the original object from "Williams" to "Davis".
+
+`const` is about the **value in the stack**, which is not changing and it is the reference to the object. The object in the heap is changing and it has nothing to do with `const`.
+
+
+**Assigning a new object is completely different than changing a property.**
+
+We can't assign a new object to the already existing variable marriedJessica , that has a reference to the object jessica in the heap.
+
+This new object will be stored at a different position in memory and therefore the reference to that position in memory would have to change in this variable, which is declared in the call stack with const, and that doesn't work because we can't change that value in the stack.
+
+If it was declared with let, this would work.
+
+  ```js
+  const marriedJessica = jessica;
+  
+  marriedJessica = {}; // this won't work
+  // TypeError: Assignment to constant variable
+  ```
+
+
+**Copying an object so that we can change the copy without changing the original**
+
+  `object.assign()`
+
+**It merges 2 objects and returns new object with all properties copied.**
+
+New object is created in the heap (empty one + copy of jessica2) and `jessicaCopy` is pointing to that new object.
+
+  ```js
+  const jessica2 = {
+    firstName: 'Jessica',
+    lastName: 'Williams',
+    age: 32,
+  };
+  
+  // merging new empty object with object jessica2
+  const jessicaCopy = object.assign({}, jessica2);
+  jessicaCopy.lastName = "Davis";
+  
+  console.log("Before marriage:", jessica2);
+  console.log("After marriage", jessicaCopy);
+  
+  // Before marriage: {firstName: 'Jessica', lastName: 'Williams', age: 32}
+  // After marriage {firstName: 'Jessica', lastName: 'Davis', age: 32}
+  ```
+
+This only works on the first level, **it creates a shallow copy**.
+
+The object inside of an object would still be the same if this method is used > it would still point to the same place in the heap.
+
+We would like to have a **deep clone**.
+
+**Shallow copy** copies properties on the first level.
+**Deep clone** copies everything.
+
+
+If you add an array in ``jessica2``, it will be in both objects after you use ``Object.copy()``.
+
+* array is just an object behind the scenes, so this works
+
+  ```
+  // Before marriage: {firstName: 'Jessica', lastName: 'Williams', age: 32, family: Array(2)}
+  // After marriage {firstName: 'Jessica', lastName: 'Davis', age: 32, family: Array(2)}
+  ```
+
+Changing the existing array in a new/copied object
+
+  ```
+  // manipulating object within an object
+  jessicaCopy.family.push("Bey");
+  jessicaCopy.family.push("How");
+  ```
+
+**It changes the property `family` in both objects.**
+
+They point to the same (nested) object `family` in the heap, so if you change it in one, you change it also in another one.
+
+We would need to create here a **deep clone** (won't learn it).
