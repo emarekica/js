@@ -5,6 +5,10 @@
 * Execution Contexts and The Call Stack
 * Scope and the Scope Chain
 * Scoping in practice
+* Variable Environment: Hoisting and The TDZ
+* Hoisting and TDZ in practice
+* The _this_ keyword
+
 
 ___ 
 
@@ -498,3 +502,657 @@ In case of functions, it is the same because functions are just values stored in
 ___
 
 ## Scoping in practice
+
+Function `calcAge()` is defined in a global scope.
+
+- it is in a top level code
+- it defines its own scope = variable environment of its execution context
+
+  ```js
+  function calcAge(birthYear) {
+    const age = 2021 - birthYear;
+    console.log(firstName);
+  
+    return age;
+  }
+  
+  const firstName = "Mari";
+  calcAge(1985);
+  ```
+ 
+  ### Nested functions
+
+  - engine tries to access age variable in the current scope (_printAge()_ scope) > doesn't find it > goes UP to the parent scope > finds it there (_calcAge()_ scope)
+  - **scoping is the same for parameters of a function as it is for variables**
+  - scope of a variable is the entire region in which the variable is accessible
+  ( `age` is accessible inside `calcAge` function and all the child scopes (inner scopes))
+
+    ```js
+    function calcAge(birthYear) {
+      const age = 2021 - birthYear;
+    
+      function printAge() {
+        const output = `You are ${age}, born in ${birthYear}.`
+        console.log(output)
+      }
+      printAge();
+      return age;
+    }
+    
+    const firstName = "Mari";
+    calcAge(1985);
+    
+    // reference error - cannot access scope
+    console.log(age);
+    printAge();
+    ```
+
+  ### Block scope
+
+  `console.log(str);` isn't accessible
+
+  `console.log(millennial)` is accessible =  **VAR is pre-ES6, function-scoped variable**, it ignores blocks
+
+  - don't use VAR if you don't have to
+
+  ```js
+  function calcAge(birthYear) {
+  const age = 2021 - birthYear;
+  //console.log(firstName);
+ 
+  function printAge() {
+    const output = `${firstName}, you are ${age}, born in ${birthYear}.`
+    console.log(output)
+ 
+    //BLOCK SCOPE
+    if(birthYear >=1981 && birthYear <= 1991) {
+      var millennial = true;
+      const str = `Oh, and you are a millennial, ${firstName}.`
+      console.log(str);
+    }
+    console.log(str);  // reference error
+    console.log(millennial); // accessible, VAR is pre-ES6 variable 
+
+    }
+    printAge();
+    return age;
+  }
+  
+  const firstName = "Mari";
+  calcAge(1985);
+  ```
+
+
+**From ES6, functions are block-scoped**
+ **when in strict mode**
+
+
+```js
+    //block scope
+    if(birthYear >=1981 && birthYear <= 1991) {
+      var millennial = true;
+      const str = `Oh, and you are a millennial, ${firstName}.`
+      console.log(str);
+ 
+      // functions are block-scoped (>= ES6)
+      function add(a, b) {
+        return a+b;
+      }
+    }
+ 
+    console.log(str);  // reference error
+    console.log(millennial); // accessible, VAR is pre-ES6 variable
+ 
+    add(2, 3); // reference error, not accessible outside of the "if" block
+```
+
+
+**Declaring a variable inside of a scope that already exists in a parent scope**
+
+JS will look for the variable inside of the scope because it reads what is in the block scope first.
+
+JS won't perform any variable look-up in the scope chain because it found the variable inside of the block that it will use.
+
+```js
+function calcAge() {
+  (...)
+ 
+  function printAge() {
+    (...)
+ 
+    if(birthYear >=1981 && birthYear <= 1991) {
+      var millennial = true;
+      firstName = "Jonas";
+ 
+      const str = `Oh, and you are a millennial, ${firstName}.`
+      console.log(str)
+     }
+    }
+  } 
+  (...)
+}
+ 
+const firstName = "Steven";
+console.log(str); // "Oh, and you are a millennial, Jonas."
+```
+
+You can have variables with same names, if they are in different scopes.
+You can have functions with same parameter names because each parameter is defined in the scope of that function.
+
+
+**Redefining a variable from a parent scope inside of the variable scope**
+
+It will print reassigned value because we redefined a variable inside of "if" block from the parent scope (printAge()), we didn't create a new one.
+If we created a new one, it wouldn't be accessible.
+
+```js
+function printAge() {
+   let output = `${firstName}, you are ${age}, born in ${birthYear}.`
+ 
+   //block scope
+   if(birthYear >=1981 && birthYear <= 1991) {
+      var millennial = true;
+ 
+      // Creating a new variable with the same name as outer scope's variable
+      const firstName = 'Jonas';
+ 
+      // Reassigning value to outer scope's variable
+      output = "New output!";
+ 
+      const str = `Oh, and you are a millennial, ${firstName}.`
+      console.log(str);
+ 
+      // functions are block-scoped (>= ES6)
+      function add(a, b) {
+        return a+b;
+      }
+   }
+   console.log(output);  // Prints reassigned value!
+}
+```
+
+___
+
+## Variable Environment: Hoisting and The TDZ
+
+**HOISTING**
+
+  Makes some types of variables accessible/usable in the code before they are declared.
+
+  "Variables lifted to the top of their scope."
+
+  **How are variables created in JS?**
+
+  **Hoisting behind the scenes:** the code is scanned for declarations before it is executed during the creation phase of the execution context.
+  For each variable, a new property is created in the variable environment object.
+
+  **Execution context always contains 3 parts:**
+
+      - variable environment
+      - scope chain
+      - `this` keyword
+
+
+  **Why hoisting?**
+
+  - using functions before declaration (essential for some techniques)
+  - code is more readable
+
+
+  **Hoisting doesn't work the same for all variable types**
+
+  * **FUNCTION DECLARATION**
+
+    ```js
+    function calcRectArea(width, height) {
+      return width * height;
+    }
+    
+    console.log(calcRectArea(5, 6));
+    // expected output: 30
+    ```
+
+  * **FUNCTION EXPRESSION (with variable)**
+
+    ```js
+    const getRectArea = function(width, height) {
+      return width * height;
+    };
+    
+    console.log(getRectArea(3, 4));
+    // expected output: 12
+    ```
+
+  * **ANONYMOUS FUNCTION**
+
+    ```js
+    function (a){
+      return a + 100;
+    }
+    ```
+
+  * **ARROW FUNCTION EXPRESSION  =>**
+
+    ```js
+    // 1. Remove the word "function" and place arrow between the argument and opening body bracket
+    (a) => {
+      return a + 100;
+    }
+    
+    // 2. Remove the body braces and word "return" -- the return is implied.
+    (a) => a + 100;
+    
+    // 3. Remove the argument parentheses
+    a => a + 100;
+    (a, b) => a + b + 100;
+    ```
+
+**Function declarations:**
+
+- hoisted
+- initial value: variable environment is set to actual function
+- scope: block (in strict mode)
+
+We can use function declarations before they are declared in the code because they are stored in variable environment object even before the code starts executing.
+
+
+**`var` variables:**
+
+- hoisted
+- initial value: undefined
+- scope: function
+
+If we try to access a var variable before it is declared in the code, we don't get the declared value, but undefined.
+This behaviour is one of the common sources of bugs in JS.
+And why in modern JS we almost never use `var`.
+
+
+**`let` and `const` variables:**
+
+- not hoisted
+- initial value: <uninitialized>, TDZ
+- scope: block
+
+They are technically hoisted, but there is no value to work with.
+They are placed in temporal dead zone (TDZ), we can't access the variables in the place between the beginning of the scope and the place where the variables are declared.
+If we try to use them before they are declared, we get error.
+
+
+**Function expressions & arrow function expressions:**
+
+- depends if they were created with var or `const`/`let`
+**These functions are variables** and behave like ones in regard to hoisting.
+
+
+  ### TDZ
+
+  `let`, `const`
+
+  Variable can be declared (without value) in the TDZ, but it won't be accessible before the line where it is initialised (added value).
+
+
+  **Why TDZ?**
+
+  1. Makes it easier to avoid and catch errors.
+     Accessing variables before declaration is bad practice and should be avoided.
+
+  ```js
+  const myName = "Jonas";
+  
+  if(myName === "Jonas") {
+      console.log(`Jonas is a ${job}.`); // Ref. error: cannot access "job" before initialisation"
+      const age = 2021 - 1991;
+      console.log(age);
+  
+      const job = "teacher"; // everything before is TDZ, here "job" is defined and can be accessed
+      console.log(x);  // Ref.error: x is not defined
+  }
+  ````
+
+
+2. Makes const variables work the way they are supposed to.
+
+  It is not possible to declare a const variable first, and later assign the value.
+  `const` should never be reassigned.
+  It is assigned only once, when the execution reaches the declaration.
+
+
+___
+
+## Hoisting and TDZ in practice
+
+### Variables
+
+  ```js
+  console.log(me);
+  console.log(job);
+  console.log(birthYear);
+  
+  var me = " Mari";
+  let job = "programmer";
+  const birthYear = 1987;
+  
+  // undefined (for var)
+  // ReferenceError: Cannot access 'job' before initialization
+  ```
+
+
+### Functions
+
+- only function declaration is accessible before initialization
+- functions defined with const are not accessible because they are in a temporary dead zone
+
+_ReferenceError: Cannot access before initialization_
+- funcions defined with `var` are not accessible, you get another error: 
+
+_TypeError: is not a function_
+
+Those variables are hoisted and added a value of undefined.
+They are basically being called with undefined: `undefined(2, 3);`
+
+  ```js
+  console.log(addDeclaration(2, 3));  // 5
+  
+  console.log(addExpression(1, 2));
+  // ReferenceError: Cannot access 'addExpression' before initialization
+  
+  console.log(addArrow(3, 4));
+  // ReferenceError: Cannot access 'addArrow' before initialization
+  
+  
+  function addDeclaration(a, b) {
+    return a + b;
+  }
+  
+  const addExpression = function (a, b) {
+    return a + b;
+  }
+  
+  var addArrow =  (a, b) => {
+    return a + b;
+  }
+  ```
+
+
+**Example of hoisting mistake**
+
+- why we should not use `var`
+
+  ```js
+  console.log(numProducts); // returns "undefined"
+  
+  // deletes the shopping cart whenever the number of products is 0
+  // zero is falsy value
+  if(!numProducts) {
+    deleteShoppingCart();
+  }
+  
+  var numProducts = 10;
+  
+  function deleteShoppingCart() {
+    console.log("All products deleted!");
+  }
+  ```
+
+--> all products get deleted because of hoisting
+
+`var` was called before declared --> it has value of _undefined_, not 10, which is assigned later > it triggers the execution of if-block and deletes all items because they are not 10, but undefined
+
+
+
+
+### HOISTING - BEST PRACTICES
+
+
+1. **don't use `var` to declare variables**
+
+- use `const` most of the time
+- use `let` if you need to change variable later
+
+2. **declare variables at the top of each scope**
+
+3. **always first declare functions, use them after declaration**
+
+
+
+### Difference between var and const/let
+
+
+  ```js
+  var x = 1;
+  let y = 2;
+  const z = 3;
+  ```
+In the `Window` object (global object of JS in the browser) in the Console, we can find x.
+The is no y nor z.
+
+Variables declared with `var `create properties on the `Window` object.
+Variables declared with `const`/`let`, do not.
+
+```js
+// testing if x, y and z are properties of Window object
+console.log(x === window.x); // true
+console.log(y === window.y); // false
+console.log(z === window.z); // false
+```
+
+___
+
+## The _this_ keyword
+
+
+EXECUTION CONTEXT: 
+
+1. variable environment
+2. scope chain
+
+3. `this` **keyword**
+
+  - a special keyword/variable
+  - created for every execution context (every function)
+
+
+**VALUE of** `this`
+
+- it **takes the value of the owner of the function** in which `this` was used (it points to the owner of that function)
+- value of `this` is not static = it is not always the same
+- its value is assigned only when the function is called
+- it depends on how the function is called
+
+
+**4 ways to call a function:**
+
+  1. AS A METHOD
+
+  2. AS A NORMAL FUNCTION
+
+  3. arrow functions => (not exactly a way to call a function)
+
+  4. AS AN EVENT LISTENER
+
+
+  5. `new`, `call`, `apply`, `bind` (covered later)
+
+
+
+  ### 1 - Call a function as a method
+    (a function attached to an object)
+
+    When we call a method, `this` will point to the object on which the method is called.
+
+      ```js
+      const mari = {
+        name: "Mari",
+        year: 1987,
+        calcAge: function() {
+          return 2021. - this.year;
+        }
+      };
+      console.log(mari.calcAge()); // 34
+      ```
+
+    `this.year` = `mari.year`
+
+
+      
+    ### Call function as a normal function
+      (not attached to any object)
+
+      In strict mode:
+
+      `this` will be _undefined_
+
+     **Recommended.**
+
+
+      In sloppy mode:
+
+      `this` points to the `Window` object (global JS object in browser)
+
+      This can be very problematic.
+
+
+
+    ### ARROW FUNCTIONS =>
+
+      **! They do not get their own .this keyword!**
+
+      It will belong to the surrounding/parent function = lexical `this` keyword
+      It gets picket up from the outer lexical scope of the arrow function.
+
+
+    ### Call function as an event listener
+
+      `this` will point to the DOM element the handler is attached to.
+
+
+  
+**WHAT `this` IS NOT:**
+
+- never points to the function in which we are using it
+- never points to the variable environment of the function
+
+
+___
+
+## The `this` keyword in practice
+
+**RULES HOW `this` IS DEFINED**
+
+
+`this` **outside any function** (in the global scope)
+
+    `console.log(this);  // points to Window object`
+
+
+`this` **inside regular function call**
+  - function that is not attached to any object (has no "owner")
+
+      ```js
+      "use strict";
+      
+      const calcAge = function(birthYear) {
+        console.log(2021 - birthYear);
+        console.log(this);
+      }
+      
+      calcAge(1987);
+      // 34
+      // undefined
+      ```
+
+**with arrow function =>**
+  - uses the lexical .this keyword of its parent scope (here: Window)
+
+      ```js
+      const calcAgeArrow = birthYear => {
+        console.log(2021 - birthYear);
+        console.log(this);
+      }
+      
+      calcAgeArrow(1987); // points to Window object
+      ```
+      
+
+`this` **inside of a method**
+  - points to the object it belongs to ("jonas" object is the owner of .this)
+
+      ```js
+      const jonas = {
+        year: 1987,
+        calcAge: function() {
+          console.log(this);
+          console.log(2021 - this.year);
+        }
+      }
+      
+      jonas.calcAge();
+      // points to "jonas" object
+      // 34
+      ```
+
+`this` will not point to the object in which we wrote the method.
+It will point to the object that is calling the method.
+It is because of this: `jonas.calcAge();`
+
+
+  ### METHOD BORROWING
+
+  **Functions are values.**
+  We can copy them from one object to another
+
+      ```js
+      matilda.calcAge = jonas.calcAge;
+      
+      < matilda
+      > {year: 2017, calcAge: ƒ}
+      // calcAge shows in the matilda object in the console 
+      
+      < jonas
+      > {year: 1987, calcAge: ƒ}
+
+      matilda.calcAge();  // 4
+      ```
+
+  Here, `this` points to object matilda which called the method.
+  This proves that `this` is not static - it depends on how the function is called.
+
+
+**Taking the function out of the object**
+
+We want to copy the function into a new variable (we can because function = value).
+Don't call it!
+
+  ```js
+  const jonas = {
+    year: 1987,
+    calcAge: function() {
+      console.log(this);
+      console.log(2021 - this.year);
+    },
+  };
+  
+  const f = jonas.calcAge; 
+  
+  // shown in the f object
+  < f
+  > ƒ () {
+      console.log(2021 - this.year);
+    }
+  ```
+
+**What implication does it have for `this` keyword?**
+
+```js
+f();
+ 
+> undefined
+> Uncaught TypeError: Cannot read properties of undefined (reading 'year'
+```
+
+`console.log(2021 - this.year);`
+
+this = _undefined_
+year cannot be read
+
+`this` is now _undefined_ because `f();` is now just a regular function call, without no "owner", it isn't attached to any object.
