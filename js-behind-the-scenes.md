@@ -156,11 +156,13 @@ ___
 **CALL STACK:** where the code is executed using execution contexts
 **HEAP (hrpa):** unstructured memory pool which stores all the objects the app needs
 
+[JS engine](img/01-js-engine.png)
 
 **HOW JS engine WORKS**
 
 How is the code compiled to machine code so it can be executed?
 
+[Compilation vs Interpretation](img/02-compilation-interpretation.png)
 
 ### Compilation
 
@@ -194,6 +196,8 @@ Entire code is compiled into machine code at once and executed right away.
 
       _source code > step 1: compilation > machine code (without portable file) > step 2: execution > Program running_
 
+
+[JIT steps](img/03-jit-steps.png)
 
 As the JS code enters the JS engine...
 
@@ -235,6 +239,8 @@ They are separated from the main thread that is executing the code.
 
 ****RUNTIME IN THE BROWSER (mostly used)****
 
+[JS runtime](img/04-js-runtime.png)
+
 **Runtime is a container including all the things we need to use JS** 
 (1, 2, 3, 4)
 
@@ -269,7 +275,7 @@ Example of CALLBACK QUEUE: callback function from DOM event listener
   - CALLBACK QUEUE
   - EVENT LOOP
 
-
+[JS runtime in Node](05-js-runtime-node.png)
   ___
 
 ## Execution Contexts and The Call Stack
@@ -280,6 +286,8 @@ Where?
 **In the call stack, in the JS Engine.**
 
 compilation > creation of GLOBAL EXECUTION CONTEXT for top-level code
+
+[Excution Context](img/06-execution-context.png)
 
 1. step: **Creation of global execution context (EC)**
 
@@ -311,6 +319,8 @@ Callback loop provides them.
 
 
 ### WHAT IS EXECUTION CONTEXT MADE OF?
+
+[Execution context detail](img/07-execution-context-detail.png)
 
 **1. variable environment**
 
@@ -347,8 +357,9 @@ __Exception: arrow functions () => {}__
 
 
   **CALL STACK**
-
   = "place" where execution contexts get stacked on top of each other, to keep track of where we are in the execution
+
+  [Call Stack](img/08-call-stack.png)
 
   - execution context on the top is the on that is running
   - after it finishes, it is removed
