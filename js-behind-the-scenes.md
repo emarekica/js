@@ -19,8 +19,7 @@ ___
 
 **GARBAGE COLLECTION** 
 
-- algorithm inside JS engine
-- automatically removes old unused objects from computer memory
+- algorithm inside JS engine automatically removes old unused objects from computer memory
 - powerful tools for memory management
 
 
@@ -56,7 +55,7 @@ _PARADIGM_ = approach & mindset of structuring code, directs coding style & tech
       -- having functions in between
 
   2. OBJECT-ORIENTED PROGRAMMING (OOP)
-  3 .FUNCTIONAL PROGRAMMING (FP)
+  3. FUNCTIONAL PROGRAMMING (FP)
 
 Paradigms can be:
 
