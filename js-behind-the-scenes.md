@@ -155,21 +155,13 @@ ___
 **CALL STACK:** where the code is executed using execution contexts
 **HEAP (hrpa):** unstructured memory pool which stores all the objects the app needs
 
-<<<<<<< HEAD
 [JS engine](img/01-js-engine.png)
-=======
-[JS engine](01-js-engine.png)
->>>>>>> e529f3e7cbc4be2ebb0c54b4274ba21fc83ab877
 
 
 **HOW JS engine WORKS**
 How is the code compiled to machine code so it can be executed?
 
-<<<<<<< HEAD
 [Compilation vs Interpretation](img/02-compilation-interpretation.png)
-=======
-[Compilarion VS Interpretation](02-compilation-interpretation.png)
->>>>>>> e529f3e7cbc4be2ebb0c54b4274ba21fc83ab877
 
 ### Compilation
 
@@ -204,11 +196,7 @@ Entire code is compiled into machine code at once and executed right away.
       _source code > step 1: compilation > machine code (without portable file) > step 2: execution > Program running_
 
 
-<<<<<<< HEAD
 [JIT steps](img/03-jit-steps.png)
-=======
-[JIT steps](https://drive.google.com/file/d/1In0Nzan5HkIG6sg4CIbw4vZXCsPLCOcX/view?usp=sharing)
->>>>>>> e529f3e7cbc4be2ebb0c54b4274ba21fc83ab877
 
 As the JS code enters the JS engine...
 
@@ -250,11 +238,7 @@ They are separated from the main thread that is executing the code.
 
 ****RUNTIME IN THE BROWSER (mostly used)****
 
-<<<<<<< HEAD
 [JS runtime](img/04-js-runtime.png)
-=======
-[JS Runtime](04-js-runtime.png)
->>>>>>> e529f3e7cbc4be2ebb0c54b4274ba21fc83ab877
 
 **Runtime is a container including all the things we need to use JS** 
 (1, 2, 3, 4)
