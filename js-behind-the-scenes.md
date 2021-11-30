@@ -25,11 +25,11 @@ ___
 
 **HIGH LEVEL**
 
--- in low-level languages (C) you have to manage resources (ask the computer for memory to create a new variable)
--- in high-level languages (JS, Python) have **abstractions** that handle the memory, everything happens automatically
+- in low-level languages (C) you have to manage resources (ask the computer for memory to create a new variable)
+- in high-level languages (JS, Python) have **abstractions** that handle the memory, everything happens automatically
 
--- easier to learn
--- program is never as optimised as program written in low-level language
+- easier to learn
+- program is never as optimised as program written in low-level language
 
 
 **INTERPRETED OR JUST-IN-TIME COMPILED LANGUAGE**
@@ -101,7 +101,7 @@ example of passing the function into another function:
 
 **DYNAMIC LANGUAGE**
 
--- meaning: **dynamically typed (type of variables can easily be changes ad we reassign them)**
+-- meaning: **dynamically typed (type of variables can easily be changes as we reassign them)**
 
 -- we don't assign data types to variables
 -- data types become known when JS engine executes code
@@ -133,7 +133,7 @@ example of passing the function into another function:
 
 Event loop:
 -- takes long-running tasks
--- executes t hem in the "background"
+-- executes them in the "background"
 -- puts them back in the main thread once they are finished
 
 
@@ -155,11 +155,13 @@ ___
 **CALL STACK:** where the code is executed using execution contexts
 **HEAP (hrpa):** unstructured memory pool which stores all the objects the app needs
 
+[JS engine](01-js-engine.png)
+
 
 **HOW JS engine WORKS**
-
 How is the code compiled to machine code so it can be executed?
 
+[Compilarion VS Interpretation](02-compilation-interpretation.png)
 
 ### Compilation
 
@@ -193,6 +195,8 @@ Entire code is compiled into machine code at once and executed right away.
 
       _source code > step 1: compilation > machine code (without portable file) > step 2: execution > Program running_
 
+
+[JIT steps](https://drive.google.com/file/d/1In0Nzan5HkIG6sg4CIbw4vZXCsPLCOcX/view?usp=sharing)
 
 As the JS code enters the JS engine...
 
@@ -233,6 +237,8 @@ They are separated from the main thread that is executing the code.
 ## JS RUNTIME
 
 ****RUNTIME IN THE BROWSER (mostly used)****
+
+[JS Runtime](04-js-runtime.png)
 
 **Runtime is a container including all the things we need to use JS** 
 (1, 2, 3, 4)
