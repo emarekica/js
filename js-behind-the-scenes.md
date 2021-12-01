@@ -279,7 +279,7 @@ Example of CALLBACK QUEUE: callback function from DOM event listener
 
 ## Execution Contexts and The Call Stack
 
-How it JS code executed?
+How i JS code executed?
 Where? 
 
 **In the call stack, in the JS Engine.**
