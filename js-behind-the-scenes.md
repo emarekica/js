@@ -325,7 +325,9 @@ Callback loop provides them.
 
   - let, const, var declarations
   - functions
-  - arguments object - all the arguments passed into the function that the current execution context belongs to
+  - `arguments` object - all the arguments passed into the function that the current execution context belongs to
+  
+     _`arguments` is an Array-like object accessible inside functions that contains the values of the arguments passed to that function_
 
 
 **2. scope chain**
@@ -333,14 +335,14 @@ Callback loop provides them.
   - consists of references to variables located outside of the current function
 
 
-**3. this keyword**
+**3. `this` keyword**
 
   Content is generated during creation phase, right before the execution.
 
 
 __Exception: arrow functions () => {}__
 
-    - no argument object
+    - no `argument` object
     - no `this` keyword
     - can use them from their closest regular function parent.
 
