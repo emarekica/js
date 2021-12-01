@@ -245,7 +245,7 @@ They are separated from the main thread that is executing the code.
 
 - Heart of every JS Runtime is **JS engine (1)**.
 
-- In order for it to work properly, we need access to **Web API's (2)** (_DOM, console.log(), timers, fetch API..._).
+- In order for it to work properly, we need access to **Web APIs (2)** (_DOM, console.log(), timers, fetch API..._).
 
   Those are functionalities provided to the browser, but are not part of JS language.
   They are accessible in the global `window` object, through JS gets access to them.
