@@ -278,9 +278,13 @@ Example of CALLBACK QUEUE: callback function from DOM event listener
   - EVENT LOOP
 
 ![JS runtime in Node](img/05-js-runtime-node.png)
-  ___
+ 
+ 
+ ___
 
 ## Execution Contexts and The Call Stack
+
+[262.ECMA - 10.4. Establishing an Execution context](https://262.ecma-international.org/5.1/#sec-10.4)
 
 How i JS code executed?
 Where? 
@@ -691,6 +695,8 @@ function printAge() {
 ___
 
 ## Variable Environment: Hoisting and The TDZ
+
+[262.ECMA - 10.3. Variable environment](https://262.ecma-international.org/5.1/#sec-10.3)
 
 **HOISTING**
 
