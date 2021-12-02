@@ -1,5 +1,8 @@
 # How JavaScript Works Behind the Scenes
 
+Personal notes from Udemy course [The Complete JavaScript Course 2022](https://www.udemy.com/course/the-complete-javascript-course/) by Jonas Schmedtmann. 
+I do not own visual materials. Distribution is prohibited.
+
 * An High-Level Overview of JavaScript
 * The JavaScript Engine and Runtime
 * Execution Contexts and The Call Stack
@@ -275,9 +278,13 @@ Example of CALLBACK QUEUE: callback function from DOM event listener
   - EVENT LOOP
 
 ![JS runtime in Node](img/05-js-runtime-node.png)
-  ___
+ 
+ 
+ ___
 
 ## Execution Contexts and The Call Stack
+
+[262.ECMA - 10.4. Establishing an Execution context](https://262.ecma-international.org/5.1/#sec-10.4)
 
 How i JS code executed?
 Where? 
@@ -409,7 +416,7 @@ HOW DOES IT WORK?
 
 Scoping is controlled/ way variables are organised and accessed is entirely controlled by the placement of functions and blocks in the code.
 
-  example: _Function written inside another function has access to the variables of the parend function._
+  example: _Function written inside another function has access to the variables of the parent function._
 
 
 **Scope**
@@ -452,7 +459,7 @@ In case of functions, it is the same because functions are just values stored in
 
     #### Functions scope
 
-    - each function creates a local scope.
+    - each function creates a local scope
     - variables are accessible only inside function, not outside
 
     ```js
@@ -497,7 +504,7 @@ In case of functions, it is the same because functions are just values stored in
 
   **Every scope has access to the variables from all the outer scopes.**
 
-  **Variable lookup**
+  **Variable look-up**
 
   If one scope can't find the variable in its parent scope, it will look up the scope chain to see if it can find it in other parent scopes.
 
@@ -523,6 +530,7 @@ In case of functions, it is the same because functions are just values stored in
   It has nothing to do with order in which functions are called and executed in the call stack.
 
 ![Scopechain VS Call stack](img/12-scopechain-vs-callstack.png)
+[Execution vs Lexical vs Variable environment](https://medium.com/@bdov_/javascript-typescript-execution-vs-lexical-vs-variable-environment-37ff3f264831)
 ___
 
 ## Scoping in practice
@@ -700,6 +708,8 @@ function printAge() {
 ___
 
 ## Variable Environment: Hoisting and The TDZ
+
+[262.ECMA - 10.3. Variable environment](https://262.ecma-international.org/5.1/#sec-10.3)
 
 **HOISTING**
 
