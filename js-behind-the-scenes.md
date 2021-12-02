@@ -360,7 +360,8 @@ __Exception: arrow functions () => {}__
   **CALL STACK**
   = "place" where execution contexts get stacked on top of each other, to keep track of where we are in the execution
 
-  [Call Stack](img/08-call-stack.png)
+
+![Call Stack](img/08-call-stack.png)
 
   - execution context on the top is the on that is running
   - after it finishes, it is removed
@@ -379,10 +380,11 @@ ___
 
 ## Scope and the Scope Chain
 
+
 **VARIABLE ENVIRONMENT**
 How the variables are created
 
-**EXECUTION CONTEXT is made of: **
+**EXECUTION CONTEXT is made of:**
 
   - variable environment
   - scope chain
@@ -396,6 +398,8 @@ HOW DOES IT WORK?
 
 
 ### SCOPING
+
+![Scope chain](img/09-scope-concepts.png)
 
   Where do variables live?
   Where can we access a certain variable and where not?
@@ -420,9 +424,13 @@ Scoping is controlled/ way variables are organised and accessed is entirely cont
 = entire region of the code where a certain variable can be accessed
 
 	
+
 **Difference between scope and variable environment**
 
 In case of functions, it is the same because functions are just values stored in variables.
+
+
+![Types of scope](img/11-types-of-scope.png)
 
 
 * GLOBAL SCOPE
@@ -485,6 +493,8 @@ In case of functions, it is the same because functions are just values stored in
 
   ### SCOPE CHAIN 
 
+  ![Scope chain](img/11-scope-chain.png)
+
   **Every scope has access to the variables from all the outer scopes.**
 
   **Variable lookup**
@@ -512,10 +522,12 @@ In case of functions, it is the same because functions are just values stored in
   Scope chain is the order in which functions are written in the code.
   It has nothing to do with order in which functions are called and executed in the call stack.
 
-
+![Scopechain VS Call stack](img/12-scopechain-vs-callstack.png)
 ___
 
 ## Scoping in practice
+
+![Scope chain summary](img/scope-chain-summary.png)
 
 Function `calcAge()` is defined in a global scope.
 
