@@ -1,5 +1,8 @@
 # How JavaScript Works Behind the Scenes
 
+Personal notes from Udemy course [The Complete JavaScript Course 2022](https://www.udemy.com/course/the-complete-javascript-course/) by Jonas Schmedtmann. 
+I do not own visual materials. Distribution is prohibited.
+
 * An High-Level Overview of JavaScript
 * The JavaScript Engine and Runtime
 * Execution Contexts and The Call Stack
@@ -405,7 +408,7 @@ HOW DOES IT WORK?
 
 Scoping is controlled/ way variables are organised and accessed is entirely controlled by the placement of functions and blocks in the code.
 
-  example: _Function written inside another function has access to the variables of the parend function._
+  example: _Function written inside another function has access to the variables of the parent function._
 
 
 **Scope**
@@ -444,7 +447,7 @@ In case of functions, it is the same because functions are just values stored in
 
     #### Functions scope
 
-    - each function creates a local scope.
+    - each function creates a local scope
     - variables are accessible only inside function, not outside
 
     ```js
@@ -487,7 +490,7 @@ In case of functions, it is the same because functions are just values stored in
 
   **Every scope has access to the variables from all the outer scopes.**
 
-  **Variable lookup**
+  **Variable look-up**
 
   If one scope can't find the variable in its parent scope, it will look up the scope chain to see if it can find it in other parent scopes.
 
