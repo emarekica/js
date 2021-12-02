@@ -515,7 +515,7 @@ In case of functions, it is the same because functions are just values stored in
   Scope chain is the order in which functions are written in the code.
   It has nothing to do with order in which functions are called and executed in the call stack.
 
-
+[Execution vs Lexical vs Variable environment](https://medium.com/@bdov_/javascript-typescript-execution-vs-lexical-vs-variable-environment-37ff3f264831)
 ___
 
 ## Scoping in practice
