@@ -20,11 +20,10 @@ I do not own visual materials. Distribution is prohibited._
 * Primitives vs. Objects in Practice
 
 <p>&nbsp;</p>
-___ 
 
 ## An High-Level Overview of JavaScript
 
-<p>&nbsp;</p>
+
 ### GARBAGE COLLECTION
 
 - algorithm inside JS engine automatically removes old unused objects from computer memory
