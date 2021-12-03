@@ -792,9 +792,9 @@ For each variable, a new property is created in the variable environment object.
 
 **Execution context always contains 3 parts:**
 
-	- variable environment
-	- scope chain
-	- `this` keyword
+- variable environment
+- scope chain
+- `this` keyword
 <p>&nbsp;</p>
 
 
@@ -817,6 +817,13 @@ return width * height;
 console.log(calcRectArea(5, 6));
 // expected output: 30
 ```
+<p>&nbsp;</p>
+
+- hoisted
+- initial value: variable environment is set to actual function
+- scope: block (in strict mode)
+
+We can use function declarations before they are declared in the code because they are stored in variable environment object even before the code starts executing.
 <p>&nbsp;</p>
 
 
@@ -858,16 +865,6 @@ return a + 100;
 a => a + 100;
 (a, b) => a + b + 100;
 ```
-<p>&nbsp;</p>
-
-
-**Function declarations:**
-
-- hoisted
-- initial value: variable environment is set to actual function
-- scope: block (in strict mode)
-
-We can use function declarations before they are declared in the code because they are stored in variable environment object even before the code starts executing.
 <p>&nbsp;</p>
 
 
