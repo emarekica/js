@@ -437,7 +437,7 @@ Scoping is controlled/ way variables are organised and accessed is entirely cont
 In case of functions, it is the same because functions are just values stored in variables.
 
 
-![Types of scope](img/11-types-of-scope.png)
+![Types of scope](img/10-types-of-scope.png)
 
 
 * GLOBAL SCOPE
