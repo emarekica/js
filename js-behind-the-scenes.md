@@ -1,7 +1,11 @@
 # How JavaScript Works Behind the Scenes
 
-Personal notes from Udemy course [The Complete JavaScript Course 2022](https://www.udemy.com/course/the-complete-javascript-course/) by Jonas Schmedtmann. 
-I do not own visual materials. Distribution is prohibited.
+<p>&nbsp;</p>
+
+_Personal notes from Udemy course [The Complete JavaScript Course 2022](https://www.udemy.com/course/the-complete-javascript-course/) by Jonas Schmedtmann. 
+I do not own visual materials. Distribution is prohibited._
+
+<p>&nbsp;</p>
 
 * An High-Level Overview of JavaScript
 * The JavaScript Engine and Runtime
