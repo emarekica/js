@@ -21,14 +21,17 @@ I do not own visual materials. Distribution is prohibited._
 
 <p>&nbsp;</p>
 
-## An High-Level Overview of JavaScript
+___
 
+## An High-Level Overview of JavaScript
+<p>&nbsp;</p>
 
 ### GARBAGE COLLECTION
 
 - algorithm inside JS engine automatically removes old unused objects from computer memory
 - powerful tools for memory management
 <p>&nbsp;</p>
+
 
 ### HIGH LEVEL
 
@@ -38,6 +41,7 @@ I do not own visual materials. Distribution is prohibited._
 - easier to learn
 - program is never as optimised as program written in low-level language
 <p>&nbsp;</p>
+
 
 ### INTERPRETED OR JUST-IN-TIME COMPILED LANGUAGE
 
@@ -50,6 +54,7 @@ I do not own visual materials. Distribution is prohibited._
 - necessary step in every programming language
 - happens inside JS engine
 <p>&nbsp;</p>
+
 
 ### MULTI PARADIGM LANGUAGE
 
@@ -96,6 +101,7 @@ Array made from it:
 	  `const hadZero = arr.indexOf(0) > -1;`
 <p>&nbsp;</p>
 
+
 ### FIRST-CLASS FUNCTIONS
 
 - those functions are treated as variables
@@ -123,7 +129,7 @@ example of passing the function into another function:
   _A strongly-typed programming language is one in which each type of data (such as integer, character, hexadecimal, packed decimal, and so forth) is predefined as part of the programming language and all constants or variables defined for a given program must be described with one of the data types._
 <p>&nbsp;</p>
 
-### SINGLE-THREADED, NON-BLOCKING EVENT LOOP concurrency model#
+### SINGLE-THREADED, NON-BLOCKING EVENT LOOP concurrency model
 
 
 **Concurrency model:**
@@ -148,6 +154,9 @@ example of passing the function into another function:
 <p>&nbsp;</p>
 
 (All of this is a huge over-simplification.)
+<p>&nbsp;</p>
+
+___
 
 
 ## The JavaScript Engine and Runtime
@@ -177,7 +186,7 @@ How is the code compiled to machine code so it can be executed?
 ![Compilation vs Interpretation](img/02-compilation-interpretation.png)
 <p>&nbsp;</p>
 
- **Compilation**
+ **COMPILATION**
 
  **Entire code is converted into machine code at once**, then written to a portable (binary) file that can be executed on any computer.
 
@@ -188,7 +197,7 @@ How is the code compiled to machine code so it can be executed?
 <p>&nbsp;</p>
 
 
- **Interpretation**
+ **INTERPRETATION**
 
   **There is an interpreter that runs through the code and executes it line by line.**
   - the code is **read and executed at the same time**
@@ -220,7 +229,7 @@ Entire code is compiled into machine code at once and executed right away.
 
 As the JS code enters the JS engine...
 
-### 1. Parsing = reading the code
+### 1. PARSING = reading the code
 
   - code is parsed into **AST** (abstract syntax tree, data structure; **has nothing to do with DOM tree**)
   - splits each line of code into pieces meaningful to the language (const, function ... )
@@ -229,12 +238,12 @@ As the JS code enters the JS engine...
   - resulting AST is later used to generate machine code
 <p>&nbsp;</p>
 
-### 2. Compilation
+### 2. COMPILATION
 
   -- takes generated AST and compiles it into machine code
 <p>&nbsp;</p>
 
-### 3. Execution
+### 3. EXECUTION
 
   -- machine code gets executed right away
   -- it happens in JS engine Call Stack
@@ -281,6 +290,7 @@ They are separated from the main thread that is executing the code.
 * **callback function** = _function passed into another function as an argument, which is then invoked inside the outer function to complete some kind of routine or action (example: event handler functions)_
 
 Example of CALLBACK QUEUE: callback function from DOM event listener
+<p>&nbsp;</p>
 
 - **EVENT LOOP (4)**
 
@@ -289,8 +299,8 @@ Example of CALLBACK QUEUE: callback function from DOM event listener
   3. when the call stack is empty, the callback function is passed to the stack by the event loop
   4. execution of the callback function
 
--- essential for JS non-blocking concurrency model
-
+- essential for JS non-blocking concurrency model
+<p>&nbsp;</p>
 
 **JS RUNTIME IN Node.js**
 
@@ -298,24 +308,30 @@ Example of CALLBACK QUEUE: callback function from DOM event listener
   - C++ & THREAD POOL
   - CALLBACK QUEUE
   - EVENT LOOP
+<p>&nbsp;</p>
 
 ![JS runtime in Node](img/05-js-runtime-node.png)
+<p>&nbsp;</p> 
  
- 
- ___
+___
 
 ## Execution Contexts and The Call Stack
+<p>&nbsp;</p>
 
 [262.ECMA - 10.4. Establishing an Execution context](https://262.ecma-international.org/5.1/#sec-10.4)
+<p>&nbsp;</p>
 
 How i JS code executed?
 Where? 
 
 **In the call stack, in the JS Engine.**
+<p>&nbsp;</p>
 
 compilation > creation of GLOBAL EXECUTION CONTEXT for top-level code
+<p>&nbsp;</p>
 
 ![Excution Context](img/06-execution-context.png)
+<p>&nbsp;</p>
 
 1. step: **Creation of global execution context (EC)**
 
@@ -333,7 +349,6 @@ compilation > creation of GLOBAL EXECUTION CONTEXT for top-level code
   -computer CPU processes received machine code
 
 
-
 3. step: **Execution of functions, waiting for callbacks**
 
   One execution context per function call/method (they're functions attached to objects).
@@ -343,28 +358,32 @@ compilation > creation of GLOBAL EXECUTION CONTEXT for top-level code
 
 When all functions are executed, JS Engine waits for callback functions to arrive.
 Callback loop provides them.
-
+<p>&nbsp;</p>
 
 
 ### WHAT IS EXECUTION CONTEXT MADE OF?
+<p>&nbsp;</p>
 
 ![Execution context detail](img/07-execution-context-detail.png)
+<p>&nbsp;</p>
 
-**1. variable environment**
+**1. VARIABLE ENVIRONMENT**
 
   - let, const, var declarations
   - functions
   - `arguments` object - all the arguments passed into the function that the current execution context belongs to
   
      _`arguments` is an Array-like object accessible inside functions that contains the values of the arguments passed to that function_
+<p>&nbsp;</p>
 
 
-**2. scope chain**
+**2. SCOPE CHAIN**
 
   - consists of references to variables located outside of the current function
+<p>&nbsp;</p>
 
 
-**3. `this` keyword**
+**3. `this` KEYWORD**
 
   Content is generated during creation phase, right before the execution.
 
@@ -374,23 +393,24 @@ __Exception: arrow functions () => {}__
     - no `argument` object
     - no `this` keyword
     - can use them from their closest regular function parent.
-
+<p>&nbsp;</p>
 
 **Technically, values only become known during execution phase.**
+<p>&nbsp;</p>
 
 
 ### When there are a lot of function execution contexts:
 
   How does the engine keep track of the order in which the functions are called?
   How will it know where it currently is in the execution?
-
-
+<p>&nbsp;</p>
 
   **CALL STACK**
   = "place" where execution contexts get stacked on top of each other, to keep track of where we are in the execution
-
+<p>&nbsp;</p>
 
 ![Call Stack](img/08-callstack.png)
+<p>&nbsp;</p>
 
   - execution context on the top is the on that is running
   - after it finishes, it is removed
@@ -403,161 +423,174 @@ Program stays in the state with the global execution context forever, until it i
 = closing of the browser tab/window
 
 Only then is the global execution context popped off the JS engine call stack.
-
+<p>&nbsp;</p>
 
 ___ 
 
 ## Scope and the Scope Chain
-
+<p>&nbsp;</p>
 
 **VARIABLE ENVIRONMENT**
 How the variables are created
+<p>&nbsp;</p>
 
 **EXECUTION CONTEXT is made of:**
 
   - variable environment
   - scope chain
   - `this` keyword
-
+<p>&nbsp;</p>
 
 WHAT IS SCOPE CHAIN?
 WHY IS IT SO IMPORTANT?
 HOW DOES IT WORK?
-
+<p>&nbsp;</p>
 
 
 ### SCOPING
+<p>&nbsp;</p>
 
 ![Scope chain](img/09-scope-concepts.png)
+<p>&nbsp;</p>
 
-  Where do variables live?
-  Where can we access a certain variable and where not?
-  Answers the question how our program's variables are organised and accessed.
+  - Where do variables live?
+  - Where can we access a certain variable and where not?
+  - Answers the question how our program's variables are organised and accessed.
+<p>&nbsp;</p>
 
 **Lexical scoping**
 
 Scoping is controlled/ way variables are organised and accessed is entirely controlled by the placement of functions and blocks in the code.
 
   example: _Function written inside another function has access to the variables of the parent function._
+<p>&nbsp;</p>
 
 
-**Scope**
-
-= space/environment in which a variable is **declared**
-
+**Scope** = space/environment in which a variable is **declared**
 - in case of functions, the function itself is a variable environment, stored in the function execution context
+<p>&nbsp;</p>
 
 
-**Scope of a variable**
-
-= entire region of the code where a certain variable can be accessed
-
+**Scope of a variable** = entire region of the code where a certain variable can be accessed
+<p>&nbsp;</p>
 	
 
 **Difference between scope and variable environment**
-
 In case of functions, it is the same because functions are just values stored in variables.
-
+<p>&nbsp;</p>
 
 ![Types of scope](img/10-types-of-scope.png)
-
+<p>&nbsp;</p>
 
 * GLOBAL SCOPE
 * FUNCTION SCOPE
 * BLOCK SCOPE (ES6)
+<p>&nbsp;</p>
 
-    #### Global scope
+#### Global scope
 
-    - for top level code
-    - outside of any function or block
-    - variables declared in GS are accessible everywhere in the program (in all functions or blocks)
+- for top level code
+- outside of any function or block
+- variables declared in GS are accessible everywhere in the program (in all functions or blocks)
 
-    ```js
-    const me = "Mari";
-    const job = "programmer";
-    const year = "2021";
-    ```
+```js
+const me = "Mari";
+const job = "programmer";
+const year = "2021";
+```
+<p>&nbsp;</p>
 
+#### Functions scope
 
-    #### Functions scope
+- each function creates a local scope
+- variables are accessible only inside function, not outside
+<p>&nbsp;</p>
 
-    - each function creates a local scope
-    - variables are accessible only inside function, not outside
-
-    ```js
-    function calcAge(birthYear) {
-      const now = 2037;
-      const age = now - birthYear;
-      return age;
-    }
+```js
+function calcAge(birthYear) {
+const now = 2037;
+const age = now - birthYear;
+return age;
+}
     
-    console.log(now); // Reference error - variable is inside of local scope, can't be reached
-    console.log(calcAge);
-    ```
+console.log(now); // Reference error - variable is inside of local scope, can't be reached
+console.log(calcAge);
+```
 
 
-    #### Block scope (ES6)
+#### Block scope (ES6)
+<p>&nbsp;</p>
 
-    - variables are accessible only inside block
-    - only applies to let, const variables
-    - LET, CONST are BLOCK SCOPED
+- variables are accessible only inside block
+- only applies to let, const variables
+- LET, CONST are BLOCK SCOPED
+<p>&nbsp;</p>
 
-    - **var is FUNCTION SCOPED**
+- **var is FUNCTION SCOPED**
 
-        - they only care about functions
-        - they ignore blocks
+- they only care about functions
+- they ignore blocks
 
-    - in _strict mode_, functions are block scoped (from ES6)
-    - functions declared inside a block are only accessible inside of this block
+- in _strict mode_, functions are block scoped (from ES6)
+- functions declared inside a block are only accessible inside of this block
 
-    ```js
-    if(year >= 1981 && year <= 1996) {
-      const millenial = true;
-      const food = "Avocado toast";
-    }
-    
-    console.log(millenial); // Reference error
-    ```
+```js
+if(year >= 1981 && year <= 1996) {
+const millenial = true;
+const food = "Avocado toast";
+}
 
+console.log(millenial); // Reference error
+```
+<p>&nbsp;</p>
 
-  ### SCOPE CHAIN 
+### SCOPE CHAIN 
+<p>&nbsp;</p>
 
-  ![Scope chain](img/11-scope-chain.png)
+![Scope chain](img/11-scope-chain.png)
+<p>&nbsp;</p>
 
-  **Every scope has access to the variables from all the outer scopes.**
+**Every scope has access to the variables from all the outer scopes.**
+<p>&nbsp;</p>
 
-  **Variable look-up**
+**Variable look-up**
 
-  If one scope can't find the variable in its parent scope, it will look up the scope chain to see if it can find it in other parent scopes.
+If one scope can't find the variable in its parent scope, it will look up the scope chain to see if it can find it in other parent scopes.
+In this process, variables are **not copied from one scope to another**, only used.
 
-  In this process, variables are **not copied from one scope to another**, only used.
+**It doesn't work the other way around:**
 
-  **It doesn't work the other way around:**
+	child scope can use parent scope,
+	parent scope can't use child scope.
+<p>&nbsp;</p>
 
-      child scope can use parent scope,
-      parent scope can't use child scope.
+**Sibling scopes** don't have access to one another.
+Scope chain does not work SIDEWAYS nor DOWN, only UP.
 
-  **Sibling scopes** don't have access to one another.
-  Scope chain does not work SIDEWAYS nor DOWN, only UP.
-
-  *Works the same for function arguments.
+*Works the same for function arguments.
 
 **global variables** = variables in the global scope
-
+<p>&nbsp;</p>
 
 
 **Scope chain vs call stack**
 
   Scope chain is the order in which functions are written in the code.
   It has nothing to do with order in which functions are called and executed in the call stack.
+<p>&nbsp;</p>
 
 ![Scopechain VS Call stack](img/12-scopechain-vs-callstack.png)
+<p>&nbsp;</p>
+
 [Execution vs Lexical vs Variable environment](https://medium.com/@bdov_/javascript-typescript-execution-vs-lexical-vs-variable-environment-37ff3f264831)
+<p>&nbsp;</p>
 ___
 
 ## Scoping in practice
+<p>&nbsp;</p>
 
 ![Scope chain summary](img/scope-chain-summary.png)
+<p>&nbsp;</p>
 
 Function `calcAge()` is defined in a global scope.
 
@@ -575,73 +608,78 @@ Function `calcAge()` is defined in a global scope.
   const firstName = "Mari";
   calcAge(1985);
   ```
+ <p>&nbsp;</p>
  
-  ### Nested functions
-
-  - engine tries to access age variable in the current scope (_printAge()_ scope) > doesn't find it > goes UP to the parent scope > finds it there (_calcAge()_ scope)
-  - **scoping is the same for parameters of a function as it is for variables**
-  - scope of a variable is the entire region in which the variable is accessible
-  ( `age` is accessible inside `calcAge` function and all the child scopes (inner scopes))
-
-    ```js
-    function calcAge(birthYear) {
-      const age = 2021 - birthYear;
-    
-      function printAge() {
-        const output = `You are ${age}, born in ${birthYear}.`
-        console.log(output)
-      }
-      printAge();
-      return age;
-    }
-    
-    const firstName = "Mari";
-    calcAge(1985);
-    
-    // reference error - cannot access scope
-    console.log(age);
-    printAge();
-    ```
-
-  ### Block scope
-
-  `console.log(str);` isn't accessible
-
-  `console.log(millennial)` is accessible =  **VAR is pre-ES6, function-scoped variable**, it ignores blocks
-
-  - don't use VAR if you don't have to
-
-  ```js
-  function calcAge(birthYear) {
-  const age = 2021 - birthYear;
-  //console.log(firstName);
  
-  function printAge() {
-    const output = `${firstName}, you are ${age}, born in ${birthYear}.`
-    console.log(output)
- 
-    //BLOCK SCOPE
-    if(birthYear >=1981 && birthYear <= 1991) {
-      var millennial = true;
-      const str = `Oh, and you are a millennial, ${firstName}.`
-      console.log(str);
-    }
-    console.log(str);  // reference error
-    console.log(millennial); // accessible, VAR is pre-ES6 variable 
+ ### Nested functions
 
-    }
-    printAge();
-    return age;
-  }
-  
-  const firstName = "Mari";
-  calcAge(1985);
-  ```
+- engine tries to access age variable in the current scope (_printAge()_ scope) > doesn't find it > goes UP to the parent scope > finds it there (_calcAge()_ scope)
+- **scoping is the same for parameters of a function as it is for variables**
+- scope of a variable is the entire region in which the variable is accessible
+( `age` is accessible inside `calcAge` function and all the child scopes (inner scopes))
+<p>&nbsp;</p>
+
+```js
+function calcAge(birthYear) {
+const age = 2021 - birthYear;
+
+function printAge() {
+const output = `You are ${age}, born in ${birthYear}.`
+console.log(output)
+}
+printAge();
+return age;
+}
+
+const firstName = "Mari";
+calcAge(1985);
+
+// reference error - cannot access scope
+console.log(age);
+printAge();
+```
+<p>&nbsp;</p>
 
 
-**From ES6, functions are block-scoped**
- **when in strict mode**
+### Block scope
 
+`console.log(str);` isn't accessible
+
+`console.log(millennial)` is accessible =  **VAR is pre-ES6, function-scoped variable**, it ignores blocks
+
+- don't use VAR if you don't have to
+<p>&nbsp;</p>
+
+```js
+function calcAge(birthYear) {
+const age = 2021 - birthYear;
+//console.log(firstName);
+
+function printAge() {
+const output = `${firstName}, you are ${age}, born in ${birthYear}.`
+console.log(output)
+
+//BLOCK SCOPE
+if(birthYear >=1981 && birthYear <= 1991) {
+var millennial = true;
+const str = `Oh, and you are a millennial, ${firstName}.`
+console.log(str);
+}
+console.log(str);  // reference error
+console.log(millennial); // accessible, VAR is pre-ES6 variable 
+
+}
+printAge();
+return age;
+}
+
+const firstName = "Mari";
+calcAge(1985);
+```
+<p>&nbsp;</p>
+
+**From ES6, functions are block-scoped when in strict mode**
+<p>&nbsp;</p>
 
 ```js
     //block scope
@@ -661,13 +699,14 @@ Function `calcAge()` is defined in a global scope.
  
     add(2, 3); // reference error, not accessible outside of the "if" block
 ```
+<p>&nbsp;</p>
 
 
 **Declaring a variable inside of a scope that already exists in a parent scope**
 
 JS will look for the variable inside of the scope because it reads what is in the block scope first.
-
 JS won't perform any variable look-up in the scope chain because it found the variable inside of the block that it will use.
+<p>&nbsp;</p>
 
 ```js
 function calcAge() {
@@ -691,15 +730,17 @@ function calcAge() {
 const firstName = "Steven";
 console.log(str); // "Oh, and you are a millennial, Jonas."
 ```
+<p>&nbsp;</p>
 
 You can have variables with same names, if they are in different scopes.
 You can have functions with same parameter names because each parameter is defined in the scope of that function.
-
+<p>&nbsp;</p>
 
 **Redefining a variable from a parent scope inside of the variable scope**
 
 It will print reassigned value because we redefined a variable inside of "if" block from the parent scope (printAge()), we didn't create a new one.
 If we created a new one, it wouldn't be accessible.
+<p>&nbsp;</p>
 
 ```js
 function printAge() {
@@ -726,84 +767,99 @@ function printAge() {
    console.log(output);  // Prints reassigned value!
 }
 ```
+<p>&nbsp;</p>
 
 ___
 
 ## Variable Environment: Hoisting and The TDZ
+<p>&nbsp;</p>
 
 [262.ECMA - 10.3. Variable environment](https://262.ecma-international.org/5.1/#sec-10.3)
+<p>&nbsp;</p>
 
-**HOISTING**
+### HOISTING
 
-  Makes some types of variables accessible/usable in the code before they are declared.
+Makes some types of variables accessible/usable in the code before they are declared.
 
-  "Variables lifted to the top of their scope."
+"Variables lifted to the top of their scope."
+<p>&nbsp;</p>
 
-  **How are variables created in JS?**
+**How are variables created in JS?**
 
-  **Hoisting behind the scenes:** the code is scanned for declarations before it is executed during the creation phase of the execution context.
-  For each variable, a new property is created in the variable environment object.
+**Hoisting behind the scenes:** the code is scanned for declarations before it is executed during the creation phase of the execution context.
+For each variable, a new property is created in the variable environment object.
+<p>&nbsp;</p>
 
-  **Execution context always contains 3 parts:**
+**Execution context always contains 3 parts:**
 
-      - variable environment
-      - scope chain
-      - `this` keyword
-
-
-  **Why hoisting?**
-
-  - using functions before declaration (essential for some techniques)
-  - code is more readable
+	- variable environment
+	- scope chain
+	- `this` keyword
+<p>&nbsp;</p>
 
 
-  **Hoisting doesn't work the same for all variable types**
+#### Why hoisting?
 
-  * **FUNCTION DECLARATION**
+- using functions before declaration (essential for some techniques)
+- code is more readable
 
-    ```js
-    function calcRectArea(width, height) {
-      return width * height;
-    }
-    
-    console.log(calcRectArea(5, 6));
-    // expected output: 30
-    ```
 
-  * **FUNCTION EXPRESSION (with variable)**
+**Hoisting doesn't work the same for all variable types**
+<p>&nbsp;</p>
 
-    ```js
-    const getRectArea = function(width, height) {
-      return width * height;
-    };
-    
-    console.log(getRectArea(3, 4));
-    // expected output: 12
-    ```
+* **FUNCTION DECLARATION**
 
-  * **ANONYMOUS FUNCTION**
+```js
+function calcRectArea(width, height) {
+return width * height;
+}
 
-    ```js
-    function (a){
-      return a + 100;
-    }
-    ```
+console.log(calcRectArea(5, 6));
+// expected output: 30
+```
+<p>&nbsp;</p>
 
-  * **ARROW FUNCTION EXPRESSION  =>**
 
-    ```js
-    // 1. Remove the word "function" and place arrow between the argument and opening body bracket
-    (a) => {
-      return a + 100;
-    }
-    
-    // 2. Remove the body braces and word "return" -- the return is implied.
-    (a) => a + 100;
-    
-    // 3. Remove the argument parentheses
-    a => a + 100;
-    (a, b) => a + b + 100;
-    ```
+* **FUNCTION EXPRESSION (with variable)**
+
+```js
+const getRectArea = function(width, height) {
+return width * height;
+};
+
+console.log(getRectArea(3, 4));
+// expected output: 12
+```
+<p>&nbsp;</p>
+
+
+* **ANONYMOUS FUNCTION**
+
+```js
+function (a){
+return a + 100;
+}
+```
+<p>&nbsp;</p>
+
+
+* **ARROW FUNCTION EXPRESSION  =>**
+
+```js
+// 1. Remove the word "function" and place arrow between the argument and opening body bracket
+(a) => {
+return a + 100;
+}
+
+// 2. Remove the body braces and word "return" -- the return is implied.
+(a) => a + 100;
+
+// 3. Remove the argument parentheses
+a => a + 100;
+(a, b) => a + b + 100;
+```
+<p>&nbsp;</p>
+
 
 **Function declarations:**
 
@@ -812,6 +868,7 @@ ___
 - scope: block (in strict mode)
 
 We can use function declarations before they are declared in the code because they are stored in variable environment object even before the code starts executing.
+<p>&nbsp;</p>
 
 
 **`var` variables:**
@@ -823,6 +880,7 @@ We can use function declarations before they are declared in the code because th
 If we try to access a var variable before it is declared in the code, we don't get the declared value, but undefined.
 This behaviour is one of the common sources of bugs in JS.
 And why in modern JS we almost never use `var`.
+<p>&nbsp;</p>
 
 
 **`let` and `const` variables:**
@@ -834,50 +892,53 @@ And why in modern JS we almost never use `var`.
 They are technically hoisted, but there is no value to work with.
 They are placed in temporal dead zone (TDZ), we can't access the variables in the place between the beginning of the scope and the place where the variables are declared.
 If we try to use them before they are declared, we get error.
-
-
+<p>&nbsp;</p>
+	
+	
 **Function expressions & arrow function expressions:**
 
 - depends if they were created with var or `const`/`let`
 **These functions are variables** and behave like ones in regard to hoisting.
 
 
-  ### TDZ
+**TDZ**
 
-  `let`, `const`
+`let`, `const`
 
-  Variable can be declared (without value) in the TDZ, but it won't be accessible before the line where it is initialised (added value).
+Variable can be declared (without value) in the TDZ, but it won't be accessible before the line where it is initialised (added value).
 
 
-  **Why TDZ?**
+**Why TDZ?**
 
-  1. Makes it easier to avoid and catch errors.
-     Accessing variables before declaration is bad practice and should be avoided.
+1. Makes it easier to avoid and catch errors.
+Accessing variables before declaration is bad practice and should be avoided.
 
-  ```js
-  const myName = "Jonas";
-  
-  if(myName === "Jonas") {
-      console.log(`Jonas is a ${job}.`); // Ref. error: cannot access "job" before initialisation"
-      const age = 2021 - 1991;
-      console.log(age);
-  
-      const job = "teacher"; // everything before is TDZ, here "job" is defined and can be accessed
-      console.log(x);  // Ref.error: x is not defined
-  }
-  ````
+```js
+const myName = "Jonas";
 
+if(myName === "Jonas") {
+console.log(`Jonas is a ${job}.`); // Ref. error: cannot access "job" before initialisation"
+const age = 2021 - 1991;
+console.log(age);
+
+const job = "teacher"; // everything before is TDZ, here "job" is defined and can be accessed
+console.log(x);  // Ref.error: x is not defined
+}
+```
+<p>&nbsp;</p>
+	
 
 2. Makes const variables work the way they are supposed to.
 
   It is not possible to declare a const variable first, and later assign the value.
   `const` should never be reassigned.
   It is assigned only once, when the execution reaches the declaration.
-
+<p>&nbsp;</p>
 
 ___
 
 ## Hoisting and TDZ in practice
+<p>&nbsp;</p>
 
 ### Variables
 
@@ -893,6 +954,7 @@ ___
   // undefined (for var)
   // ReferenceError: Cannot access 'job' before initialization
   ```
+<p>&nbsp;</p>
 
 
 ### Functions
@@ -930,7 +992,8 @@ They are basically being called with undefined: `undefined(2, 3);`
     return a + b;
   }
   ```
-
+<p>&nbsp;</p>
+	
 
 **Example of hoisting mistake**
 
@@ -955,8 +1018,7 @@ They are basically being called with undefined: `undefined(2, 3);`
 --> all products get deleted because of hoisting
 
 `var` was called before declared --> it has value of _undefined_, not 10, which is assigned later > it triggers the execution of if-block and deletes all items because they are not 10, but undefined
-
-
+<p>&nbsp;</p>
 
 
 ### HOISTING - BEST PRACTICES
@@ -970,7 +1032,7 @@ They are basically being called with undefined: `undefined(2, 3);`
 2. **declare variables at the top of each scope**
 
 3. **always first declare functions, use them after declaration**
-
+<p>&nbsp;</p>
 
 
 ### Difference between var and const/let
@@ -993,11 +1055,12 @@ console.log(x === window.x); // true
 console.log(y === window.y); // false
 console.log(z === window.z); // false
 ```
-
+<p>&nbsp;</p>
+	
 ___
 
 ## The _this_ keyword
-
+<p>&nbsp;</p>
 
 EXECUTION CONTEXT: 
 
@@ -1008,7 +1071,7 @@ EXECUTION CONTEXT:
 
   - a special keyword/variable
   - created for every execution context (every function)
-
+<p>&nbsp;</p>
 
 **VALUE of** `this`
 
@@ -1016,7 +1079,7 @@ EXECUTION CONTEXT:
 - value of `this` is not static = it is not always the same
 - its value is assigned only when the function is called
 - it depends on how the function is called
-
+<p>&nbsp;</p>
 
 **4 ways to call a function:**
 
@@ -1027,10 +1090,10 @@ EXECUTION CONTEXT:
   3. arrow functions => (not exactly a way to call a function)
 
   4. AS AN EVENT LISTENER
-
+<p>&nbsp;</p>
 
   5. `new`, `call`, `apply`, `bind` (covered later)
-
+<p>&nbsp;</p>
 
 
   ### 1 - Call a function as a method
@@ -1050,7 +1113,7 @@ EXECUTION CONTEXT:
       ```
 
     `this.year` = `mari.year`
-
+<p>&nbsp;</p>
 
       
     ### Call function as a normal function
@@ -1068,7 +1131,7 @@ EXECUTION CONTEXT:
       `this` points to the `Window` object (global JS object in browser)
 
       This can be very problematic.
-
+<p>&nbsp;</p>
 
 
     ### ARROW FUNCTIONS =>
@@ -1077,25 +1140,28 @@ EXECUTION CONTEXT:
 
       It will belong to the surrounding/parent function = lexical `this` keyword
       It gets picket up from the outer lexical scope of the arrow function.
-
+<p>&nbsp;</p>
+	
 
     ### Call function as an event listener
 
       `this` will point to the DOM element the handler is attached to.
-
+<p>&nbsp;</p>
 
   
 **WHAT `this` IS NOT:**
 
 - never points to the function in which we are using it
 - never points to the variable environment of the function
-
+<p>&nbsp;</p>
 
 ___
 
 ## The `this` keyword in practice
+<p>&nbsp;</p>
 
 **RULES HOW `this` IS DEFINED**
+<p>&nbsp;</p>
 
 
 `this` **outside any function** (in the global scope)
@@ -1118,6 +1184,7 @@ ___
       // 34
       // undefined
       ```
+<p>&nbsp;</p>
 
 **with arrow function =>**
   - uses the lexical .this keyword of its parent scope (here: Window)
@@ -1130,7 +1197,8 @@ ___
       
       calcAgeArrow(1987); // points to Window object
       ```
-      
+<p>&nbsp;</p>
+	
 
 `this` **inside of a method**
   - points to the object it belongs to ("jonas" object is the owner of .this)
@@ -1152,7 +1220,8 @@ ___
 `this` will not point to the object in which we wrote the method.
 It will point to the object that is calling the method.
 It is because of this: `jonas.calcAge();`
-
+<p>&nbsp;</p>
+	
 
   ### METHOD BORROWING
 
@@ -1174,7 +1243,8 @@ It is because of this: `jonas.calcAge();`
 
   Here, `this` points to object matilda which called the method.
   This proves that `this` is not static - it depends on how the function is called.
-
+<p>&nbsp;</p>
+	      
 
 **Taking the function out of the object**
 
@@ -1198,7 +1268,8 @@ Don't call it!
       console.log(2021 - this.year);
     }
   ```
-
+<p>&nbsp;</p>
+	  
 **What implication does it have for `this` keyword?**
 
 ```js
@@ -1214,10 +1285,12 @@ this = _undefined_
 year cannot be read
 
 `this` is now _undefined_ because `f();` is now just a regular function call, without no "owner", it isn't attached to any object.
-
+<p>&nbsp;</p>
+	  
 ___
 
 ## Regular Functions vs. Arrow Functions
+<p>&nbsp;</p>	  
 
 `this`
 
