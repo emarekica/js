@@ -19,17 +19,18 @@ I do not own visual materials. Distribution is prohibited._
 * Primitives vs. Objects (Primitive vs. Reference Types)
 * Primitives vs. Objects in Practice
 
+<p>&nbsp;</p>
 ___ 
 
 ## An High-Level Overview of JavaScript
 
-
+<p>&nbsp;</p>
 ### GARBAGE COLLECTION
 
 - algorithm inside JS engine automatically removes old unused objects from computer memory
 - powerful tools for memory management
 
-
+<p>&nbsp;</p>
 ### HIGH LEVEL
 
 - in low-level languages (C) you have to manage resources (ask the computer for memory to create a new variable)
@@ -38,7 +39,7 @@ ___
 - easier to learn
 - program is never as optimised as program written in low-level language
 
-
+<p>&nbsp;</p>
 ### INTERPRETED OR JUST-IN-TIME COMPILED LANGUAGE
 
 -- computer processor only understands 0 and 1 (machine code, not practical)
@@ -50,11 +51,12 @@ ___
 -- necessary step in every programming language
 -- happens inside JS engine
 
-
+<p>&nbsp;</p>
 ### MULTI PARADIGM LANGUAGE
 
 _PARADIGM_ = approach & mindset of structuring code, directs coding style & technique 
 
+<p>&nbsp;</p>
 **3 popular paradigms:**
 
   1. PROCEDURAL PROGRAMMING
