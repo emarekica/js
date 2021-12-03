@@ -28,8 +28,8 @@ I do not own visual materials. Distribution is prohibited._
 
 - algorithm inside JS engine automatically removes old unused objects from computer memory
 - powerful tools for memory management
-
 <p>&nbsp;</p>
+
 ### HIGH LEVEL
 
 - in low-level languages (C) you have to manage resources (ask the computer for memory to create a new variable)
@@ -37,8 +37,8 @@ I do not own visual materials. Distribution is prohibited._
 
 - easier to learn
 - program is never as optimised as program written in low-level language
-
 <p>&nbsp;</p>
+
 ### INTERPRETED OR JUST-IN-TIME COMPILED LANGUAGE
 
 -- computer processor only understands 0 and 1 (machine code, not practical)
@@ -49,13 +49,13 @@ I do not own visual materials. Distribution is prohibited._
 -- it has to be **translated back to machine code: COMPILING or INTERPRETING**
 -- necessary step in every programming language
 -- happens inside JS engine
-
 <p>&nbsp;</p>
+
 ### MULTI PARADIGM LANGUAGE
 
 _PARADIGM_ = approach & mindset of structuring code, directs coding style & technique 
-
 <p>&nbsp;</p>
+
 **3 popular paradigms:**
 
   1. PROCEDURAL PROGRAMMING
@@ -64,24 +64,25 @@ _PARADIGM_ = approach & mindset of structuring code, directs coding style & tech
 
   2. OBJECT-ORIENTED PROGRAMMING (OOP)
   3. FUNCTIONAL PROGRAMMING (FP)
+<p>&nbsp;</p>
 
 Paradigms can be:
 
   **imperative**
   **declarative**
-
+<p>&nbsp;</p>
 
 ### PROTOTYPE-BASED OBJECT-ORIENTED 
 
 Almost everything in JS is an object (except primitive values).
-
+<p>&nbsp;</p>
 
 **prototypal inheritance**
 
 	- **we create from a blueprint, which is called PROTOTYPE**
 	- prototype contains all the object methods
 	- objects created from the prototype inherit all the methods from it
-
+<p>&nbsp;</p>
 
 Prototype examples:
 
@@ -93,7 +94,7 @@ Array made from it:
 	  `const arr = [1, 2, 3];`
 	  `arr.push(4);`
 	  `const hadZero = arr.indexOf(0) > -1;`
-
+<p>&nbsp;</p>
 
 ### FIRST-CLASS FUNCTIONS
 
