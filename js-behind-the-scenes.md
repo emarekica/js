@@ -154,7 +154,7 @@ example of passing the function into another function:
 <p>&nbsp;</p>
 
 (All of this is a huge over-simplification.)
-<p>&nbsp;</p>
+
 
 ___
 
@@ -925,7 +925,7 @@ console.log(x);  // Ref.error: x is not defined
 <p>&nbsp;</p>
 	
 
-2. Makes const variables work the way they are supposed to.
+2. Makes const` variables work the way they are supposed to.
 
   It is not possible to declare a const variable first, and later assign the value.
   `const` should never be reassigned.
