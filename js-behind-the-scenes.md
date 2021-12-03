@@ -41,14 +41,14 @@ I do not own visual materials. Distribution is prohibited._
 
 ### INTERPRETED OR JUST-IN-TIME COMPILED LANGUAGE
 
--- computer processor only understands 0 and 1 (machine code, not practical)
--- no one writes it manually
--- we write human-readable JS code
+- computer processor only understands 0 and 1 (machine code, not practical)
+- no one writes it manually
+- we write human-readable JS code
 
--- it is abstraction over machine code
--- it has to be **translated back to machine code: COMPILING or INTERPRETING**
--- necessary step in every programming language
--- happens inside JS engine
+- it is abstraction over machine code
+- it has to be **translated back to machine code: COMPILING or INTERPRETING**
+- necessary step in every programming language
+- happens inside JS engine
 <p>&nbsp;</p>
 
 ### MULTI PARADIGM LANGUAGE
@@ -68,8 +68,8 @@ _PARADIGM_ = approach & mindset of structuring code, directs coding style & tech
 
 Paradigms can be:
 
-  **imperative**
-  **declarative**
+ * **imperative**
+ * **declarative**
 <p>&nbsp;</p>
 
 ### PROTOTYPE-BASED OBJECT-ORIENTED 
@@ -102,16 +102,17 @@ Array made from it:
 - we can pass functions in & return functions from other functions
 - extremely powerful
 - allows functional programming
-
+<p>&nbsp;</p>
 
 example of passing the function into another function:
 
   `btnNew.addEventListener("click", init);`
-
+<p>&nbsp;</p>
 
 ### DYNAMIC LANGUAGE
 
 - meaning: **dynamically typed (type of variables can easily be changes as we reassign them)**
+<p>&nbsp;</p>
 
 - we don't assign data types to variables
 - data types become known when JS engine executes code
@@ -120,7 +121,7 @@ example of passing the function into another function:
 (Typescript - for JS written with types, _strongly typed_)
 
   _A strongly-typed programming language is one in which each type of data (such as integer, character, hexadecimal, packed decimal, and so forth) is predefined as part of the programming language and all constants or variables defined for a given program must be described with one of the data types._
-
+<p>&nbsp;</p>
 
 ### SINGLE-THREADED, NON-BLOCKING EVENT LOOP concurrency model#
 
@@ -130,49 +131,51 @@ example of passing the function into another function:
 - how JS engine handles multiple tasks happening at the same time
 - we need it because JS runs in one single thread = it can only do one thing at a time
 - therefore we need a way of handling multiple things happening at the same time
-
+<p>&nbsp;</p>
 
 **Thread:**
 
 - set of instructions executed in computers CPU (_central processing unit_, processor)
 - **thread is where our code is executed in the machine's processor**
 - long running tasks (i.e: fetching data from a remote server) don't block the single thread because of the **event loop**
-
+<p>&nbsp;</p>
 
 **Event loop:**
 
 - takes long-running tasks
 - executes them in the "background"
 - puts them back in the main thread once they are finished
-
+<p>&nbsp;</p>
 
 (All of this is a huge over-simplification.)
 
-___
 
 ## The JavaScript Engine and Runtime
+<p>&nbsp;</p>
 
 ### JS ENGINE
 
 - computer program that executes JS code
 - every browser has its own JS engine
 - most known is Google's V8 (written in C++) > it powers Chrome & Node.js (for building server side apps with JS outside of any browser)
+<p>&nbsp;</p>
 
+**JS engine COMPONENTS**
 
-	**JS engine COMPONENTS**
-
-	**CALL STACK:** where the code is executed using execution contexts
-	**HEAP (hrpa):** unstructured memory pool which stores all the objects the app needs
+**CALL STACK:** where the code is executed using execution contexts
+**HEAP (hrpa):** unstructured memory pool which stores all the objects the app needs
+<p>&nbsp;</p>
 
 ![JS engine](img/01-js-engine.png)
-
+<p>&nbsp;</p>
 
 
 #### HOW JS engine WORKS
 How is the code compiled to machine code so it can be executed?
+<p>&nbsp;</p>
 
 ![Compilation vs Interpretation](img/02-compilation-interpretation.png)
-
+<p>&nbsp;</p>
 
  **Compilation**
 
@@ -182,6 +185,7 @@ How is the code compiled to machine code so it can be executed?
 
   - execution can happen way after the compilation
   - any app on our computers have been compiled before
+<p>&nbsp;</p>
 
 
  **Interpretation**
@@ -194,12 +198,13 @@ How is the code compiled to machine code so it can be executed?
 
   **JS used to be only interpreted language.**
   Problem: it is slower than compiled languages.
-
+<p>&nbsp;</p>
 
 
 ### HOW MODERN JS ENGINE WORKS
 
-Modern JS engine uses mix between compilation & interpretation: 
+Modern JS engine uses mix between compilation & interpretation.
+<p>&nbsp;</p>
 
 **JIT compilation (just-in-time compilation)**
 Entire code is compiled into machine code at once and executed right away.
@@ -217,43 +222,48 @@ As the JS code enters the JS engine...
 
 ### 1. Parsing = reading the code
 
-  -- code is parsed into **AST** (abstract syntax tree, data structure; **has nothing to do with DOM tree**)
-  -- splits each line of code into pieces meaningful to the language (const, function ... )
-  -- saves those pieces into the tree in a structured way
-  -- checks for syntax errors
-  -- resulting AST is later used to generate machine code
+  - code is parsed into **AST** (abstract syntax tree, data structure; **has nothing to do with DOM tree**)
+  - splits each line of code into pieces meaningful to the language (const, function ... )
+  - saves those pieces into the tree in a structured way
+  - checks for syntax errors
+  - resulting AST is later used to generate machine code
+<p>&nbsp;</p>
 
 ### 2. Compilation
 
   -- takes generated AST and compiles it into machine code
+<p>&nbsp;</p>
 
 ### 3. Execution
 
   -- machine code gets executed right away
   -- it happens in JS engine Call Stack
 
+<p>&nbsp;</p>
 **Parsing, compilation and optimisation happen in special threads in CPU that are not accessible from the code.**
 They are separated from the main thread that is executing the code.
-
+<p>&nbsp;</p>
 
 **JS engines have optimisation strategies**
 
--- at the beginning, they create unoptimised machine code
--- it starts as fast as possible
+- at the beginning, they create unoptimised machine code
+- it starts as fast as possible
 
--- in the background, the code is being optimised and re-compiled during the already running program execution
--- can be done multiple times
--- old code is swapped with the new optimised code without stopping executions
+- in the background, the code is being optimised and re-compiled during the already running program execution
+- can be done multiple times
+- old code is swapped with the new optimised code without stopping executions
 
 **This process makes modern JS engines fast.**
-
+<p>&nbsp;</p>
 
 
 ## JS RUNTIME
 
 ****RUNTIME IN THE BROWSER (mostly used)****
+<p>&nbsp;</p>
 
 ![JS runtime](img/04-js-runtime.png)
+<p>&nbsp;</p>
 
 **Runtime is a container including all the things we need to use JS** 
 (1, 2, 3, 4)
@@ -266,7 +276,7 @@ They are separated from the main thread that is executing the code.
   They are accessible in the global `window` object, through JS gets access to them.
 
 - **Callback queue (3)** is data structure containing all callback functions ready to be executed.
-
+<p>&nbsp;</p>
 
 * **callback function** = _function passed into another function as an argument, which is then invoked inside the outer function to complete some kind of routine or action (example: event handler functions)_
 
