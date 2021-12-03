@@ -368,7 +368,7 @@ __Exception: arrow functions () => {}__
   = "place" where execution contexts get stacked on top of each other, to keep track of where we are in the execution
 
 
-![Call Stack](img/08-call-stack.png)
+![Call Stack](img/08-callstack.png)
 
   - execution context on the top is the on that is running
   - after it finishes, it is removed
