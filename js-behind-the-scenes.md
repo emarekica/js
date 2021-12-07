@@ -1113,10 +1113,10 @@ EXECUTION CONTEXT:
 <p>&nbsp;</p>
 
 
-  ### 1 - Call a function as a method
-    (a function attached to an object)
+### 1 - Call a function as a method
+(a function attached to an object)
 
-    When we call a method, `this` will point to the object on which the method is called.
+When we call a method, `this` will point to the object on which the method is called.
 
       ```js
       const mari = {
@@ -1133,8 +1133,8 @@ EXECUTION CONTEXT:
 <p>&nbsp;</p>
 
       
-    ### Call function as a normal function
-      (not attached to any object)
+### 2- Call function as a normal function
+(not attached to any object)
 
       In strict mode:
 
@@ -1151,7 +1151,7 @@ EXECUTION CONTEXT:
 <p>&nbsp;</p>
 
 
-    ### ARROW FUNCTIONS =>
+### 3 - ARROW FUNCTIONS =>
 
       **! They do not get their own .this keyword!**
 
@@ -1160,7 +1160,7 @@ EXECUTION CONTEXT:
 <p>&nbsp;</p>
 	
 
-    ### Call function as an event listener
+### 4- Call function as an event listener
 
       `this` will point to the DOM element the handler is attached to.
 <p>&nbsp;</p>
