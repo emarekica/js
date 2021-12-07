@@ -905,13 +905,8 @@ If we try to use them before they are declared, we get error.
 `let`, `const`
 
 Variable can be declared (without value) in the TDZ, but it won't be accessible before the line where it is initialised (added value).
-
-
-**Why TDZ?**
-
-1. Makes it easier to avoid and catch errors.
-Accessing variables before declaration is bad practice and should be avoided.
-
+<br>
+	
 ```js
 const myName = "Jonas";
 
@@ -924,10 +919,25 @@ const job = "teacher"; // everything before is TDZ, here "job" is defined and ca
 console.log(x);  // Ref.error: x is not defined
 }
 ```
-<p>&nbsp;</p>
+<br>
 	
+	
+`job` is in TDZ, but it is still declared, but the engine knows it will still be initialized.
+The engine read the code before and set the `job` variable in the variable environment to uninitialized.
+Then, when execution reaches the line where the variable is declared, `job` is removed from TDZ and is safe to use.
 
-2. Makes const` variables work the way they are supposed to.
+
+Each `let` and `const` variable get their own TDZ that start at the beginning of the scope until the line where it is defined.
+**Variable is only safe to use after TDZ.**
+<br>
+
+**Why TDZ?**
+
+1. Makes it easier to avoid and catch errors.
+Accessing variables before declaration is bad practice and should be avoided.
+<br>
+
+2. Makes `const` variables work the way they are supposed to.
 
   It is not possible to declare a const variable first, and later assign the value.
   `const` should never be reassigned.
