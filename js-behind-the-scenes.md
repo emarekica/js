@@ -911,12 +911,12 @@ Variable can be declared (without value) in the TDZ, but it won't be accessible 
 const myName = "Jonas";
 
 if(myName === "Jonas") {
-console.log(`Jonas is a ${job}.`); // Ref. error: cannot access "job" before initialisation"
-const age = 2021 - 1991;
-console.log(age);
+	console.log(`Jonas is a ${job}.`); // Ref. error: cannot access "job" before initialisation"
+	const age = 2021 - 1991;
+	console.log(age);
 
-const job = "teacher"; // everything before is TDZ, here "job" is defined and can be accessed
-console.log(x);  // Ref.error: x is not defined
+	const job = "teacher"; // everything before is TDZ, here "job" is defined and can be accessed
+	console.log(x);  // Ref.error: x is not defined
 }
 ```
 <br>
