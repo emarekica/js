@@ -780,6 +780,9 @@ ___
 <p>&nbsp;</p>
 
 ### HOISTING
+<br>
+
+![hoisting](img/13-hoisting.png)
 
 Makes some types of variables accessible/usable in the code before they are declared.
 
@@ -901,6 +904,9 @@ If we try to use them before they are declared, we get error.
 
 
 **TDZ**
+<br>
+	
+![TDZ](img/14-tdz.png)
 
 `let`, `const`
 
@@ -1070,6 +1076,8 @@ ___
 
 ## The _this_ keyword
 <p>&nbsp;</p>
+	
+![this keyword](img/15-this-keyword.png)
 
 EXECUTION CONTEXT: 
 
@@ -1486,6 +1494,10 @@ This keyword is not so important in > ES6, there is better way of dealing with a
 ___
 
 ## Primitives vs. Objects (Primitive vs. Reference Types)
+<br>
+	  
+![primitives objects](img/16-primitives-objects-jsengine.png)
+<br>
 
 **PRIMITIVES vs OBJECTS (Primitive vs Reference type)**
 Difference in how primitive types and objects are stored in memory
@@ -1580,7 +1592,10 @@ They are stored differently.
   1. created unique identifier
   2. points to new memory address
   3. memory address references to the **memory address of the object in the heap** (used as its value)
-
+<br>
+	  
+![Heap](img/17-heap.pnd)
+<br>
 
   **in the HEAP:**
 
