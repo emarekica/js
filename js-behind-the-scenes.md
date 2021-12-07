@@ -240,13 +240,13 @@ As the JS code enters the JS engine...
 
 ### 2. COMPILATION
 
-  -- takes generated AST and compiles it into machine code
+  - takes generated AST and compiles it into machine code
 <p>&nbsp;</p>
 
 ### 3. EXECUTION
 
-  -- machine code gets executed right away
-  -- it happens in JS engine Call Stack
+  - machine code gets executed right away
+  - it happens in JS engine Call Stack
 
 <p>&nbsp;</p>
 **Parsing, compilation and optimisation happen in special threads in CPU that are not accessible from the code.**
@@ -265,6 +265,7 @@ They are separated from the main thread that is executing the code.
 **This process makes modern JS engines fast.**
 <p>&nbsp;</p>
 
+___
 
 ## JS RUNTIME
 
@@ -584,6 +585,7 @@ Scope chain does not work SIDEWAYS nor DOWN, only UP.
 
 [Execution vs Lexical vs Variable environment](https://medium.com/@bdov_/javascript-typescript-execution-vs-lexical-vs-variable-environment-37ff3f264831)
 <p>&nbsp;</p>
+
 ___
 
 ## Scoping in practice
