@@ -907,8 +907,7 @@ If we try to use them before they are declared, we get error.
 <br>
 	
 ![TDZ](img/14-tdz.png)
-
-`let`, `const`
+<br>
 
 Variable can be declared (without value) in the TDZ, but it won't be accessible before the line where it is initialised (added value).
 <br>
@@ -941,11 +940,10 @@ Each `let` and `const` variable get their own TDZ that start at the beginning of
 
 1. Makes it easier to avoid and catch errors.
 Accessing variables before declaration is bad practice and should be avoided.
-<br>
 
 2. Makes `const` variables work the way they are supposed to.
 
-  It is not possible to declare a const variable first, and later assign the value.
+  It is not possible to declare a `const variable first, and later assign the value.
   `const` should never be reassigned.
   It is assigned only once, when the execution reaches the declaration.
 <p>&nbsp;</p>
