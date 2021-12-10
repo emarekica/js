@@ -1243,18 +1243,18 @@ It is because of this: `jonas.calcAge();`
   **Functions are values.**
   We can copy them from one object to another
 
-      ```js
-      matilda.calcAge = jonas.calcAge;
-      
-      < matilda
-      > {year: 2017, calcAge: ƒ}
-      // calcAge shows in the matilda object in the console 
-      
-      < jonas
-      > {year: 1987, calcAge: ƒ}
+  ```js
+  matilda.calcAge = jonas.calcAge;
+  
+  < matilda
+  > {year: 2017, calcAge: ƒ}
+  // calcAge shows in the matilda object in the console 
+  
+  < jonas
+  > {year: 1987, calcAge: ƒ}
 
-      matilda.calcAge();  // 4
-      ```
+  matilda.calcAge();  // 4
+  ```
 
   Here, `this` points to object matilda which called the method.
   This proves that `this` is not static - it depends on how the function is called.
@@ -1291,7 +1291,7 @@ Don't call it!
 f();
  
 > undefined
-> Uncaught TypeError: Cannot read properties of undefined (reading 'year'
+> Uncaught TypeError: Cannot read properties of undefined (reading 'year')
 ```
 
 `console.log(2021 - this.year);`
@@ -1337,6 +1337,7 @@ We get _undefined_ because arrow function doesn't have its own `this`, it uses t
 
 `this` points to the Window object.
 On the Window object, there is no firstName, so we get _undefined_.
+<br>
 
 
 Using `this` with arrow functions can be dangerous if we declare variables with `var`.
@@ -1367,7 +1368,7 @@ Inside `greet()` function, `window` is pointed by `this` keyword, although the f
 `Window` contains `firstName` property with value Matilda and it will be printed.
 
 **Takeaway: never use arrow function as a method (as a function inside of an object).**
-
+<br>
 
   ### Having a function inside of a method
 
@@ -1402,59 +1403,67 @@ Inside of the `isMillenial()` function, `this` is undefined.
 `isMillenial()` is a **regular function call**, even though it happens inside of a method (`calcAge()`). Inside of a regular function call, `this` is undefined, that is why we get the error.
 
 **The behaviour is as if the functin `isMillenial()` was outside of the object.**
+<br>
+<br>
 
+### 2 solutions to the problem of .this  used in function inside of a method:
 
- ### 2 solutions to the problem of .this  used in function inside of a method:
+1. pre-ES6: **use extra variable, self / that outside of the function**
 
-    1. pre-ES6: **use extra variable, self / that outside of the function**
+There you still have access to .this set to jonas object because of the scope chain.
+Then use it in the function.
 
-      There you still have access to .this set to jonas object because of the scope chain.
-      Then use it in the function.
+```js
+calcAge: function() {
+    console.log(this);
+    console.log(2021 - this.year);
 
-      ```js
-      calcAge: function() {
-          console.log(this);
-          console.log(2021 - this.year);
-      
-          // Solution 1
-          const self = this;
-          const isMillenial = function() {
-            console.log(self.year <= 1996 && self.year >= 1981);
-          }
-          isMillenial();
-        },
-      (...)
-      }
-      
-      jonas.calcAge(); 
-      // 34
-      // true
-      ```
+    // Solution 1
+    const self = this;
+    const isMillenial = function() {
+      console.log(self.year <= 1996 && self.year >= 1981);
+    }
+    isMillenial();
+  },
+(...)
+}
+
+jonas.calcAge(); 
+// 34
+// true
+```
+<br>
 
     
-    2. ES6 solution: **use an arrow function**
+2. ES6 solution: **use an arrow function**
 
-      It is going to work because arrow function does not have its own `this` keyword.
-      It will use `this` of its parent scope > `calcAge()` method, where `this` points to jonas object
+It is going to work because arrow function does not have its own `this` keyword.
+It will use `this` of its parent scope > `calcAge()` method, where `this` points to jonas object.
+<br>
 
-      ```js
-      // Solution 2
-      const isMillenial = () => {
-        console.log(this.year <= 1996 && this.year >= 1981);
-      }
-      isMillenial();
-      
-      jonas.calcAge();
-      // 34
-      // true
-      ```
+```js
+// Solution 2
+const isMillenial = () => {
+  console.log(this.year <= 1996 && this.year >= 1981);
+}
+isMillenial();
+
+jonas.calcAge();
+// 34
+// true
+```
+<br>
 
 
   ### `arguments` keyword
 
-  Functions also get access to arguments keyword (function declarations and expressions).
-  `arguments` is only available in regular functions.
+`arguments` is an Array-like object accessible inside functions that contains the values of the arguments passed to that function.
+The arguments object is a local variable available within all non-arrow functions. You can refer to a function's arguments inside that function by using its arguments object. It has entries for each argument the function was called with, with the first entry's index at 0
+<br>
 
+Functions also get access to `arguments` keyword (function declarations and expressions).
+`arguments` is only available in regular functions.
+<br>
 
   ```js
   const addExpression = function (a, b) {
@@ -1467,28 +1476,30 @@ Inside of the `isMillenial()` function, `this` is undefined.
   
   // > Arguments(2) [2, 5, 8, 9 callee: (...), Symbol(Symbol.iterator): ƒ]
   ```
+  <br>
 
-  We get an array with parameters that we passed in.
-  Useful when we need more parameters than specified.
-  We could loop over arguments array and loop all numbers together.
+We get an array with parameters that we passed in.
+Useful when we need more parameters than specified.
+We could loop over arguments array and loop all numbers together.
+<br>
+<br>
 
-  ***
+**Arrow function doesn't get `arguments` keyword.**
 
-  **Arrow function doesn't get `arguments` keyword.**
+```js
+var addArrow =  (a, b) => {
+  console.log(arguments);
+  return a + b;
+}
 
-  ```js
-  var addArrow =  (a, b) => {
-    console.log(arguments);
-    return a + b;
-  }
-  
-  addArrow(2, 6);
-  // ReferenceError: arguments is not defined at addArrow
-  ```
+addArrow(2, 6);
+// ReferenceError: arguments is not defined at addArrow
+```
 
 
-This keyword is not so important in > ES6, there is better way of dealing with arguments.
-
+This keyword is not so important in ES6, there is better way of dealing with arguments.
+<br>
+<br>
 ___
 
 ## Primitives vs. Objects (Primitive vs. Reference Types)
