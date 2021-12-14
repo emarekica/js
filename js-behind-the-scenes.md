@@ -1510,23 +1510,24 @@ ___
 
 **PRIMITIVES vs OBJECTS (Primitive vs Reference type)**
 Difference in how primitive types and objects are stored in memory
-
+<br>
 
 **PRIMITIVES:**
 
-number
-string
-boolean
-udefined
-null
-symbol
-BigInt
+- number
+- string
+- boolean
+- udefined
+- null
+- symbol
+- BigInt
 
 **OBJECTS:** everything else
+<br>
+<br>
 
 
-
-example with primitives:
+example with **primitives**:
 
   ```js
   let age = 30;
@@ -1536,8 +1537,9 @@ example with primitives:
   console.log(age);       // 31 
   console.log(oldAge);    // 30
   ```
-
-example with object:
+<br>
+	  
+example with **object**:
 
   ```js
   const me = {
@@ -1551,143 +1553,156 @@ example with object:
   console.log("Friend:", friend);  // Friend: {name: 'Mari', age: 27}
   console.log("Me:", me);          // Me: {name: 'Mari', age: 27}
   ```
-
+<br>
+<br>
 
 **In context of memory:**
 
-  primitives = **primitive types**
-  objects = **reference types**
+- primitives = **primitive types**
+- objects = **reference types**
 
 They are stored differently.
-
+<br>
 
 **JS engine:**
 
-  **call stack** (where the code is executed)
-  **heap** (where objects are stored in memory)
+- **call stack** (where the code is executed)
+- **heap** (where objects are stored in memory)
 
 **Primitive types** are stored in the **call stack**, in the **execution contexts** in which they are declared.
 **Objects** are stored in JS Engine's **heap**.
+<br>
+<br>
+	  
+### Storing primitive types 
 
+When we declare a variable `const age = 30`;, here is what happens inside JS Engine and computer's memory:
+<br>
 
-  ### Storing primitive types 
+**IN CALL STACK:**
 
-  When we declare a variable const age = 30;, here is what happens inside JS Engine and computer's memory.
+1. JS creates unique identifier with variable name (age).
+2. A piece of memory gets allocated, with a certain address (000 1).
+3. Value gets stored in memory at the specified address (30).
+<br>
 
+***Identifier points to the ADDRESS, not to the value.**
 
-  **IN CALL STACK:**
+- no: Age is equal to 30.
+- yes: Age is equal to the address 0001, which holds the value of 30.
 
-  1. JS creates unique identifier with variable name (age).
-  2. A piece of memory gets allocated, with a certain address (000 1).
-  3. Value gets stored in memory at the specified address (30).
+When we reassign the value to the variable, we reassign it a different address that holds that new value.
+We don't reassign a new value to the existing address.
 
+**Value at a certain address is immutable.**
+<br>
+<br>  
 
-  ***Identifier points to the ADDRESS, not to the value.**
+### Storing reference types
+<br>
 
-  no: Age is equal to 30.
-  yes: Age is equal to the address 0001, which holds the value of 30.
+**in the CALL STACK:**
 
-  When we reassign the value to the variable, we reassign it a different address that holds that new value.
-  We don't reassign a new value to the existing address.
-
-  **Value at a certain address is immutable.**
-
-  
-  
-  ### Storing reference types
-
-  **in the CALL STACK:**
-
-  1. created unique identifier
-  2. points to new memory address
-  3. memory address references to the **memory address of the object in the heap** (used as its value)
+1. created unique identifier
+2. points to new memory address
+3. memory address references to the **memory address of the object in the heap** (used as its value)
 <br>
 	  
 ![Heap](img/17-heap.pnd)
 <br>
 
   **in the HEAP:**
+<br>
+	  
+1. assigned a memory address
+2. address has an assigned
 
-  1. assigned a memory address
-  2. address has an assigned
+The identifier doesn't point directly to the new created address in the heap.
+That is why we call objects - reference types, in this context.
 
-  The identifier doesn't point directly to the new created address in the heap.
-  That is why we call objects - reference types, in this context.
-
-  Objects might be too large to be stored in the stack.
-  Instead, the are stored in the stack (unlimited), and only reference is stored in the call stack.
-
-
+Objects might be too large to be stored in the stack.
+Instead, the are stored in the stack (unlimited), and only reference is stored in the call stack.
+<br>
+<br>
   
-  ### Changing a property in the object
-  (as seen from the memory perspective)
+### Changing a property in the object
+(as seen from the memory perspective)
 
-    `friend.age = 27;`
+`friend.age = 27;`
+<br>
+	  
+1. object is found in the heap
+2. age is changed to 27
+<br>
+	  
+Now we have 2 different identifiers (me, friend) pointing to the same value in the call stack, that is referencing the same object address in the heap, and they will have the same value.
 
-  1. object is found in the heap
-  2. age is changed to 27
+**Only primitive values defined with const are immutable.
+Reference values defined with const are mutable.**
 
-  Now we have 2 different identifiers (me, friend) pointing to the same value in the call stack, that is referencing the same object address in the heap, and they will have the same value.
+```js
+const friend = me;
+friend.age = 27; 
+```
+<br>
 
-  **Only primitive values defined with const are immutable.
-  Reference values defined with const are mutable.**
+Although the object is defined with `const`, you can still change its value because you're not changing the value at the address in the call stack (which is reference to the object).
 
-    ```js
-    const friend = me;
-    friend.age = 27; 
-    ```
-
-  Although the object is defined with `const`, you can still change its value because you're not changing the value at the address in the call stack (which is reference to the object).
-
-  **When you are copying an object, you are creating a new variable that is pointing to the exact same object.**
-
+**When you are copying an object, you are creating a new variable that is pointing to the exact same object.**
+<br>
+<br>
 
 ___
 
 ## Primitives vs. Objects in Practice
 
 **Mutating a primitive**
-
+<br>
+	  
 Each primitive value will be saved into its own piece of memory in the stack.
 
-  ```js
-  // initial value
-  let lastName = "Williams";
- 
-  // person is getting married so we save the old last name
-  let oldLastName = lastName;
- 
-  // at this point in the code, the person is married and has new last name
-  lastName = "Davis";
- 
-  console.log(lastName, oldLastName); // Davis, Williams
-  ```
+```js
+// initial value
+let lastName = "Williams";
 
+// person is getting married so we save the old last name
+let oldLastName = lastName;
+
+// at this point in the code, the person is married and has new last name
+lastName = "Davis";
+
+console.log(lastName, oldLastName); // Davis, Williams
+```
+<br>
+<br>
+	  
 ### Mutating objects (reference values)
 
-  ```js
-  const jessica = {
-    firstName: "Jessica",
-    lastName: "Williams",
-    age: 32,
-  };
-  
-  // Jessica is getting married and will change her last name
-  const marriedJessica = jessica;
-  marriedJessica.lastName = "Davis";
-  
-  console.log("Before marriage:", jessica);         // "Davis"
-  console.log("After marriage:", marriedJessica);   // "Davis"
-  ```
+```js
+const jessica = {
+firstName: "Jessica",
+lastName: "Williams",
+age: 32,
+};
 
+// Jessica is getting married and will change her last name
+const marriedJessica = jessica;
+marriedJessica.lastName = "Davis";
+
+console.log("Before marriage:", jessica);         // "Davis"
+console.log("After marriage:", marriedJessica);   // "Davis"
+```
+<br>
+	  
 It looks like we are copying the whole object. Behind the scenes, we are copying the reference that points to the same  object. Those are two names for the same object.
 
 `marriedJessica` **is not a new object in the heap.**
 **It is just a new variable in the stack, which holds the reference to the original object,** `jessica`,
 So we change the property in the original object from "Williams" to "Davis".
-
+<br>
+	  
 `const` is about the **value in the stack**, which is not changing and it is the reference to the object. The object in the heap is changing and it has nothing to do with `const`.
-
+<br>
 
 **Assigning a new object is completely different than changing a property.**
 
@@ -1703,34 +1718,36 @@ If it was declared with let, this would work.
   marriedJessica = {}; // this won't work
   // TypeError: Assignment to constant variable
   ```
-
+<br>
 
 **Copying an object so that we can change the copy without changing the original**
 
   `object.assign()`
-
+<br>
+	  
 **It merges 2 objects and returns new object with all properties copied.**
 
 New object is created in the heap (empty one + copy of jessica2) and `jessicaCopy` is pointing to that new object.
 
-  ```js
-  const jessica2 = {
-    firstName: 'Jessica',
-    lastName: 'Williams',
-    age: 32,
-  };
-  
-  // merging new empty object with object jessica2
-  const jessicaCopy = object.assign({}, jessica2);
-  jessicaCopy.lastName = "Davis";
-  
-  console.log("Before marriage:", jessica2);
-  console.log("After marriage", jessicaCopy);
-  
-  // Before marriage: {firstName: 'Jessica', lastName: 'Williams', age: 32}
-  // After marriage {firstName: 'Jessica', lastName: 'Davis', age: 32}
-  ```
+```js
+const jessica2 = {
+firstName: 'Jessica',
+lastName: 'Williams',
+age: 32,
+};
 
+// merging new empty object with object jessica2
+const jessicaCopy = object.assign({}, jessica2);
+jessicaCopy.lastName = "Davis";
+
+console.log("Before marriage:", jessica2);
+console.log("After marriage", jessicaCopy);
+
+// Before marriage: {firstName: 'Jessica', lastName: 'Williams', age: 32}
+// After marriage {firstName: 'Jessica', lastName: 'Davis', age: 32}
+```
+<br>
+	  
 This only works on the first level, **it creates a shallow copy**.
 
 The object inside of an object would still be the same if this method is used > it would still point to the same place in the heap.
@@ -1739,25 +1756,27 @@ We would like to have a **deep clone**.
 
 **Shallow copy** copies properties on the first level.
 **Deep clone** copies everything.
-
+<br>
 
 If you add an array in ``jessica2``, it will be in both objects after you use ``Object.copy()``.
 
 * array is just an object behind the scenes, so this works
 
-  ```
-  // Before marriage: {firstName: 'Jessica', lastName: 'Williams', age: 32, family: Array(2)}
-  // After marriage {firstName: 'Jessica', lastName: 'Davis', age: 32, family: Array(2)}
-  ```
-
+```
+// Before marriage: {firstName: 'Jessica', lastName: 'Williams', age: 32, family: Array(2)}
+// After marriage {firstName: 'Jessica', lastName: 'Davis', age: 32, family: Array(2)}
+```
+<br>
+	  
 Changing the existing array in a new/copied object
 
-  ```
-  // manipulating object within an object
-  jessicaCopy.family.push("Bey");
-  jessicaCopy.family.push("How");
-  ```
-
+```
+// manipulating object within an object
+jessicaCopy.family.push("Bey");
+jessicaCopy.family.push("How");
+```
+<br>
+	  
 **It changes the property `family` in both objects.**
 
 They point to the same (nested) object `family` in the heap, so if you change it in one, you change it also in another one.
