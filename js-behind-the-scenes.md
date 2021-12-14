@@ -1616,17 +1616,17 @@ We don't reassign a new value to the existing address.
 ![Heap](img/17-heap.pnd)
 <br>
 
-  **in the HEAP:**
+**in the HEAP:**
 <br>
 	  
 1. assigned a memory address
-2. address has an assigned
+2. address has an assigned value
 
 The identifier doesn't point directly to the new created address in the heap.
 That is why we call objects - reference types, in this context.
 
 Objects might be too large to be stored in the stack.
-Instead, the are stored in the stack (unlimited), and only reference is stored in the call stack.
+Instead, the are stored in the heap (unlimited), and only reference is stored in the call stack.
 <br>
 <br>
   
@@ -1684,10 +1684,10 @@ console.log(lastName, oldLastName); // Davis, Williams
 ### Mutating objects (reference values)
 
 ```js
-const jessica = {
-firstName: "Jessica",
-lastName: "Williams",
-age: 32,
+	const jessica = {
+	firstName: "Jessica",
+	lastName: "Williams",
+	age: 32,
 };
 
 // Jessica is getting married and will change her last name
@@ -1724,10 +1724,11 @@ If it was declared with let, this would work.
   // TypeError: Assignment to constant variable
   ```
 <br>
+<br>
+  `object.assign()`
+<br>	  
 
 **Copying an object so that we can change the copy without changing the original**
-
-  `object.assign()`
 <br>
 	  
 **It merges 2 objects and returns new object with all properties copied.**
@@ -1735,10 +1736,10 @@ If it was declared with let, this would work.
 New object is created in the heap (empty one + copy of jessica2) and `jessicaCopy` is pointing to that new object.
 
 ```js
-const jessica2 = {
-firstName: 'Jessica',
-lastName: 'Williams',
-age: 32,
+	const jessica2 = {
+	firstName: 'Jessica',
+	lastName: 'Williams',
+	age: 32,
 };
 
 // merging new empty object with object jessica2
@@ -1762,8 +1763,9 @@ We would like to have a **deep clone**.
 **Shallow copy** copies properties on the first level.
 **Deep clone** copies everything.
 <br>
+<br>
 
-If you add an array in ``jessica2``, it will be in both objects after you use ``Object.copy()``.
+If you add an array in `jessica2`, it will be in both objects after you use `object.copy()`.
 
 * array is just an object behind the scenes, so this works
 
@@ -1772,8 +1774,9 @@ If you add an array in ``jessica2``, it will be in both objects after you use ``
 // After marriage {firstName: 'Jessica', lastName: 'Davis', age: 32, family: Array(2)}
 ```
 <br>
-	  
-Changing the existing array in a new/copied object
+
+`push()`
+**Changing the existing array in a new/copied object**
 
 ```
 // manipulating object within an object
