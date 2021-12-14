@@ -1563,6 +1563,7 @@ example with **object**:
 
 They are stored differently.
 <br>
+<br>
 
 **JS engine:**
 
@@ -1576,9 +1577,13 @@ They are stored differently.
 	  
 ### Storing primitive types 
 
-When we declare a variable `const age = 30`;, here is what happens inside JS Engine and computer's memory:
+When we declare a variable `const age = 30;`, here is what happens inside JS Engine and computer's memory:
 <br>
-
+<br>
+![Storing objects in Heap](img/18-heap2.pnd)
+<br>
+<br>	  
+	  
 **IN CALL STACK:**
 
 1. JS creates unique identifier with variable name (age).
