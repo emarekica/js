@@ -1580,7 +1580,8 @@ They are stored differently.
 When we declare a variable `const age = 30;`, here is what happens inside JS Engine and computer's memory:
 <br>
 <br>
-![Storing objects in Heap](img/18-heap2.pnd)
+	  
+![Storing objects in Heap](img/18-heap2.png)
 <br>
 <br>	  
 	  
@@ -1613,7 +1614,7 @@ We don't reassign a new value to the existing address.
 3. memory address references to the **memory address of the object in the heap** (used as its value)
 <br>
 	  
-![Heap](img/17-heap.pnd)
+![Heap](img/17-heap.png)
 <br>
 
 **in the HEAP:**
@@ -1725,6 +1726,7 @@ If it was declared with let, this would work.
   ```
 <br>
 <br>
+	  
   `object.assign()`
 <br>	  
 
@@ -1776,6 +1778,7 @@ If you add an array in `jessica2`, it will be in both objects after you use `obj
 <br>
 
 `push()`
+	  
 **Changing the existing array in a new/copied object**
 
 ```
