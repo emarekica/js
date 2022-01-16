@@ -3,6 +3,7 @@
 1. Golf Code
 2. Counting Cards
 3. Record Collections
+4. Profile Lookup
    <br>
    <br>
 
@@ -131,6 +132,98 @@ For the given id parameter, which is associated with the records object:
 
 - [Javascript Short-Circuit Conditionals](https://medium.com/@amaliesmidth/javascript-short-circuit-conditionals-6606bdeaa30d)
 
+---
+
+## 4. Profile Lookup
+
+<br>
+
+We have an array of objects representing different people in our contacts lists.
+<br>
+
+A `lookUpProfile` function that takes `name` and a property (`prop`) as arguments has been pre-written for you.
+<br>
+
+The function should check if `name` is an actual contact's `firstName` and the given property (`prop`) is a property of that contact.
+
+- If both are true, then return the "value" of that property.
+
+- If `name` does not correspond to any contacts then return the string `No such contact`.
+
+- If `prop` does not correspond to any valid properties of a contact found to match `name` then return the string `No such property`.
+  <br>
+  <br>
+
+**Hints**
+<br>
+
+- use for loop to iterate through object
+- check name (key) + value (prop) of the object
+
+checking `prop`:
+
+- `.hasOwnObject` returns `true/false` indicating wether object has a property with the name of the argument
+- it only checks the properties of the object calling the function
+  <br>
+
+- `in` operator checks the property in the object calling **and in the prototype chain**
+
+- [object.hasOwnProperty()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty)
+
+- [`in` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/in)
+  <br>
+  <br>
+
+**Solutions**
+
+#### Solution 1: with `.hasOwnProperty`
+
+<br>
+
+```js
+function lookUpProfile(name, prop) {
+  // If the "firstName" parameter isn’t matched by the contacts object, the for loop exits and "No such contact" is returned
+  for (let x = 0; x < contacts.length; x++) {
+    // If the "firstName" parameter passed into the function matches the value of the "firstName" key in the first object, the if statement passes
+    // if this statement fails, the for loop continues on to the next object in the contacts list
+    if (contacts[x].firstName === name) {
+      // checks if there’s a given property and returns a boolean) with prop as an argument. If it’s true, the value of prop is returned
+      if (contacts[x].hasOwnProperty(prop)) {
+        return contacts[x][prop];
+        // if it fails, "No such property" is returned
+      } else {
+        return "No such property";
+      }
+    }
+  }
+  return "No such contact";
+}
+```
+
+<br>
+<br>
+
+#### Solution 2: with `in` operator
+
+<br>
+
+```js
+function lookUpProfile(name, prop) {
+  for (let i = 0; i < contacts.length; i++) {
+    if (contacts[i].firstName === name) {
+      if (prop in contacts[i]) {
+        return contacts[i][prop];
+      } else {
+        return "No such property";
+      }
+    }
+  }
+  return "No such contact";
+}
+```
+
+<br>
+<br>
 ---
 
 ### Resources
