@@ -168,3 +168,5 @@ function lookUpProfile(name, prop) {
 }
 
 console.log(lookUpProfile("Akira", "likes"));
+
+// ------------------------ Use Recursion to Create a Countdown
