@@ -9,10 +9,10 @@ _Example_: [17, 21, 23] will print `... 17ºC in 1 days ... 21ºC in 2 days ... 
 
 ## Your tasks:
 
-[x] Create a function `printForecast` which takes in an array `arr` and logs a string like the above to the console.
+- [x] Create a function `printForecast` which takes in an array `arr` and logs a string like the above to the console.
 Try it with both test datasets.
 
-[x] Use the problem-solving framework: Understand the problem and break it up into sub-problems!
+- [x] Use the problem-solving framework: Understand the problem and break it up into sub-problems!
 <br>
 <br>
 
