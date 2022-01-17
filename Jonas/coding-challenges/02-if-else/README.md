@@ -13,7 +13,3 @@ The message is either "Mark's BMI is higher than John's!" or "John's BMI is high
 ## Example:
 
 "Mark's BMI (28.3) is higher than John's (23.9)!"
-<br>
-<br>
-
-**Hint**: Use an if/else statement 😉
