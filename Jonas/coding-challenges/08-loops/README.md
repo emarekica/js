@@ -34,7 +34,8 @@ console.log(all);
 
 **Hints**: Call `calcTip` in the loop and use the push method to add values to the tips and totals arrays.
 <br>
-
+<br>
+<br>
 
 ## Bonus:
 <br>
@@ -83,6 +84,8 @@ console.log(sum);
 ```
 <br>
 <br>
+
+___
 
 _Here is how to solve it_:
 
