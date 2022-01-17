@@ -75,4 +75,4 @@ _Example_: "Koalas win (30 vs. 13)"
 - § To check if number A is at least double number B, check for A >= 2 * B.
 <br>
 
-Apply this to the team's average scores 😉
+Apply this to the team's average scores.
