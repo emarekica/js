@@ -67,6 +67,6 @@ if (scoreTeam1 >= minScore && scoreTeam1 > scoreTeam2) {
 
 ### Test data:
 
-_§ Data 1_: Dolphins score 96, 108 and 89. Koalas score 88, 91 and 110
-_§ Data Bonus 1_: Dolphins score 97, 112 and 101. Koalas score 109, 95 and 123
-_§ Data Bonus 2_: Dolphins score 97, 112 and 101. Koalas score 109, 95 and 106
+- _§ Data 1_: Dolphins score 96, 108 and 89. Koalas score 88, 91 and 110
+- _§ Data Bonus 1_: Dolphins score 97, 112 and 101. Koalas score 109, 95 and 123
+- _§ Data Bonus 2_: Dolphins score 97, 112 and 101. Koalas score 109, 95 and 106
