@@ -1,6 +1,6 @@
 # JavaScript Algorithms and Data Structures
 
-1. [Golf Code](#golf-code)
+1. [Golf Code](#1-golf-code)
 2. Counting Cards
 3. Record Collections
 4. Profile Lookup
