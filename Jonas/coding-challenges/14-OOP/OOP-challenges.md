@@ -61,3 +61,46 @@ Data car 1: 'Ford' going at 120 km/h
 
 <br>
 <br>
+
+**Your tasks:**
+<br>
+
+[x] Use a constructor function to implement an Electric Car (called `EV`) as a child "class" of `Car`. Besides a make and current speed, the `EV` also has the current battery charge in % (`charge` property).
+
+[x] Implement a `chargeBattery` method which takes an argument `chargeTo` and sets the battery charge to `chargeTo`.
+<br>
+
+[x] Implement an `accelerate` method that will increase the car's speed by 20, and decrease the charge by 1%. Then log a message like this: 'Tesla going at 140 km/h, with a charge of 22%'
+<br>
+
+[x] Create an electric car object and experiment with calling `accelerate`, `brake` and `chargeBattery` (charge to 90%). Notice what happens when you `accelerate`!
+
+_Hint_: Review the definiton of polymorphism"
+<br>
+
+**Test data:**
+
+_Data car 1_: `Tesla` going at 120 km/h, with a charge of 23%"
+
+<br>
+<br>
+
+---
+
+## 4
+
+**Your tasks**:
+<br>
+
+[] Re-create Challenge #3, but this time using ES6 classes: create an `EVCl` child class of the `CarCl` class.
+<br>
+
+[] Make the `charge` property private
+<br>
+
+[] Implement the ability to chain the `accelerate` and `chargeBattery` methods of this class, and also update the `brake` method in the `CarCl` class. Then experiment with chaining!
+<br>
+
+**Test data:**
+
+_Data car 1_: `Rivian` going at 120 km/h, with a charge of 23%.
