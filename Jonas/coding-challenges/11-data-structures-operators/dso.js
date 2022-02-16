@@ -34,9 +34,16 @@ const game = {
   score: "4:0",
   scored: ["Lewandowski", "Gnarby", "Lewandowski", "Hummels"],
   date: "Nov 9th, 2037",
+
+  // omjeri (koeficijent)
   odds: {
+    // niži omjer = veća vjerojtnost pobjede / domaća momčad
     team1: 1.33,
+
+    // neodlučeni rezultat
     x: 3.25,
+
+    // niži omjer = manja vjerojatnot pobjede / gostujuća momčad
     team2: 6.5,
   },
 };
@@ -60,17 +67,18 @@ const allPlayers = [...players1, ...players2];
 console.log(allPlayers);
 
 // 4. Create a new array ('players1Final') containing all the original team1 players plus 'Thiago', 'Coutinho' and 'Perisic'
-// const [...players1Final] = [players1, "Thiago", "Coutinho", "Perisic"];
+
 const players1Final = [...players1, "Thiago", "Coutinho", "Perisic"];
+
 console.log(players1Final);
 
 // 5. Based on the game.odds object, create one variable for each odd (nested destructuring)
-// rename variable "x"
+// rename variable "x" to "draw"
 
-// const { team1, draw, team2 } = game.odds;
 const {
   odds: { team1, x: draw, team2 },
 } = game;
+
 console.log(team1, draw, team2);
 
 // 6.
@@ -102,3 +110,128 @@ team1 < team2 &&
 
 team1 > team2 &&
   console.log(`Team2 is more likely to win with ${game.odds.team1} points.`);
+
+// --------------------------------------------------------------------------- 2
+
+// How to skip first index in the array, but not the value?
+// indexNumber = player + 1 >> goal + 1
+
+const goals = Object.values(game.scored);
+
+for (const [goal, player] of goals.entries()) {
+  console.log(`Goal no. ${goal + 1}: "${player}"`);
+}
+
+// Use a loop to calculate the average odd and log it to the console.
+
+/*
+
+average odd = koeficijent klađenja
+
+    1. What to loop over?
+
+     - over values of game.odds (it is an object)
+
+        const values = Object.values(openingHours);
+
+        for (const hour of values) {
+          console.log(hour);
+        }
+
+
+    2. How to calculate averages?
+
+      You calculate an average by adding all the elements and then dividing by the number of elements.
+
+        let total = 0;
+        
+        for(let i = 0; i < grades.length; i++) {
+          total += grades[i];
+        }
+        let avg = total / grades.length;
+
+
+*/
+
+// my solution
+const odds = Object.values(game.odds);
+console.log(odds);
+let totalOdds = 0;
+
+for (let i = 0; i < odds.length; i++) {
+  totalOdds += odds[i];
+}
+
+let avgOdds = totalOdds / odds.length;
+console.log(`Average odds: ${avgOdds}`);
+
+// Jonas's solution
+const allOdds = Object.values(game.odds);
+let average = 0;
+
+for (const odd of allOdds) {
+  average += odd; // add value of odd at each iteration to the average
+}
+
+average /= allOdds.length; // divide the final average by the length of the array
+console.log(average);
+
+/* 
+Print the 3 odds to the console in a formatted way, exactly like this:
+
+    Odd of victory Bayern Munich: 1.33
+    Odd of draw: 3.25
+    Odd of victory Borrussia Dortmund: 6.5
+
+Get the team names directly from the game object, don't hardcode them (except for ""draw"").
+Note how the odds and the game objects have the same property names.
+
+** accessing the elements of the object with the name of "team", BOTH/ALL of them: 
+
+              ${game[team]}
+
+** accessing the elements with the name of "team": 
+
+            
+***
+
+the brackets in `game[team]`  mean the VALUE of team, where? in the GAME OBJECT.
+
+Just like in the bonus `scorers[player]` means value of the property named player inside of scorers object.
+
+Just like when we were setting empty default value for in the restaurant examples:
+`menu = []`
+
+*/
+
+// Jonas's solution
+for (const [team, odd] of Object.entries(game.odds)) {
+  // ternary operator to get a string of teams
+  // game[team] because names are the same
+  const teamString = team === "x" ? "draw" : `victory ${game[team]}`;
+
+  console.log(`Odd of ${teamString} : ${odd}`);
+}
+
+/* 
+**Bonus:** 
+
+Create an object called 'scorers' which contains the names of the players who scored as properties, and the number of goals as the value. In this game, it will look like this:
+
+    {
+      Gnarby: 1,
+      Hummels: 1,
+      Lewandowski: 2
+    }
+
+solution is to loop over the array, and add the array elements as object properties, and then increase the count as we encounter a new occurence of a certain element
+
+*/
+
+const scorers = {};
+
+for (const player of game.scored) {
+  scorers[player] ? scorers[player]++ : (scorers[player] = 1);
+}
+
+// --------------------------------------------------------------------------- 3
