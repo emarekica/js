@@ -4,7 +4,7 @@
 
 <br>
 
-## "Coding Challenge #1"
+## #1
 
 <br>
 
@@ -37,7 +37,7 @@ Then, call the function again with players from game.scored"
 
 ---
 
-## "Coding Challenge #2"
+## #2
 
 <br>
 
@@ -75,7 +75,7 @@ Then, call the function again with players from game.scored"
 
 ---
 
-### "Coding Challenge #3"
+### #3
 
 <br>
 
@@ -110,7 +110,7 @@ each event happened (a football game has 90 minutes plus some extra time)."
 
 ---
 
-## Coding Challenge #4
+## #4
 
 <br>
 
