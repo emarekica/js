@@ -76,7 +76,7 @@ Let's continue with our football betting app! Keep using the 'game' variable fro
 <br><br>
 
 
-### #3
+## #3
 
 <br>
 
