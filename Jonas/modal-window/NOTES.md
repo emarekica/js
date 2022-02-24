@@ -11,7 +11,7 @@
 
 
 In this project, we will work with **classes**.
-`class="hidden"` is the main one we will work with
+`class="hidden"` is the main one we will work with.
 
 We will not be doing HTML with JS.
 We will show/hide the modal window, according to the clicks on the buttons.
