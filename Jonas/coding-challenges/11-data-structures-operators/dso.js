@@ -235,3 +235,83 @@ for (const player of game.scored) {
 }
 
 // --------------------------------------------------------------------------- 3
+
+
+/* We have a map called 'gameEvents' with a log of the events that happened during the game.
+
+    - values are the events themselves
+    - keys are the minutes in which each event happened (a football game has 90 minutes plus some extra time)
+
+ */
+
+const gameEvents = new Map([
+  [17, "GOAL"],
+  [36, "Substitution"],
+  [47, "GOAL"],
+  [61, "Substitution"],
+  [64, "Yellow card"],
+  [69, "Red card"],
+  [70, "Substitution"],
+  [72, "Substitution"],
+  [76, "GOAL"],
+  [80, "GOAL"],
+  [92, "Yellow card"],
+]);
+
+//// ---- Create an array 'events' of the different game events that happened (no duplicates).
+
+// 1. see the values of the map
+// 2. convert map >> set to remove (implicitly) duplicates from array
+// 3. convert set >> array
+
+// values of the map:
+// values() returns an array of a given object's own enumerable property values
+console.log(gameEvents.values());
+
+// create set out of events to get unique values
+// set object lets you store ONLY unique values of any type
+// const events = new Set(gameEvents.values());
+
+// set >> array
+// use spread operator to unpack [... ]
+const events = [...new Set(gameEvents.values())];
+console.log(events);
+
+//// ---- Delete the event from minute 64.
+
+// removing element from map (based on the key)
+console.log(gameEvents.delete(64)); // key
+console.log(gameEvents);
+
+//// ---- Compute and log the following string to the console: ""An event happened, on average, every 9 minutes. (calculate this 9 minutes, keep in mind that a game has 90 minutes).
+
+// You calculate an average by adding all the elements and then dividing by the number of elements.
+// calculating number of events programatically: gameEvents.size
+
+console.log(
+  `An event happened, on average every ${90 / gameEvents.size} minutes.`
+);
+
+// getting the precise value
+// 92 is last of the key of the map
+// >> get the keys of the map: gameEvents.keys()
+// >> convert them to an array: [... ]
+// >> get the last value with: pop()
+// >> use variable "time" instead of number of minutes
+const time = [...gameEvents.keys()].pop();
+console.log(time); // 92
+console.log(
+  `An event happened, on average every ${time / gameEvents.size} minutes.`
+);
+
+//// ---- Loop over 'gameEvents' and log each element to the console, marking whether it's in the first half or second half (after 45 min) of the game, like this: [FIRST HALF] 17: GOAL
+
+// instead of "event" be specific: [key, value] >> [minute, event]
+// create external variable "half" + ternary operator to determine half time
+
+for (const [min, event] of gameEvents) {
+  const half = min <= 45 ? "FIRST" : "SECOND";
+
+  console.log(`[ ${half} HALF ] ${min}: ${event}`);
+}
+
