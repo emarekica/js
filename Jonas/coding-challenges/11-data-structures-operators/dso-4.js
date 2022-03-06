@@ -3,71 +3,30 @@
 document.body.append(document.createElement("textarea"));
 document.body.append(document.createElement("button"));
 
-/* 
+// attach event handler to the button
+document.querySelector("button").addEventListener("click", function () {
+  // get the value (input) from the text area
+  const text = document.querySelector("textarea").value;
+  console.log(text);
 
-Write a program that receives a list of variable names written in underscore_case
-and convert them to camelCase.
-The input will come from a textarea inserted into the DOM (see code below to
-insert the elements), and conversion will happen when the button is pressed.
+  // separate into 5 different strings
+  const rows = text.split(`\n`);
 
+  // loop over each iteration, each time log the variable converted to camelCase
 
-Test data (pasted to textarea, including spaces):
+  for (const [i, row] of rows.entries()) {
+    // split in two strings
+    const [first, second] = row.toLowerCase().trim().split("_");
 
-underscore_case
- first_name
-Some_Variable
- calculate_AGE
-delayed_departure
+    // get second word capitalized
+    const output = `${first}${second[0].toUpperCase() + second.slice(1)}`;
 
-Should produce this output (5 separate console.log outputs):
+    // adding emojis: add fixed length + 1 emoji each iteration
+    console.log(`${output.padEnd(20)}${"✅".repeat(i + 1)}`);
+  }
+});
 
-underscoreCase     ✅
-firstName          ✅✅
-someVariable       ✅✅✅
-calculateAge       ✅✅✅✅
-delayedDeparture   ✅✅✅✅✅
-
-Hints:
-
-- Remember which character defines a new line in the textarea: `\r\n`
-- The solution only needs to work for a variable made out of 2 words, like a_b.
-- Start without worrying about the ✅. Tackle that only after you have the variable
-name conversion working.
-
-*/
-
-/* 
-
-1. HOW TO REMOVE UNDERSCORE:
-
-  1: replaceAll("_", " ")
-
-  2: regex
-    removing all underscores: .replace(/_/g, " ")
-    replacing all underscores with empty space: .replace(/_/g, " ") 
-    
-    
-2. STRING >> ARRAY conversion
-
-console.log("Jonas Schmedtmann".split(" "));
-// (2) ['Jonas', 'Schmedtmann']
-
-
-3. MAKE FIRST LETTER OF THE 2nd WORD UPPER CASE
-
-array[1].toUpperCase;
-
-
-4.  Trim empty spaces before/after word: trim()
-    
-5. How to make page react when input is typed into text area and button is clicked?
-
-- add event listener to textarea / button
-- nest the camelCaseConverter function under event listener
-
-*/
-
-// -------------------- MY WORK
+// ------------------------------------ MY WORK
 
 // remove underscore, convert to lower case
 // const test = "underscore_case".replaceAll("_", " ").toLowerCase();
@@ -95,7 +54,7 @@ const trimmedData = inputData.trim();
 console.log(trimmedData); // first_name
 console.log(trimmedData.length); // 10
 
-// function that turns 2 element string `a_b`into camelCase string
+// function that turns 2 element string `a_b`into camel Case string
 
 const camelCaseConverter = function (input) {
   // receive input, remove underscore, convert to lowercase, trim, split and create array with 2 elements
