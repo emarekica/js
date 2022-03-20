@@ -42,3 +42,42 @@ Use the `displayResults` method to display the 2 arrays in the test data. Use bo
 
       test data 1: [5, 2, 3]
       test data 2: [1, 5, 3, 9, 6, 1]
+
+<br><br>
+
+---
+
+## Part II
+
+<br>
+
+This is more of a thinking challenge than a coding challenge.
+
+<br>
+
+```js
+// IIFE
+(function () {
+  const header = document.querySelector("h1");
+  header.style.color = "red";
+})();
+```
+
+<br><br>
+
+1. Take the IIFE and at the end of the function, attach an event listener that changes the color of the selected `h1` element (`header`) to blue, each time the body element is clicked. Do not select the `h1` element again!
+
+<br><br>
+
+2. Explain to yourself (or someone around you) why this worked! Take all the time you need. Think about when exactly the callback function is executed, and what that means for the variables involved in this example.
+   <br><br>
+
+**Explanation**
+
+The event listener is a method that receives a function as parameter, a callback one.
+
+At the time the event listener was created, there were other variables, as `header` in the IIFE function. They belong to the same variable environment as the event listener.
+
+Since IIFE are functons that execute only once and never again, the `header` variable is also gone for us to access it from our code, but it stays preserved inside of the Closure of the event listener and is available to it, forever.
+
+That is possible, since event listeners are methods that receive callback functons as parameters/arguments, and closures are intrinsic values of functions. Therefore, that callback has a Closure.
