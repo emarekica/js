@@ -136,3 +136,30 @@ console.log([...array, ...arr]);
 // converts all the elements of an array into a new string
 
 console.log(letters.join('-')); // a-d-f-g-h-i-j
+
+// -------- at()
+
+const atArr = [12, 34, 56];
+
+// traditional way to take value out
+console.log(atArr[0]); // 12
+
+// ES2022
+console.log(atArr.at(0)); // 12
+
+// get last element of array
+console.log(atArr[atArr.length - 1]); // 56
+
+console.log(atArr.slice(-1)); // [56], you get copy of array
+console.log(atArr.slice(-1)[0]); // 56, [] gets the value out
+
+console.log(atArr.at(-1)); // 56
+console.log(atArr.at(-2)); // 34
+
+// works on strings
+console.log('mari'.at(2)); // r
+console.log('jonas'.at(5)); // undefined
+console.log('jonas'.at(3)); // a
+
+// get last character of string
+console.log('jonas'.at(-1)); // s

@@ -3,6 +3,8 @@
 <br>
 
 1. [Simple array methods](#1-simple-array-methods)
+2. [at method](#2-at-method)
+3. [forEach](#3-foreach)
 
 <br>
 
@@ -244,3 +246,101 @@ console.log(letters.join('-')); // a-d-f-g-h-i-j
 - [Mutator methods](https://www.digitalocean.com/community/tutorials/how-to-use-array-methods-in-javascript-mutator-methods)
 
 - [Iteration methods](https://www.digitalocean.com/community/tutorials/how-to-use-array-methods-in-javascript-iteration-methods)
+
+<br><br>
+
+---
+
+## 2. at method
+
+<br>
+
+`at()`
+
+<br>
+
+The `at()` method takes an integer value and returns the item at that index, allowing for positive and negative integers. Negative integers count back from the last item in the array.
+<br>
+
+- ES2022 method
+
+- can replace bracket notation
+  <br><br>
+
+```js
+const atArr = [12, 34, 56];
+
+// traditional way to take value out
+console.log(arr[0]); // 12
+
+// ES2022
+console.log(arr.at(0)); // 12
+```
+
+<br><br>
+
+**Why is it useful instead of bracket notation**
+<br>
+
+**To get the last element of the array**. We don't know the length of the array.
+There are different ways.
+<br><br>
+
+**a:**
+
+    console.log(atArr[atArr.length - 1]); // 56
+
+<br>
+
+**b:**
+
+    console.log(atArr.slice(-1)); // [56], you get copy of array
+    console.log(atArr.slice(-1)[0]); // 56, [] gets the value out
+
+<br>
+
+**c:**
+
+    console.log(atArr.at(-1)); // 56
+    console.log(atArr.at(-2)); // 34
+
+<br><br>
+
+**When to use** `at()`
+
+<br>
+
+- getting the last element of the array
+
+- counting from the end of an array
+
+- method chaining
+  <br><br>
+
+**When too use bracket notation**
+<br>
+
+- quickly getting value out of array
+  <br><br>
+
+`at()` **also works on strings.**
+<br>
+
+```js
+console.log('mari'.at(2)); // r
+console.log('jonas'.at(5)); // undefined
+console.log('jonas'.at(3)); // a
+
+// get last character of string
+console.log('jonas'.at(-1)); // s
+```
+
+<br><br>
+
+---
+
+## 3. forEach
+
+<br>
+
+**Looping arrays**
