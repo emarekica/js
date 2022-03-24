@@ -1,12 +1,31 @@
 # WORKING WITH ARRAYS
 
-<br>
+<br><br>
+
+## Content:
 
 1. [Simple array methods](#1-simple-array-methods)
-2. [at method](#2-at-method)
-3. [forEach](#3-foreach)
+2. [The new at Method](#2-the-new-at-method)
+3. [Looping Arrays, forEach](#3-looping-arrays-foreach)
+4. [forEach with Maps and Sets](#4-foreach-with-maps-and-sets)
+5. [Creating DOM elements](#5-creating-dom-elements)
+6. [map, filter, reduce](#6-map-filter-reduce)
+7. [The map method](#7-the-map-method)
+8. [Computing usernames](#8-computing-usernames)
+9. [The filter method](#9-the-filter-method)
+10. [The reduce method](#10-the-reduce-method)
+11. [Implementing Login](#11-implementing-login)
+12. [Implementing Transfers](#12-implementing-transfers)
+13. [The findIndex method](#13-the-findindex-method)
+14. [some and every](#14-some-and-every)
+15. [flat and flatMap](#15-flat-and-flatmap)
+16. [Sorting arrays](#16-sorting-arrays)
+17. [More ways of creating and filling arrays](#17-more-ways-of-creating-and-filling-arrays)
+18. [SUMMARY](#18-summary)
 
-<br>
+[Resources](#19-resources)
+
+<br><br>
 
 ---
 
@@ -339,8 +358,335 @@ console.log('jonas'.at(-1)); // s
 
 ---
 
-## 3. forEach
+## 3. Looping Arrays, forEach
 
 <br>
 
-**Looping arrays**
+Executes a provided function once for each array element.
+<br>
+
+Loop over the array using `forEach` .
+
+It is different from `for..of` loop.
+
+**Which one you use, depends on your coding style.**
+<br><br>
+
+- [for..of loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)
+  <br>
+
+- [forEach() method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+  <br><br>
+
+_Loop over the array and print for each movement in the bank account, wether the user deposited or withdrew the money._
+
+- _positive values = deposits_
+- _negative values = withdrawals_
+
+<br><br>
+
+`for..of` loop
+<br><br>
+
+```js
+for (const movement of movements) {
+  if (movement > 0) {
+    console.log(`You deposited ${movement}.`);
+  } else if (movement < 0) {
+    // Math.abs tahes absolute value, removes minus
+    console.log(`You withdrew ${Math.abs(movement)}.`);
+  }
+}
+```
+
+<br><br>
+
+`forEach()`
+<br><br>
+
+- higher order function
+
+- requires callback
+  <br><br>
+
+- `forEach` calls the callback function in each iteration of looping over the array
+
+- in each iteration, it passes the current element of the array as an argument
+  <br><br>
+
+```js
+// forEach()
+movements.forEach(function (movement) {
+  if (movement > 0) {
+    console.log(`You deposited ${movement}.`);
+  } else if (movement < 0) {
+    console.log(`You withdrew ${Math.abs(movement)}.`);
+  }
+});
+```
+
+<br><br>
+
+**In each iteration, the current element is passed in the callback function.**
+<br>
+
+    // iteration 0: function(200)
+    // iteration 1: function(450)
+    // iteration 2: function(400)
+    // iteration 3: function(3000)
+
+<br><br>
+
+Callback is used to tell the higher-order function `forEach()` what to do.
+
+**The callback function contains instructions.**
+
+<br><br>
+
+### When you need access to counter variable
+
+<br>
+
+- **in `for..of` loop**
+  <br>
+
+`.entries()` is a method which returns array of arrays `[ [currentIndex], [value] ]` .
+<br><br>
+
+```js
+for (const [i, movement] of movements.entries()) {
+  if (movement > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${movement}.`);
+  } else if (movement < 0) {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(movement)}.`);
+  }
+}
+
+In Console:
+
+Movement 1: You deposited 200.
+Movement 2: You deposited 450.
+Movement 3: You withdrew 400.
+```
+
+<br><br>
+
+- **with `forEach()`**
+  <br><br>
+
+`forEach()` passes in:
+
+1. current element
+
+2. the `i` (index)
+
+3. the entire array we are looping
+
+<br><br>
+
+We can **specify them in parameter list.**
+
+Just one, two or all can be used.
+
+<br><br>
+
+Names don't matter, **the order matters and it has to be the one above**. That is the order the arguments are passed into the callback. It is reversed from the order in `for..of` loop, which receives `i`, `mov`.
+<br><br>
+
+```js
+movements.forEach(function (mov, i, array) {
+  if (mov > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${mov}.`);
+  } else if (mov < 0) {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(mov)}.`);
+  }
+});
+```
+
+<br><br>
+
+### When to use which
+
+<br>
+
+You can't break out of `forEach()` method. `continue` nor `break` statements don't work in the `forEach` loop.
+
+**It will always loop over the entire array.**
+<br><br>
+
+If you need to break out of the loop, use `for..of` loop.
+
+## <br><br>
+
+## 4. forEach with Maps and Sets
+
+<br>
+
+### Maps
+
+<br><br>
+
+```js
+const currencies = new Map([
+
+  // [key, value]
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+
+currencies.forEach(function (value, key, map) {
+  console.log(`#{key}: ${value}`);
+});
+
+// In the Console:
+
+USD: United States dollar
+EUR: Euro
+GBP: Pound sterling
+```
+
+<br><br>
+
+`forEach()` will call the function with **3 arguments**:
+
+1. current value in the current iteration
+
+2. key
+
+3. entire map
+
+<br><br>
+
+### Sets
+
+<br><br>
+
+```js
+const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+
+console.log(currenciesUnique); // Set(3) {'USD', 'GBP', 'EUR'}
+
+currenciesUnique.forEach(function (value, key, set) {
+  console.log(`${key}: ${value}`);
+});
+
+// In the Console
+
+USD: USD;
+GBP: GBP;
+EUR: EUR;
+```
+
+<br><br>
+
+**Key is the same as the value.**
+
+Set doesn't have keys nor indexes.
+
+`key` parameter is redundant, it is the same as the first for Sets, but it is kept for the sake of not causing confusion.
+Basically, it is this `function(value, value, set)`.
+
+But, since there can't be duplicate arguments, this is valid:
+<br>
+
+    forEach(function(value, _ , set){})
+
+<br><br>
+
+---
+
+## 5. Creating DOM elements
+
+<br><br>
+
+---
+
+## 6. map, filter, reduce
+
+<br>
+
+**Data transformation**
+<br>
+
+<br><br>
+
+---
+
+## 7. The map method
+
+<br><br>
+
+---
+
+## 8. Computing usernames
+
+<br><br>
+
+---
+
+## 9. The filter method
+
+<br><br>
+
+---
+
+## 10. The reduce method
+
+<br><br>
+
+---
+
+## 11. Implementing Login
+
+<br><br>
+
+---
+
+## 12. Implementing Transfers
+
+<br><br>
+
+---
+
+## 13. The findIndex method
+
+<br><br>
+
+---
+
+## 14. some and every
+
+<br><br>
+
+---
+
+## 15. flat and flatMap
+
+<br><br>
+
+---
+
+## 16. Sorting Arrays
+
+<br><br>
+
+---
+
+## 17. More ways of creating and filling arrays
+
+<br><br>
+
+---
+
+## 18. SUMMARY
+
+<br>
+
+**Which array method to use**
+
+<br><br>
+
+---
+
+## 19. Resources
