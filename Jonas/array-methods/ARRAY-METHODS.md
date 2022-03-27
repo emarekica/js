@@ -600,6 +600,112 @@ But, since there can't be duplicate arguments, this is valid:
 
 <br><br>
 
+opacity: 0 >> element is invisible
+
+opacity: 100 >> element is visible
+<br>
+
+Log in/out changes the opacity (JS).
+
+<br><br>
+
+###Displaying movements
+<br>
+
+- each movements has one element
+
+- with `forEach()` we loop through movements array, each iteration displays one element for each movement
+  <br><br>
+
+- good practice is to create a function and pass the data in instead of have the function work with a global variable
+  <br><br>
+
+- create **HTML template with template literal**
+
+- add movements data
+  <br><br>
+
+- attach created HTML template to the `movements` container with `insertAdjacentHTML()` method
+
+- new movements are added on top with `afterbegin` >> inverted with `beforeend`
+  <br><br>
+
+### Adding new elements
+
+<br>
+
+- first, empty the container: `containerMovements.innerHTML = "";`
+
+<br><br>
+
+```js
+const account1 = {
+  owner: 'Jonas Schmedtmann',
+  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  interestRate: 1.2, // %
+  pin: 1111,
+};
+
+// display of movements
+const displayMovements = function (movements) {
+  // empty the container to add new elements
+  containerMovements.innerHTML = '';
+
+  movements.array.forEach(function(mov, i) => {
+
+    // check if deposit or withdrawal
+    const depositType = mov > 0 ? 'deposit' : 'withdrawal';
+
+    // creating one row of movements
+    const html = `
+      <div class="movements__row">
+        <div
+          class="movements__type movements__type--${depositType}">
+          ${i + 1} ${depositType}
+        </div>
+        <div class="movements__value">${mov}</div>
+      </div>`;
+
+    // attach HTML template to movements element
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+```
+
+<br><br>
+
+`insertAdjacentHTML(1, 2)`
+<br><br>
+
+Accepts 2 strings:
+<br>
+
+1: position at which we want to attach the HTML
+
+2: text, string containing HTML we want to insert
+<br>
+
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+
+<br>
+
+[MDN insertAdjacentHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML)
+
+<br><br>
+
+`textContent` VS `innerHTML`
+<br>
+
+- `textContent` returns only the text
+
+- `innerHTML` returns everything, including the HTML (included all HTML tags)
+  <br>
+
+      console.log(containerMovements.innerHTML); // displays complete HTML
+
+<br><br>
+
 ---
 
 ## 6. map, filter, reduce
@@ -608,6 +714,60 @@ But, since there can't be duplicate arguments, this is valid:
 
 **Data transformation**
 <br>
+
+**Tools for creating new arrays based on transforming data from other arrays.**
+<br><br>
+
+![map-filter-reduce](img/map-filter-reduce.png)
+
+<br><br>
+
+`map() `
+<br>
+
+- similar to `forEach()`, but better because it creates a new array
+
+- maps value of original array to a new array
+  <br><br>
+
+Creates a new array populated with the results of calling a provided function on every element in the calling array:
+<br>
+
+1. takes an array
+
+2. loops over it
+
+3. in each iteration, applies a callback function that we specify, to the current array element
+   <br><br>
+
+[map() MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+
+<br><br>
+
+`filter()`
+<br>
+
+- filters for elements from original array that satisfy a condition
+  <br>
+
+Creates a new array with all elements that pass the test implemented by the provided function.
+<br>
+
+[filter() MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+<br><br>
+
+`reduce()`
+<br>
+
+- boils down/reduces all the elements of the original array into a single value
+
+- has a snowball effect
+
+- no new array, just the reduced value
+  <br>
+
+[reduce](https://www.digitalocean.com/community/tutorials/how-to-use-array-methods-in-javascript-iteration-methods#reduce)
 
 <br><br>
 
