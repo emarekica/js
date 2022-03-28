@@ -12,7 +12,7 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 let array = ['a', 'b', 'c', 'd', 'e'];
 
-// --- slice()
+//------------------------------------------------ slice()
 // accessor
 // copies a portion of an array to a new array
 
@@ -32,7 +32,7 @@ console.log(array.slice(1, -2)); // (2) ['b', 'c']
 console.log(array.slice()); // (5) ['a', 'b', 'c', 'd', 'e']
 console.log([...array]); // (5) ['a', 'b', 'c', 'd', 'e']
 
-// --- splice()
+//------------------------------------------------ splice()
 // mutator
 // adds or removes an item from any position in an array, can be simultaneously
 
@@ -52,7 +52,7 @@ console.log(array);
 // starting from position 1, take out 2 elements
 console.log(array.splice(1, 2)); // (2) ['b', 'c'] = deleted
 
-// --- reverse()
+//------------------------------------------------ reverse()
 // mutator
 // reverses the order of elements in the array
 
@@ -61,7 +61,7 @@ const arr = ['j', 'i', 'h', 'g', 'f'];
 console.log(arr.reverse()); // (5) ['f', 'g', 'h', 'i', 'j']
 console.log(arr);
 
-// --- concat()
+//------------------------------------------------ concat()
 // accessor
 // merges two or more arrays to a new array
 
@@ -70,13 +70,13 @@ const letters = array.concat(arr);
 console.log(letters); // (7) ['a', 'd', 'f', 'g', 'h', 'i', 'j']
 console.log([...array, ...arr]);
 
-// --- join()
+//------------------------------------------------ join()
 // accessor
 // converts all the elements of an array into a new string
 
 console.log(letters.join('-')); // a-d-f-g-h-i-j
 
-// -------- at()
+//------------------------------------------------ at()
 
 const atArr = [12, 34, 56];
 
@@ -102,3 +102,44 @@ console.log('jonas'.at(3)); // a
 
 // get last character of string
 console.log('jonas'.at(-1)); // s
+
+//------------------------------------------------ map()
+
+// converting € > $
+// multiply each element of "movements" by conversion rate
+
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// conversion rate
+const eurToUsd = 1.1;
+
+// store it to variable, map() returns new array
+// const movementsUSD = movements.map(function (mov) {
+//   return mov * eurToUsd;
+// });
+
+const movementsUSD = movements.map(mov => mov * eurToUsd);
+
+console.log(movements);
+console.log(movementsUSD);
+
+// solution with forOf()
+
+const movementsUsd = [];
+
+for (const mov of movements) {
+  movementsUsd.push(mov * eurToUsd);
+}
+
+console.log(movementsUsd);
+
+// description with map()
+
+const movDescr = movements.map(
+  (mov, i) =>
+    `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
+      mov
+    )}`
+);
+
+console.log(movDescr);

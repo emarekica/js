@@ -775,6 +775,107 @@ Creates a new array with all elements that pass the test implemented by the prov
 
 ## 7. The map method
 
+<br>
+
+**Use case of `map()`**
+<br>
+
+- looping over arrays
+
+- makes new array
+
+- at each position of the new array, there are results of applying callback to the original array elements
+
+- doesn't mutate original array
+
+<br><br>
+
+```js
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// conversion rate
+const eurToUsd = 1.1;
+
+// store it to variable because map() returns new array
+//  const movementsUSD = movements.map(function (mov) {
+//  return mov * eurToUsd;
+// });
+
+// arrow function variant
+const movementsUSD = movements.map(mov => mov * eurToUsd);
+
+console.log(movements);
+console.log(movementsUSD);
+```
+
+<br><br>
+
+With `map()`, we **use function to create a new array**.
+
+In line with functional programming.
+
+It is prefered (modern).
+
+<br><br>
+
+same example with `forOf()` loop
+<br>
+
+```js
+const movementsUsd = [];
+
+for (const mov of movements) {
+  movementsUsd.push(mov * eurToUsd);
+}
+
+console.log(movementsUsd);
+```
+
+<br><br>
+
+With `forOf()`, we loop over one array and manually create a new one.
+
+<br><br>
+`map()` has access to 3 parameters:
+<br>
+
+1. current element
+
+2. current index
+
+3. whole array
+   <br>
+
+We won't log the result to the console, but **return the string so that it gets put into a new array**, which is a result of `map()`.
+
+There can be more than 1 return statements in a function, as long as just one is executed.
+<br><br>
+
+```js
+const movDescr = movements.map(
+  (mov, i) =>
+    `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
+      mov
+    )}`
+);
+
+console.log(movDescr);
+```
+
+<br><br>
+
+**Difference between** `return` **and** `console.log`
+<br><br>
+
+`console.log` will display the parameter passed to the log method in the console window. Use this method to display a string or variable in the console window.
+
+It is a function (you can see the brackets) that will write the argument value on the console. And only the debuging console, in a browser you will not see anything on the screen.
+<br><br>
+
+When using the `return` statement, the function will stop executing, and return the specified value.
+
+The main purpose of the `return` value, is to use the function return value like you would have use a variable value.
+
 <br><br>
 
 ---
