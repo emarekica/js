@@ -882,17 +882,377 @@ The main purpose of the `return` value, is to use the function return value like
 
 ## 8. Computing usernames
 
+Computing usernames
+
+<br>
+
+`map()` and `forEach()` for computing user names for each account owner in the app
+<br><br>
+
+**We will create a side-efect.**
+When we modify something, in JavaScript, we cause side effects. This simply means modifying or changing our code, causing it to have unpredictable behaviour and mutability.
+
+We will be producing a side-effect/are doing something to the account object. We won't return a new value.
+<br><br>
+
+**username** = initials of each of the users
+<br>
+
+`" "` = space
+
+`""` = empty string
+<br><br>
+
+**Steps:**
+<br>
+
+1. transform the string to lowercase: `toLowerCase()`
+
+2. to take only 1st letters of each word, split string into multiple words with `split(" ")`, dividing by spaces
+
+3. loop over the array with `map()`, take only first letter and join the strings with `join("")` with empty string
+   <br><br>
+
+```js
+const user = 'Steven Thomas Williams'; // stw
+
+const username = user
+  .toLowerCase()
+  .split(' ')
+  .map(word => word[0])
+  .join('');
+console.log(username); // stw
+```
+
+<br><br>
+
+We'll make a function out of it:
+<br>
+
+```js
+const createUsernames = function (user) {
+  const username = user
+    .toLowerCase()
+    .split(' ')
+    .map(word => word[0])
+    .join('');
+
+  console.log(username);
+};
+createUsernames('Jonas Schmedtmann'); //js
+```
+
+<br><br>
+
+_Compute 1 username for each of account holders in the accounts array._
+<br>
+
+    const accounts = [account1, account2, account3, account4];
+
+<br><br>
+
+We do not want to create a new array (no `map()`), we want to modify the existing elements in accounts array >> `forEach()`
+<br>
+
+- receive all the accounts (array of accounts)
+
+- create a new property on all objects: `username`
+  <br><br>
+
+```js
+const createUsernames = function (accs) {
+  // side-effects: mutating original array
+  accs.forEach(function (acc) {
+    acc.username = acc.owner // new property on objects
+      .toLowerCase()
+      .split(' ')
+      .map(word => word[0])
+      .join('');
+  });
+};
+
+createUsernames(accounts);
+```
+
+<br><br>
+
+**We don't return anything, we are producing a side-effect/are doing something to the `account` object.**
+
+We don't use arrow function because we are not creating a value to be returned.
+
 <br><br>
 
 ---
 
 ## 9. The filter method
 
+<br>
+
+Filters for elements that satisfy certain condition.
+
+The `filter()` method creates a new array with all elements that pass the test implemented by the provided function.
+<br><br>
+
+```js
+const words = [
+  'spray',
+  'limit',
+  'elite',
+  'exuberant',
+  'destruction',
+  'present',
+];
+const result = words.filter(word => word.length > 6);
+
+console.log(result);
+// expected output: Array ["exuberant", "destruction", "present"]
+```
+
+<br><br>
+
+[MDN filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+<br><br>
+
+### Specifying a condition
+
+<br>
+
+- use callback function
+
+- callback has access to current element, index & entire array (mov, i, array)
+
+- usually, in `filter()` we only need the current element
+
+- **return a boolean value**
+  <br><br>
+
+Create an array of only deposits ( > 0 ).
+<br>
+
+```js
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const deposits = movements.filter(function (mov) {
+  return mov > 0 ? true : false;
+});
+
+console.log(deposits);
+// (5) [200, 450, 3000, 70, 1300]
+```
+
+<br><br>
+
+variant with `for..of` loop:
+<br>
+
+```js
+const deposit2 = [];
+
+for (const mov of movements) {
+  if (mov > 1) {
+    deposit2.push(mov);
+  }
+}
+
+console.log(deposit2);
+// (5) [200, 450, 3000, 70, 1300]
+```
+
+<br><br>
+
+### What to use?
+
+<br>
+
+`filter()` is more functional and practical. We can **chain methods together**.
+
+String methods can be used with array methods. Also, big chains of array methods can be made.
+
+It is impossible with `for..of` loop.
+
 <br><br>
 
 ---
 
 ## 10. The reduce method
+
+<br>
+
+The reduce`()` method executes a user-supplied "reducer" callback function on each element of the array,
+
+in order,
+
+passing in the return value from the calculation on the preceding element.
+
+The final result of running the reducer across all elements of the array is a single value.
+
+The first time that the callback is run there is no "return value of the previous calculation".
+If supplied, an initial value may be used in its place.
+
+Otherwise the array element at index 0 is used as the initial value and iteration starts from the next element (index 1 instead of index 0).
+
+Perhaps the easiest-to-understand case for `reduce()` is to return the sum of all the elements in an array:
+<br><br>
+
+```js
+const array1 = [1, 2, 3, 4];
+
+// 0 + 1 + 2 + 3 + 4
+const initialValue = 0;
+const sumWithInitial = array1.reduce(
+  (previousValue, currentValue) => previousValue + currentValue,
+  initialValue
+);
+
+console.log(sumWithInitial);
+// expected output: 10
+```
+
+<br><br>
+
+The reducer walks through the array element-by-element, at each step adding the current array value to the result from the previous step (this result is the running sum of all the previous steps) — until there are no more elements to add.
+<br><br>
+
+**Syntax**
+<br>
+
+```js
+// Arrow function
+reduce((previousValue, currentValue) => {
+  /* ... */
+});
+reduce((previousValue, currentValue, currentIndex) => {
+  /* ... */
+});
+reduce((previousValue, currentValue, currentIndex, array) => {
+  /* ... */
+});
+reduce((previousValue, currentValue, currentIndex, array) => {
+  /* ... */
+}, initialValue);
+
+// Callback function
+reduce(callbackFn);
+reduce(callbackFn, initialValue);
+```
+
+<br><br>
+
+[MDN reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)
+
+<br><br>
+
+**Boiling down all the elements in an array to one single value.**
+<br>
+
+Adding up all the numbers in one array.
+<br><br>
+
+`reduce()` has two parameters:
+<br>
+
+1. **callback function**
+
+The callback function is called in each iteration of looping over the array.
+<br><br>
+
+Parameters of the callback:
+<br>
+
+1. **accumulator = current sum of all previous values**
+
+2. current element
+
+3. index
+
+4. whole array
+
+<br><br>
+
+```js
+const balance = movements.reduce(
+  // first parameter
+  function (accumulator, element, i, arr) {
+    return accumulator + element;
+  }
+
+  //, (second parameter)
+);
+```
+
+<br><br>
+
+2. **initial value of the accumulator**
+   <br><br>
+
+- the one in the 1st loop iteration
+
+- we specify it
+  <br><br>
+
+```js
+const balance = movements.reduce(function (accumulator, element, i, arr) {
+  return accumulator + element;
+}, 0);
+
+console.log(balance); // 3840
+```
+
+<br><br>
+
+**Get the max value from the array**
+<br>
+
+The value we boil down the array to, can be anything, it doesn't have to be a sum.
+It can be a maximum value, multiplication; string, object...
+
+<br><br>
+
+Process/**pseudo code**:
+<br>
+
+1.  Store the first value as the current maximum (make the acc the current value).
+    <br>
+
+        ... ), movements[0];
+
+<br><br>
+
+2. Check if the next value is greater than the previous one. If so, store it as a current maximum.
+   <br><br>
+
+```js
+  if (acc > mov) {
+    return acc;
+  } else (acc < mov) {
+    return mov;
+  }
+```
+
+<br><br>
+
+3. Keep going through the array until the end.
+
+<br><br>
+
+When you use `reduce()`, ask this: **what should be the purpose of he accumulator?**
+<br><br>
+
+- keep track of the current sum (1st example)
+
+- keep track of the current max value (2nd example)
+  <br><br>
+
+```js
+const maxValue = movements.reduce((acc, mov) => {
+  if (acc > mov) {
+    return acc;
+  } else {
+    return mov;
+  }
+}, movements[0]);
+```
 
 <br><br>
 
