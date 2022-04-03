@@ -75,6 +75,12 @@ const calcAverageHumanAge = function (ages) {
   console.log(adultDogs);
 
   // calculate the average age of the dogs
+
+  // const average = adultDogs.reduce((acc, age) => acc + age, 0) / adults.length;
+
+  // average of 2 and 3
+  // (2+3)/2 === 2/2 + 3/2 = 2.5
+
   const averageDogHumanAge = adultDogs.reduce(
     (acc, age, i, arr) => acc + age / arr.length,
     0
@@ -88,3 +94,19 @@ const avgDogAge2 = calcAverageHumanAge(ages2);
 
 console.log(avgDogAge1);
 console.log(avgDogAge2);
+
+// ----------------------------------- 3
+
+// Rewrite the `calcAverageHumanAge` function from Challenge #2, but this time
+// as an arrow function, and using chaining
+
+const calcAverageHumanAgeArr = (ages) =>
+  ages
+    .map((age) => (age <= 2 ? 2 * age : 16 + age * 4))
+    .filter((age, i, arr) => (age >= 18 ? true : false))
+    .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
+
+const avgDogAge3 = calcAverageHumanAgeArr(ages1);
+const avgDogAge4 = calcAverageHumanAgeArr(ages1);
+
+console.log(avgDogAge3, avgDogAge4);
