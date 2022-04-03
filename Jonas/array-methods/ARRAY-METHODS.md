@@ -14,16 +14,17 @@
 8. [Computing usernames](#8-computing-usernames)
 9. [The filter method](#9-the-filter-method)
 10. [The reduce method](#10-the-reduce-method)
-11. [Implementing Login](#11-implementing-login)
-12. [Implementing Transfers](#12-implementing-transfers)
-13. [The findIndex method](#13-the-findindex-method)
-14. [some and every](#14-some-and-every)
-15. [flat and flatMap](#15-flat-and-flatmap)
-16. [Sorting arrays](#16-sorting-arrays)
-17. [More ways of creating and filling arrays](#17-more-ways-of-creating-and-filling-arrays)
-18. [SUMMARY](#18-summary)
+11. [Chaining methods](#11-chaining-methods)
+12. [Implementing Login](#12-implementing-login)
+13. [Implementing Transfers](#13-implementing-transfers)
+14. [The findIndex method](#14-the-findindex-method)
+15. [some and every](#15-some-and-every)
+16. [flat and flatMap](#16-flat-and-flatmap)
+17. [Sorting arrays](#17-sorting-arrays)
+18. [More ways of creating and filling arrays](#18-more-ways-of-creating-and-filling-arrays)
+19. [SUMMARY](#19-summary)
 
-[Resources](#19-resources)
+[Resources](#20-resources)
 
 <br><br>
 
@@ -1258,49 +1259,104 @@ const maxValue = movements.reduce((acc, mov) => {
 
 ---
 
-## 11. Implementing Login
+## 11. Chaining methods
+
+<br>
+
+_Take all movements deposits._
+
+_Convert € > $._
+
+_Add everything so you know how much was deposited in $._
+<br><br>
+
+Each operation can be done individually, with each result in a new variable, but it can also be done in one go by chaining.
+<br><br>
+
+```js
+const totalDepositsUSD = movements
+  .filter(mov => (mov > 0 ? true : false))
+  .map(mov => mov * eurToUsd)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(totalDepositsUSD); // 5522.000000000001
+```
+
+<br><br>
+
+You can chain as many methods as you want, as long as they return new arrays.
+
+**You can only chain a method after a one that returns an array.**
+<br><br>
+
+**Hard to debug if one of the results is not as expected.
+For that, check the array at each step with** `console.log()`.
+<br><br>
+
+Use case of the `arr` as a parameter. It is a result of the previous operation in the chain.
+<br><br>
+
+```js
+.filter(mov => (mov > 0 ? true : false))
+.map((mov, i, arr) => {
+  // console.log(arr);
+  mov * eurToUsd;
+})
+```
+
+<br><br>
+
+1. Don't overuse chaining, optimize it. It can cause performance issue if it is huge.
+
+2. **Bad practice to chain methods that mutate the original array.**
 
 <br><br>
 
 ---
 
-## 12. Implementing Transfers
+## 12. Implementing Login
 
 <br><br>
 
 ---
 
-## 13. The findIndex method
+## 13. Implementing Transfers
 
 <br><br>
 
 ---
 
-## 14. some and every
+## 14. The findIndex method
 
 <br><br>
 
 ---
 
-## 15. flat and flatMap
+## 15. some and every
 
 <br><br>
 
 ---
 
-## 16. Sorting Arrays
+## 16. flat and flatMap
 
 <br><br>
 
 ---
 
-## 17. More ways of creating and filling arrays
+## 17. Sorting Arrays
 
 <br><br>
 
 ---
 
-## 18. SUMMARY
+## 18. More ways of creating and filling arrays
+
+<br><br>
+
+---
+
+## 19. SUMMARY
 
 <br>
 
@@ -1310,4 +1366,4 @@ const maxValue = movements.reduce((acc, mov) => {
 
 ---
 
-## 19. Resources
+## 20. Resources

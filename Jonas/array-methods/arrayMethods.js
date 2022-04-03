@@ -227,3 +227,27 @@ const maxValue2 = movements.reduce(
   movements[0]
 );
 console.log(maxValue2); // 3000
+
+//------------------------------------------------ CHAINING METHODS
+
+// Take all movements  deposits.
+// Convert € > $.
+// Add everything so you know how much was deposited in $.
+
+// we have calculated everything earlier
+console.log(movements); // [200, 450, -400, 3000, -650, -130, 70, 1300];
+console.log(deposits); // [200, 450, 3000, 70, 1300]
+
+// conversion rate
+// const eurToUsd = 1.1;
+
+const totalDepositsUSD = movements
+  .filter(mov => (mov > 0 ? true : false))
+  .map((mov, i, arr) => {
+    console.log(arr);
+    mov * eurToUsd;
+  })
+  // .map(mov => mov * eurToUsd)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(totalDepositsUSD); // 5522.000000000001
