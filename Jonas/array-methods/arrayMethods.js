@@ -251,3 +251,23 @@ const totalDepositsUSD = movements
   .reduce((acc, mov) => acc + mov, 0);
 
 console.log(totalDepositsUSD); // 5522.000000000001
+
+//------------------------------------------------ find()
+
+const firstWithdrawal = movements.find(mov => mov < 0);
+
+console.log(movements); // [200, 450, -400, 3000, -650, -130, 70, 1300]
+console.log(firstWithdrawal); // -400
+
+// with for..of
+
+const firstWithdrawal2 = [];
+
+for (let mov of movements) {
+  if (mov < 0) {
+    console.log(firstWithdrawal2.push(mov));
+    break;
+  }
+}
+
+console.log(firstWithdrawal2);
