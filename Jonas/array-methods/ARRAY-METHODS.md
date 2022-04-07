@@ -15,14 +15,16 @@
 9. [The filter method](#9-the-filter-method)
 10. [The reduce method](#10-the-reduce-method)
 11. [Chaining methods](#11-chaining-methods)
-12. [Implementing Login](#12-implementing-login)
-13. [Implementing Transfers](#13-implementing-transfers)
-14. [The findIndex method](#14-the-findindex-method)
-15. [some and every](#15-some-and-every)
-16. [flat and flatMap](#16-flat-and-flatmap)
-17. [Sorting arrays](#17-sorting-arrays)
-18. [More ways of creating and filling arrays](#18-more-ways-of-creating-and-filling-arrays)
-19. [SUMMARY](#19-summary)
+12. [The find method](#12-the-find-method)
+13. [Implementing Login](#13-implementing-login)
+14. [Implementing Transfers](#14-implementing-transfers)
+15. [The findIndex method](#15-the-findindex-method)
+16. [some and every](#16-some-and-every)
+17. [flat and flatMap](#17-flat-and-flatmap)
+18. [Sorting arrays](#18-sorting-arrays)
+19. [More ways of creating and filling arrays](#9-more-ways-of-creating-and-filling-arrays)
+20. [SUMMARY](#20-summary)
+21. [Resources](#21-resources)
 
 [Resources](#20-resources)
 
@@ -1314,49 +1316,312 @@ Use case of the `arr` as a parameter. It is a result of the previous operation i
 
 ---
 
-## 12. Implementing Login
+## 12. The find method
+
+<br>
+
+The `find()` method returns the first element in the provided array that satisfies the provided testing function. If no values satisfy the testing function, `undefined` is returned.
+<br><br>
+
+```js
+const array1 = [5, 12, 8, 130, 44];
+
+const found = array1.find(element => element > 10);
+
+console.log(found);
+// expected output: 12
+
+// Arrow function
+find(element => {
+  /* ... */
+});
+find((element, index) => {
+  /* ... */
+});
+find((element, index, array) => {
+  /* ... */
+});
+
+// Callback function
+find(callbackFn);
+find(callbackFn, thisArg);
+```
+
+<br><br>
+
+[MDN find()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+
+<br><br>
+
+- If you need the **index** of the found element in the array, use `findIndex()`.
+  <br><br>
+
+- If you need to find the **index of a value**, use `Array.prototype.indexOf()`. (It's similar to `findIndex()`, but checks each element for equality with the value instead of using a testing function.)
+  <br><br>
+
+- If you need to find if a value **exists** in an array, use `Array.prototype.includes()`. Again, it checks each element for equality with the value instead of using a testing function.
+  <br><br>
+
+- If you need to find if any element satisfies the provided testing function, use `Array.prototype.some()`.
+
+<br><br>
+
+Finds element of the array based on a condition.
+<br><br>
+
+- accepts condition
+
+- accepts callback function which is called as the method loops over the array, **returns boolean**
+
+- retrieves an element of an array
+
+- **doesn't return new array >> returns 1st element that satisfies the condition**
+  <br><br>
+
+```js
+const firstWithdrawal = movements.find(mov => mov < 0);
+
+console.log(movements); // [200, 450, -400, 3000, -650, -130, 70, 1300]
+console.log(firstWithdrawal); // -400
+```
+
+<br><br>
+
+Difference between `filter()` and `find()`
+<br><br>
+
+`filter()`
+
+- returns all elements that match the condition
+
+- returns a new array
+  <br><br>
+
+`find()`
+
+- returns only the 1st element that matches the condition
+
+- doesn't return array, only 1 element
+
+<br><br>
+
+**Use case**
+
+Find an object in the array of objects, based on some property of that object.
+<br><br>
+
+```js
+// selecting accounts by name
+const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(account);
+
+// In the Console:
+{ owner: 'Jessica Davis',
+  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+  interestRate: 1.5,
+  pin: 2222,
+  username: 'jd'
+}
+```
 
 <br><br>
 
 ---
 
-## 13. Implementing Transfers
+## 13. Implementing Login
+
+<br>
+
+When a `button` is in `form` element, the HTML default behaviour is to **reload when that kind of button is clicked.**
+<br><br>
+
+To stop that from happening, do this:
+<br>
+
+```js
+btnLogin.addEventListener('click', function (e) {
+  // prevents form from submitting
+  e.preventDefault();
+
+  console.log('Login');
+});
+```
+
+<br><br>
+
+Whenever there is `input` field + we hit `enter`, it will automatically trigger `click` event on submit button.
+
+<br><br>
+
+`preventDefault()` method
+<br><br>
+
+The `preventDefault()` method tells the user agent that if the event does not get explicitly handled, its default action should not be taken as it normally would be.
+
+The event continues to propagate as usual, unless one of its event listeners calls `stopPropagation()` or `stopImmediatePropagation()`, either of which terminates propagation at once.
+
+Calling `preventDefault()` for a non-cancelable event, without specifying `cancelable: true` has no effect.
+<br><br>
+
+**Syntax**: `event.preventDefault();`
+<br><br>
+
+**Examples**:
+<br><br>
+
+- [Blocking default click handling](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault#blocking_default_click_handling)
+
+- [Stopping keystrokes from reaching an edit field](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault#stopping_keystrokes_from_reaching_an_edit_field)
+
+<br><br>
+
+To login an user, we need to find the account with the user name that the user inputed. >> `find()`.
+<br><br>
+
+1.  select the element + read its value: `inputLoginUsername.value`
+
+2.  save it to a variable defined outside of the event listener function because **we will need the information about current account in other functions**
+    <br><br>
+
+```js
+let currentAccount;
+
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  // find account with user name that user inputed
+  currentAccount = accounts.find(acc => acc.owner === inputLoginUsername.value);
+});
+```
+
+<br><br>
+
+3. check if pin is correct.
+   <br><br>
+
+Convert `.value` to `Number()` because it will otherwise always be a string.
+
+Also, check if the currentAccount exists. There are 2 ways:
+<br>
+
+a) `currentAccount && currentAccount.pin === Number(inputLoginPin.value)`
+
+b) `currentAccount?.pin === Number(inputLoginPin.value)` (optional chaining)
+<br><br>
+
+Displaying only the first name of the user: `currentAccount.owner.split(" ")[0]`
+
+<br><br>
+
+**IF THE PIN IS CORRECT...**
+<br><br>
+
+```js
+if (currentAccount?.pin === Number(inputLoginPin.value)) {
+  // code
+}
+```
+
+<br><br>
+
+**1. Display UI and "welcome" msg**
+<br><br>
+
+```js
+// .welcome; "Login to get started" = labelWelcome
+labelWelcome.textContent = `Welcome back, ${
+  currentAccount.owner.split(' ')[0]
+}`;
+
+// .app contains opacity to change visibility = containerApp
+containerApp.style.opacity = 100;
+```
+
+<br><br>
+
+**1.b Clear input fields**
+<br><br>
+
+    inputLoginUsername.value = inputLoginPin.value = '';
+
+<br><br>
+
+**2. Display movements**
+<br><br>
+
+Remove from the beginning and put it inside of the event handler.
+<br>
+
+    displayMovements(currentAccount.movements);
+
+<br><br>
+
+**3. Display balance**
+<br><br>
+
+    calcDisplayBalance(currentAccount.movements);
+
+<br><br>
+
+**4. Display summary**
+<br><br>
+
+    calcDisplaySummary(currentAccount.movements);
+
+<br><br>
+
+`blur()` function removes focus from a(n input) field.
+
+<br><br>
+
+**Changing interest rate for each account**
+<br><br>
+
+- we want to use the interest rate dynamically, depending on the current user
+
+`calcDisplaySummary()` modification: instead of movements as parameter, we need account
 
 <br><br>
 
 ---
 
-## 14. The findIndex method
+## 14. Implementing Transfers
 
 <br><br>
 
 ---
 
-## 15. some and every
+## 15. The findIndex method
 
 <br><br>
 
 ---
 
-## 16. flat and flatMap
+## 16. some and every
 
 <br><br>
 
 ---
 
-## 17. Sorting Arrays
+## 17. flat and flatMap
 
 <br><br>
 
 ---
 
-## 18. More ways of creating and filling arrays
+## 18. Sorting Arrays
 
 <br><br>
 
 ---
 
-## 19. SUMMARY
+## 19. More ways of creating and filling arrays
+
+<br><br>
+
+---
+
+## 20. SUMMARY
 
 <br>
 
@@ -1366,4 +1631,4 @@ Use case of the `arr` as a parameter. It is a result of the previous operation i
 
 ---
 
-## 20. Resources
+## 21. Resources
