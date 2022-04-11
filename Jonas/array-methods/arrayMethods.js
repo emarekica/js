@@ -8,11 +8,11 @@ const currencies = new Map([
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-//------------------------------------------------ ARRAY METHODS
+//-------------------------------------------------------- ARRAY METHODS
 
 let array = ['a', 'b', 'c', 'd', 'e'];
 
-//------------------------------------------------ slice()
+//-------------------------------------------------------------- slice()
 // accessor
 // copies a portion of an array to a new array
 
@@ -32,7 +32,7 @@ console.log(array.slice(1, -2)); // (2) ['b', 'c']
 console.log(array.slice()); // (5) ['a', 'b', 'c', 'd', 'e']
 console.log([...array]); // (5) ['a', 'b', 'c', 'd', 'e']
 
-//------------------------------------------------ splice()
+//-------------------------------------------------------------- splice()
 // mutator
 // adds or removes an item from any position in an array, can be simultaneously
 
@@ -52,7 +52,7 @@ console.log(array);
 // starting from position 1, take out 2 elements
 console.log(array.splice(1, 2)); // (2) ['b', 'c'] = deleted
 
-//------------------------------------------------ reverse()
+//-------------------------------------------------------------- reverse()
 // mutator
 // reverses the order of elements in the array
 
@@ -61,7 +61,7 @@ const arr = ['j', 'i', 'h', 'g', 'f'];
 console.log(arr.reverse()); // (5) ['f', 'g', 'h', 'i', 'j']
 console.log(arr);
 
-//------------------------------------------------ concat()
+//-------------------------------------------------------------- concat()
 // accessor
 // merges two or more arrays to a new array
 
@@ -70,13 +70,13 @@ const letters = array.concat(arr);
 console.log(letters); // (7) ['a', 'd', 'f', 'g', 'h', 'i', 'j']
 console.log([...array, ...arr]);
 
-//------------------------------------------------ join()
+//-------------------------------------------------------------- join()
 // accessor
 // converts all the elements of an array into a new string
 
 console.log(letters.join('-')); // a-d-f-g-h-i-j
 
-//------------------------------------------------ at()
+//-------------------------------------------------------------- at()
 
 const atArr = [12, 34, 56];
 
@@ -103,7 +103,7 @@ console.log('jonas'.at(3)); // a
 // get last character of string
 console.log('jonas'.at(-1)); // s
 
-//------------------------------------------------ map()
+//-------------------------------------------------------------- map()
 
 // converting € > $
 // multiply each element of "movements" by conversion rate
@@ -144,7 +144,7 @@ const movDescr = movements.map(
 
 console.log(movDescr);
 
-//------------------------------------------------ filter()
+//-------------------------------------------------------------- filter()
 
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -181,7 +181,7 @@ for (const mov of movements) {
 }
 console.log(withdrawals2);
 
-//------------------------------------------------ reduce()
+//-------------------------------------------------------------- reduce()
 
 // --- SUM
 // boiling down all the elements in an array to one single value
@@ -228,7 +228,7 @@ const maxValue2 = movements.reduce(
 );
 console.log(maxValue2); // 3000
 
-//------------------------------------------------ CHAINING METHODS
+//------------------------------------------------------CHAINING METHODS
 
 // Take all movements  deposits.
 // Convert € > $.
@@ -252,7 +252,7 @@ const totalDepositsUSD = movements
 
 console.log(totalDepositsUSD); // 5522.000000000001
 
-//------------------------------------------------ find()
+//-------------------------------------------------------------- find()
 
 const firstWithdrawal = movements.find(mov => mov < 0);
 
@@ -271,3 +271,15 @@ for (let mov of movements) {
 }
 
 console.log(firstWithdrawal2);
+
+//-------------------------------------------------------------- findIndex()
+
+// returns the INDEX of the first element in the array that satisfies the provided testing function
+// find() returns the ELEMENT
+
+const array1 = [5, 12, 8, 130, 44];
+
+const isLargeNumber = element => element > 13;
+
+console.log(array1.findIndex(isLargeNumber));
+// expected output: 3
