@@ -283,3 +283,50 @@ const isLargeNumber = element => element > 13;
 
 console.log(array1.findIndex(isLargeNumber));
 // expected output: 3
+
+//-------------------------------------------------------------- some()
+// test for CONDITION: any
+
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+console.log(movements);
+
+// tests for equality
+console.log(movements.includes(-130)); // true
+
+// test for condition
+console.log(movements.some(mov => mov === -130)); // true
+
+// Were there deposits/positive movemet in the arr?
+const anyDeposits = movements.some(mov => mov > 0);
+console.log(anyDeposits); // true
+
+const anyDeposits2 = movements.some(mov => mov > 5000);
+console.log(anyDeposits2); // false
+
+//-------------------------------------------------------------- every()
+// test for CONDITION: every
+
+console.log(movements.every(mov => mov > 0)); // false
+
+// writing callback separately
+
+const deposit = mov => mov > 0;
+
+console.log(movements.every(deposit)); // false
+console.log(movements.some(deposit)); // true
+console.log(movements.filter(deposit)); // (5) [200, 450, 3000, 70, 1300]
+
+//-------------------------------------------------------------- flat()
+//-------------------------------------------------------------- flatMap()
+
+const nestedArr = [[1, 2, 3], [4, 5, 6], 7, 8];
+
+// taking elements from subarrays, putting them into one arr
+console.log(nestedArr.flat()); // [1, 2, 3, 4, 5, 6, 7, 8]
+
+const deepNestedArr = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(deepNestedArr.flat()); // [Array(2), 3, 4, Array(2), 7, 8]
+
+// use depth argument to determine levels
+console.log(deepNestedArr.flat(2)); // [1, 2, 3, 4, 5, 6, 7, 8]

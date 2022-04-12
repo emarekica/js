@@ -1901,11 +1901,308 @@ Both were added in ES6.
 
 ## 16. some and every
 
+<br>
+
+The `some()` method tests whether at least one element in the array passes the test implemented by the provided function. It returns `true` if, in the array, it finds an element for which the provided function returns `true`; otherwise it returns `false`. It doesn't modify the array.
+<br><br>
+
+```js
+const array = [1, 2, 3, 4, 5];
+
+// checks whether an element is even
+const even = element => element % 2 === 0;
+
+console.log(array.some(even));
+// expected output: true
+```
+
+<br><br>
+
+**Syntax:**
+<br><br>
+
+    // Arrow function
+    some((element) => { /* ... */ } )
+    some((element, index) => { /* ... */ } )
+    some((element, index, array) => { /* ... */ } )
+
+    // Callback function
+    some(callbackFn)
+    some(callbackFn, thisArg)
+
+<br><br>
+
+[MDN some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
+
+<br><br>
+
+The `every()` method tests whether all elements in the array pass the test implemented by the provided function. It returns a Boolean value.
+<br><br>
+
+```js
+const isBelowThreshold = currentValue => currentValue < 40;
+
+const array1 = [1, 30, 39, 29, 10, 13];
+
+console.log(array1.every(isBelowThreshold));
+// expected output: true
+```
+
+<br><br>
+
+**Syntax:**
+<br><br>
+
+    // Arrow function
+    every((element) => { /* ... */ } )
+    every((element, index) => { /* ... */ } )
+    every((element, index, array) => { /* ... */ } )
+
+    // Callback function
+    every(callbackFn)
+    every(callbackFn, thisArg)
+
+<br><br>
+
+`includes()` used to test if array includes certain value. It tests only **equality** (`===`).
+<br><br>
+
+```js
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+console.log(movements.includes(-130)); // true
+```
+
+<br><br>
+
+Can be written with `some()`, but it doesn't make much sense.
+<br>
+
+    console.log(movements.some(mov => mov === -130)); // true
+
+<br><br>
+
+`some()` tests for the **condition**.
+
+If there is **any** value for which the condition is true, it will return true.
+<br><br>
+
+_Were there any deposits to the account?_
+= is there any positive movement in the array ( `< 0` )?
+<br><br>
+
+```js
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const anyDeposits = movements.some(mov => mov > 0);
+console.log(anyDeposits); // true
+
+const anyDeposits = movements.some(mov => mov > 5000);
+console.log(anyDeposits); // false
+```
+
+<br><br>
+
+`every()` returns `true` only if **every elements satisfy the condition**.
+<br><br>
+
+_Check if all movements are deposits._
+<br>
+
+```js
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+console.log(movements.every(mov => mov > 0)); // false
+```
+
+<br><br>
+
+**Writing condition / function separately and passing it in as a callback**.
+
+Better for DRY principle.
+<br><br>
+
+```js
+const deposit = mov => mov > 0;
+
+console.log(movements.every(deposit)); // false
+console.log(movements.some(deposit)); // true
+console.log(movements.filter(deposit)); // (5) [200, 450, 3000, 70, 1300]
+```
+
 <br><br>
 
 ---
 
 ## 17. flat and flatMap
+
+<br>
+
+Both methods introduced in ES2019. Won't work in old browsers.
+
+<br><br>
+
+The `flat()` method creates a new array with all sub-array elements concatenated into it recursively up to the specified depth.
+<br><br>
+
+```js
+const arr1 = [0, 1, 2, [3, 4]];
+
+console.log(arr1.flat());
+// expected output: [0, 1, 2, 3, 4]
+
+const arr2 = [0, 1, 2, [[[3, 4]]]];
+
+console.log(arr2.flat(2));
+// expected output: [0, 1, 2, [3, 4]]
+```
+
+<br><br>
+
+**Syntax:**
+<br><br>
+
+    flat()
+    flat(depth)
+
+<br><br>
+
+[MDN flat()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
+
+<br><br>
+
+The `flatMap()` method returns a new array formed by applying a given callback function to each element of the array, and then flattening the result by one level. It is identical to a `map()` followed by a `flat()` of **depth 1**, but slightly more efficient than calling those two methods separately.
+<br><br>
+
+**Syntax:**
+<br><br>
+
+    // Arrow function
+    flatMap((currentValue) => { /* ... */ } )
+    flatMap((currentValue, index) => { /* ... */ } )
+    flatMap((currentValue, index, array) => { /* ... */ } )
+
+    // Callback function
+    flatMap(callbackFn)
+    flatMap(callbackFn, thisArg)
+
+<br><br>
+
+[MDN flatMap()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)
+
+<br><br>
+
+`flat()` flattens the array with nested arrays.
+
+<br><br>
+
+```js
+const nestedArr = [[1, 2, 3], [4, 5, 6], 7, 8];
+
+console.log(nestedArr.flat()); // [1, 2, 3, 4, 5, 6, 7, 8]
+```
+
+<br><br>
+
+It only goes 1 level deep.
+<br><br>
+
+```js
+const deepNestedArr = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+
+console.log(deepNestedArr.flat());
+// (6) [Array(2), 3, 4, Array(2), 7, 8]
+```
+
+<br><br>
+
+Use **depth argument**.
+<br><br>
+
+```js
+console.log(deepNestedArr.flat(2));
+// [1, 2, 3, 4, 5, 6, 7, 8]
+```
+
+<br><br>
+
+_Calculate overall movements of all all accounts._
+
+Movements are stored in arrays that are inside objects inside accounts array.
+<br><br>
+
+Structure: `[ { [ movement ] }, { [ movement ] }, { [ movement ] } ]`
+<br><br>
+
+**1. Take all the movements out.**
+<br>
+
+You will get a nested structure: array with other arrays.
+<br><br>
+
+```js
+const allAccMovements = accounts.map(acc => acc.movements);
+console.log(allAccMovements);
+
+// (4) [Array(8), Array(8), Array(8), Array(5)]
+```
+
+<br><br>
+
+**2. Put all movements into one array.**
+<br><br>
+
+```js
+const allAccMovements = allMovements.flat();
+console.log(allAccMovements);
+
+// (29) [200, 450, -400, 3000, -650, -130, 70, 1300, 5000, 3400, -150, -790, -3210, ... ]
+```
+
+<br><br>
+
+**3. Sum them.**
+<br><br>
+
+```js
+const overallBalance = allAccMovements.reduce((acc, mov) => acc + mov);
+console.log(overallBalance); // 17840
+```
+
+<br><br>
+
+**Can be done with chaining.**
+<br><br>
+
+```js
+const overall = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(overall); // 17840
+```
+
+<br><br>
+
+It is common to use `map()` + `flat()`.
+
+For putting that all-in-one, there is `flatMap()`.
+
+It is better for performance.
+<br><br>
+
+```js
+const overall2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(overall2); // 17840
+```
+
+<br><br>
+
+`flatMap()` only goes one level. **For deeper levels, use**`flat()`.
 
 <br><br>
 
