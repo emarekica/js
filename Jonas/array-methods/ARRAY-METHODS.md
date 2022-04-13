@@ -2210,6 +2210,212 @@ console.log(overall2); // 17840
 
 ## 18. Sorting Arrays
 
+<br>
+
+Here, we will use JS built-in sort methods.
+
+<br>
+
+The `sort()` method sorts the elements of an array in place and returns the sorted array. The default sort order is ascending, built upon **converting the elements into strings, then comparing their sequences of UTF-16 code units values - alphabetically**.
+<br><br>
+
+```js
+const months = ['March', 'Jan', 'Feb', 'Dec'];
+months.sort();
+console.log(months);
+// expected output: Array ["Dec", "Feb", "Jan", "March"]
+
+const array1 = [1, 30, 4, 21, 100000];
+array1.sort();
+console.log(array1);
+// expected output: Array [1, 100000, 21, 30, 4]
+```
+
+<br><br>
+
+**Syntax:**
+<br><br>
+
+```js
+// Functionless
+sort();
+
+// Arrow function
+sort((a, b) => {
+  /* ... */
+});
+
+// Compare function
+sort(compareFn);
+```
+
+<br><br>
+
+**Mutates original array.**
+
+<br><br>
+
+```js
+// strings
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+
+console.log(owners.sort()); // ['Adam', 'Jonas', 'Martha', 'Zach']
+console.log(owners); // mutated
+```
+
+<br><br>
+
+`sort()` does the sorting based on strings, so it won't work on numbers. It converts them to strings, then does the sorting.
+<br><br>
+
+```js
+// numbers
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+console.log(movements.sort()); // [-130, -400, -650, 1300, 200, 3000, 450, 70]
+```
+
+<br><br>
+
+For numbers, callback function is needed.
+<br>
+
+`sort()` callback function works by this rule:
+
+<br><br>
+
+    if returned `< 0 `--> `a, b`
+
+    if returned `> 0` --> `b, a`
+
+<br><br>
+
+```js
+// a = current value
+// b = next value
+
+// ASCENDING
+// return < 0, a, b (keep order ascending)
+// return > 0, b, a (switch order)
+
+movements.sort((a, b) => {
+  if (a > b) return 1;
+  if (b < a) return -1;
+});
+
+console.log(movements); // [-650, -400, -130, 70, 200, 450, 1300, 3000]
+
+// DESCENDING
+// return < 0, b, a (keep order descending)
+// return > 0, a, b (switch order)
+
+movements.sort((a, b) => {
+  if (a > b) return -1;
+  if (b < a) return 1;
+});
+
+console.log(movements); // [3000, 1300, 450, 200, 70, -130, -400, -650]
+```
+
+<br><br>
+
+Works with strings, too.
+<br><br>
+
+```js
+owners.sort((a, b) => {
+  if (a > b) return 1;
+  if (a < b) return -1;
+});
+
+console.log(owners); // ['Adam', 'Jonas', 'Martha', 'Zach']
+```
+
+<br><br>
+
+When working with numbers, it can be **simplified**.
+<br><br>
+
+**ascending**
+
+    If a > b, a - b = positive (1).
+
+    If a < b, a - b = negative (-1).
+
+<br><br>
+
+`movements.sort((a, b) => a - b);`
+<br><br>
+
+**descending**
+
+    If a < b, b - a = positive (1).
+
+    If a > b, b - a = negative (-1).
+
+<br><br>
+
+`movements.sort((a, b) => b - a);`
+
+<br><br>
+
+`sort()` is not useful in mixed arrays that contain both strings and numbers.
+
+<br><br>
+
+We set the parameter `sort = false` because we want to show the movements how they normally appear, not sorted.
+<br><br>
+
+When we click the button "sort", it will the trigger the function with `sort = true`.
+<br><br>
+
+We want to display sorted `movements` array, not sort the original data in the array `movements` (mutate the array).
+<br><br>
+
+No: `movements.sort()`
+<br>
+
+Yes: make a copy of the movements array with `slice()` and sort that
+<br>
+
+`movements.slice().sort((a, b) => a - b)`
+
+<br><br>
+
+const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+If `sort` is `true`, the movs will be sorted in ascending order.
+If it is `false` , it will just display movements as they came.
+
+<br><br>
+
+### STATE VARIABLE
+
+<br>
+
+**Monitors if we are sorting array or not.**
+<br>
+
+Lives outside of the callback function so its value is preserved after clicking on sort button.
+<br><br>
+
+In the callback, instead of setting the `sort` variable to `true` , we set it with `!sorted`.
+<br><br>
+
+```js
+// state variable
+let sorted = false;
+
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  displayMovements(currentAccount.movements, !sorted);
+
+  // flip the variable
+  sorted = !sorted;
+});
+```
+
 <br><br>
 
 ---
