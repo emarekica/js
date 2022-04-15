@@ -2422,6 +2422,292 @@ btnSort.addEventListener('click', function (e) {
 
 ## 19. More ways of creating and filling arrays
 
+<br>
+
+### CREATING ARRAYS
+
+<br>
+
+**manually**
+<br><br>
+
+    // manually
+    console.log([1, 2, 3, 4, 5, 6, 7]);
+    console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+
+<br><br>
+
+**programatically**
+<br><br>
+
+Many situations where programatical creation is necessary. There are many ways of doing it.
+
+<br><br>
+
+`new Array()`
+<br><br>
+
+When passed in one argument, it creates new empty array with that length.
+<br><br>
+
+```js
+// creates new array with 7 empty elements (length)
+const x = new Array(7);
+console.log(x);
+// (7) [empty × 7]
+```
+
+<br><br>
+
+**Only 1 method can be called upon** `x` **array:** `fill()`.
+<br>
+
+Fills up the entire array with the specific value passed in and **mutates the original array**.
+<br><br>
+
+    x.fill(1);
+    console.log(x); // (7) [1, 1, 1, 1, 1, 1, 1]
+
+<br><br>
+
+The `fill()` method changes all elements in an array to a static value, from a start index (default `0`) to an end index (default `array.length`). It returns the modified array.
+<br><br>
+
+```js
+const array1 = [1, 2, 3, 4];
+
+// fill with 0 from position 2 until position 4
+console.log(array1.fill(0, 2, 4));
+// expected output: [1, 2, 0, 0]
+
+// fill with 5 from position 1
+console.log(array1.fill(5, 1));
+// expected output: [1, 5, 5, 5]
+
+console.log(array1.fill(6));
+// expected output: [6, 6, 6, 6]
+```
+
+<br><br>
+
+**Syntax**
+
+<br>
+
+    fill(value)
+    fill(value, start)
+    fill(value, start, end)
+
+<br><br>
+
+[MDN fill()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)
+
+<br>
+Can be used both on empty and filled arrays.
+
+<br><br>
+
+### Empty array
+
+<br><br>
+
+```js
+const x = new Array(7);
+console.log(x); // (7) [empty × 7]
+
+// 1: fill(value)
+x.fill(1);
+
+console.log(x); // (7) [1, 1, 1, 1, 1, 1, 1]
+
+
+2: fill(value, start);
+x.fill(1, 3);
+
+console.log(x); // (7) [empty × 3, 1, 1, 1, 1] starts at i = 3
+
+
+// 3: fill(value, start, end)
+x.fill(1, 3, 5);
+
+console.log(x);
+// (7) [empty × 3, 1, 1, empty × 2]
+// start 1=3, end 1=5, final index not included
+```
+
+<br><br>
+
+### Filled arrays
+
+<br><br>
+
+```js
+const arr = [1, 2, 3, 4, 5, 6, 7];
+
+// value, start, end
+arr.fill(24, 2, 6);
+
+console.log(arr); // (7) [1, 2, 24, 24, 24, 24, 7]
+```
+
+<br><br>
+
+### Creating array programatically from an already existing one
+
+<br><br>
+
+The `Array.from()` static method creates a new, shallow-copied Array instance from an array-like or iterable object.
+<br><br>
+
+```js
+console.log(Array.from('foo'));
+// expected output: Array ["f", "o", "o"]
+
+console.log(Array.from([1, 2, 3], x => x + x));
+// expected output: Array [2, 4, 6]
+```
+
+<br><br>
+
+**Syntax**
+<br>
+
+    // Arrow function
+    Array.from(arrayLike, (element) => { /* ... */ } )
+    Array.from(arrayLike, (element, index) => { /* ... */ } )
+
+    // Mapping function
+    Array.from(arrayLike, mapFn)
+    Array.from(arrayLike, mapFn, thisArg)
+
+<br><br>
+
+[MDN array.from()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from)
+
+<br><br>
+
+**It is not used as a method on an array, but on the Array constructor.**
+<br><br>
+
+`new Array(7)`; is a **function**. It is also a function **object**.
+On the function object, we call the `from()` method: `Array.from()`
+<br><br>
+
+**Parameters**
+
+1: object with length property
+
+2: mapping function without arguments
+<br><br>
+
+```js
+const y = Array.from({ length: 7 }, () => 1);
+
+console.log(y); // (7) [1, 1, 1, 1, 1, 1, 1]
+```
+
+This is the same as:
+<br>
+
+```js
+const x = new Array(7);
+x.fill(1);
+
+console.log(x); // (7) [1, 1, 1, 1, 1, 1, 1]
+```
+
+<br><br>
+
+The callback used in the 2nd argument is exactly like the one in the `map()`.
+<br><br>
+
+```js
+const z = Array.from({ length: 7 }, (el, i) => i + 1);
+
+console.log(z); // (7) [1, 2, 3, 4, 5, 6, 7]
+```
+
+**With a throwaway variable** `_`
+
+We don't need the current `el`, but we need to define something as the first parameter, to get to the second one, `i` that we need.
+By writing `_` we tell others that we don't use that parameter.
+<br><br>
+
+```js
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+
+console.log(z); // (7) [1, 2, 3, 4, 5, 6, 7]
+```
+
+<br><br>
+
+`querySelectorAll()`
+<br><br>
+
+Returns **node list**, array-like structure that contains all the selected elements.
+
+It is not a real array and doesn't have methods.
+<br><br>
+
+_Convert a node list to an array to be able to use array methods on it with `Array.from()`._
+<br><br>
+
+#### Getting the values from UI to array
+
+_We don't have an array with movements, instead values are stored only on the UI, not in the code. We want to calculate their sum._
+<br><br>
+
+```js
+const movementsUI = Array.from(document.querySelectorAll('.movements__value'));
+console.log(movementsUI);
+```
+
+<br><br>
+
+`map()` useful to get only the number without €
+<br><br>
+
+1. use `Array.from()` to create an array as a result from `querySelectorAll`
+
+2. as a second argument, use a mapping function that transforms the array as we want it
+   <br><br>
+
+```js
+labelBalance.addEventListener('click', function () {
+  // has 2 arguments
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    domElement => Number(domElement.textContent.replace('€', ''))
+  );
+});
+```
+
+<br>
+
+This process is happening in the second argument:
+<br>
+
+```js
+// convert to a number
+// take € = textContent
+// replace it with nothing = ""
+console.log(
+  movementsUI.map(domElement => Number(domElement.textContent.replace('€', '')))
+);
+```
+
+<br><br>
+
+**Another way of converting a node to an array**
+
+Here, mapping has to be done separately.
+<br>
+
+```js
+const movementsUI2 = [...document.querySelectorAll('.movements__value')];
+console.log(movementsUI2);
+```
+
 <br><br>
 
 ---
