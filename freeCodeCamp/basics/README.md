@@ -12,6 +12,8 @@
 12. [](#12-)
 13. [](#13-)
 
+<br><br>
+
 - Math.random()
 - Math.floor()
 - min-max
@@ -414,3 +416,11 @@ After the `shift`, `ourArray` would have the value `["J", "cat"]`. After the `un
 ---
 
 ##
+
+---
+
+### Resources
+
+<br>
+
+[freeCodeCamp Basic JS Course](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/)
