@@ -24,7 +24,8 @@
 18. [Sorting arrays](#18-sorting-arrays)
 19. [More ways of creating and filling arrays](#9-more-ways-of-creating-and-filling-arrays)
 20. [SUMMARY](#20-summary)
-21. [Resources](#21-resources)
+21. [More exercises](#21-more-exercises)
+22. [Resources](#22-resources)
 
 [Resources](#20-resources)
 
@@ -791,6 +792,55 @@ Creates a new array with all elements that pass the test implemented by the prov
 
 <br>
 
+The `map()` method creates a new array populated with the results of calling a provided function on every element in the calling array.
+<br><br>
+
+```js
+const array1 = [1, 4, 9, 16];
+
+// pass a function to map
+const map1 = array1.map(x => x * 2);
+
+console.log(map1);
+// expected output: Array [2, 8, 18, 32]
+```
+
+<br><br>
+
+**Syntax**
+
+    // Arrow function
+    map((element) => { /* ... */ })
+    map((element, index) => { /* ... */ })
+    map((element, index, array) => { /* ... */ })
+
+    // Callback function
+    map(callbackFn)
+    map(callbackFn, thisArg)
+
+<br><br>
+
+**Parameters**
+
+`callbackFn`
+Function that is called for every element of arr. Each time callbackFn executes, the returned value is added to newArray.
+
+The function is called with the following arguments:
+<br><br>
+
+`element`
+The current element being processed in the array.
+<br>
+
+`index`
+The index of the current element being processed in the array.
+<br>
+
+`array`
+The array map was called upon.
+
+<br><br>
+
 **Use case of `map()`**
 <br>
 
@@ -1021,6 +1071,20 @@ const result = words.filter(word => word.length > 6);
 console.log(result);
 // expected output: Array ["exuberant", "destruction", "present"]
 ```
+
+<br><br>
+
+**Syntax**
+<br><br>
+
+    // Arrow function
+    filter((element) => { /* ... */ } )
+    filter((element, index) => { /* ... */ } )
+    filter((element, index, array) => { /* ... */ } )
+
+    // Callback function
+    filter(callbackFn)
+    filter(callbackFn, thisArg)
 
 <br><br>
 
@@ -1267,6 +1331,65 @@ const maxValue = movements.reduce((acc, mov) => {
   }
 }, movements[0]);
 ```
+
+<br><br>
+
+### Making a new object with reduce() (advanced)
+
+<br><br>
+
+- we can also make a new array
+
+- `reduce()` can replace many methods
+  <br><br>
+
+Create an object which contains sum of `deposits` and of the `withdrawals`. Calculate 2 sums at the same times, in one go.
+<br><br>
+
+```js
+const sums = accounts
+  .flatMap(account => account.movements)
+  .reduce(
+    (sums, cur) => {
+      cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+
+      return sums;
+    },
+    { deposits: 0, withdrawals: 0 }
+  );
+
+console.log(sums); // {deposits: 25180, withdrawals: -7340}
+```
+
+<br><br>
+
+2nd parameter, the starting point, needs to be an object since we are creating an object.
+
+It can be an empty object `{}`.
+
+Or we can start filling it `{ deposits: 0, withdrawals: 0 }`. This object is also sums in the callback function, the **accumulator, its initial value**.
+<br><br>
+
+`sums` is accumulator, which holds `deposits` and `withdrawals`.
+
+<br><br>
+
+1. change: **destructure the object at the declaration phase**
+   <br><br>
+
+instead of this: `const sums = accounts ...`
+<br>
+
+write this: `const [ deposits, withdrawals ] = accounts ...`
+<br><br>
+
+2. change: **use bracket notation with conditional selecting**
+   <br><br>
+
+instead of this: `cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);`
+<br>
+
+write this: `sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;`
 
 <br><br>
 
@@ -1832,7 +1955,7 @@ Bankist app >> **Close Account feature**
 <br><br>
 
 **closing account = deleting that object from accounts array**
-<br><b>r
+<br><br>
 
 1. find the desired element in an array >> `indexOf()` (provides the i of the element)
 
@@ -2717,9 +2840,138 @@ console.log(movementsUI2);
 <br>
 
 **Which array method to use**
+<br><br>
+
+**What do I want to do with the method?**
+
+Mutate the original array.
+Mate a new array.
+<br><br>
+
+I need array index.
+I need entire element.
+<br><br>
+
+I need to know if an array includes... (return boolean values).
+<br><br>
+
+I need a new string.
+<br><br>
+
+I need to transform to value.
+<br><br>
+
+I need to loop over the array.
+<br><br>
+
+![array methods](img/array-methods.png)
 
 <br><br>
 
 ---
 
-## 21. Resources
+<br>
+
+## 21. More exercises
+
+<br>
+
+To get a new array of the length as previous/original one, use `map()`.
+<br>
+
+This: `(mov > 0 ? true : false)` returns the same as `mov > 0`
+
+<br><br>
+
+**++a & a++**
+<br>
+
+`a++` operator increments the value, but returns the previous value.
+<br><br>
+
+    let a = 10;
+
+    console.log(a++); // 10
+    console.log(a); // 11
+    console.log(++a); // 12
+
+    let b = 10;
+
+    console.log(++b); // 11
+    console.log(b++); // 11
+    console.log(b); // 12
+
+<br><br>
+
+**It is common to create an array with exceptions and use that for further computation.**
+
+<br><br>
+
+**Capitalizing only the first character of a word/string:**
+<br><br>
+
+    word[0].toUpperCase() + word.slice(1)
+
+<br><br>
+
+(`slice(1)` = take everything (all the rest) starting at position `i=1`)
+
+<br><br>
+
+**Capitalize all the words in a sentence, with exceptions.**
+
+_this is a nice title_ >> _This Is a Nice Title_
+<br><br>
+
+**Steps**
+<br><br>
+
+1. convert all input strings to lower case: `toLowerCase()`
+   <br>
+
+2. capitalize each word individually >> we need a STRING >> separate each word into an element of the array by an empty string: `split(" ")`
+   <br>
+
+3. loop over the array, capitalize each word (element) that is not in "exceptions" and store it in a new array: `map()`
+   <br>
+
+4. exclude exceptions by checking if the current word is included in that array: `includes()`  
+   <br>
+
+5. join all elements back into 1 array: `join(" ")`
+
+<br><br>
+
+```js
+onst convertTitleCase = function (title) {
+
+  // first letter of the sentence capitalized
+  const capitalizeFirstLetter = str => str[0].toUpperCase() + str.slice(1);
+
+  // words that shouldn't be capitalized
+  const exceptions = ['a', 'an', 'and', 'but', 'in', 'on', 'or', 'the', 'with'];
+
+  // conversion
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word =>
+      exceptions.includes(word) ? word : capitalizeFirstLetter(word)
+    )
+    .join(' ');
+
+  return capitalizeFirstLetter(titleCase);
+};
+
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a LONG title, but not too long'));
+console.log(convertTitleCase('another title with an EXAMPLE'));
+
+// In the Console
+
+This Is a Nice Title
+This Is a Long Title, but Not Too Long
+Another Title with an Example
+```
+
+<br><br>

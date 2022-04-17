@@ -59,8 +59,3 @@ console.log(y); // (7) [1, 1, 1, 1, 1, 1, 1]
 const z = Array.from({ length: 7 }, (el, i) => i + 1);
 
 console.log(z); // (7) [1, 2, 3, 4, 5, 6, 7]
-
-// ---- converting a node to an array
-
-const movementsUI = Array.from(document.querySelectorAll('.movements__value'));
-console.log(movementsUI);
