@@ -93,3 +93,223 @@ Test data:
 - Data 1: [5, 2, 4, 1, 15, 8, 3]
 
 - Data 2: [16, 6, 10, 5, 6, 1, 4]
+
+<br><br>
+
+---
+
+## Part 4
+
+<br>
+
+Julia and Kate are still studying dogs, and this time they are studying if dogs are eating too much or too little.
+Eating too much means the dog's current food portion is larger than the recommended portion, and eating too little is the opposite.
+Eating an okay amount means the dog's current food portion is within a range 10% above and 10% below the recommended portion (see hint).
+<br><br>
+
+1. Loop over the array containing dog objects, and for each dog, calculate the recommended food portion and add it to the object as a new property. Do NOT create a new array, simply loop over the array.
+   The result is in grams of food, and the weight needs to be in kg
+   <br><br>
+
+**Forumla**: recommendedFood = weight \*_ 0.75 _ 28
+<br><br>
+
+**Work notes**:
+<br><br>
+
+Formula:
+
+    recommendedFood = weight ** 0.75 * 28
+    food = g, weight = kg
+
+<br>
+
+How to select key-values in the object:
+
+    weight = dogs.weight
+
+<br>
+
+**Methods used**:
+
+- `forEach()` >> loops over arr, doesn't create new; takes callback
+
+- `Math.trunc()` >> eturns the integer part of a number by removing any fractional digits
+
+<br><br>
+
+2. Find Sarah's dog and log to the console whether it's eating too much or too little.
+   <br>
+
+_HINT_: Some dogs have multiple owners, so you first need to find Sarah in the owners array, and so this one is a bit tricky (on purpose).
+<br><br>
+
+**Work notes**:
+<br>
+
+**1: Find a dog with owner Sarah**
+<br>
+
+    [ { [3, [1]] } ]
+
+<br>
+
+Select it:
+<br>
+
+    dogs.owners.includes()
+
+<br><br>
+
+Looping over arrays nested in objects:
+<br>
+
+` find()` the object inside of the original array that
+`includes()` "Sarah" as owner
+
+<br><br>
+
+**2: Compare**:
+<br>
+
+Formula:
+<br>
+
+dog.recommendedFood > (recommended _ 0.90) && dog.recommendedFood < (recommended _ 1.10)
+<br><br>
+
+Condition:
+<br>
+
+    if (dog.recommendedFood > (recommended * 0.90) && dog.recommendedFood < (recommended * 1.10)) {
+      console.log("The dog eats OK");
+    }
+    else if (dog.recommendedFood < (recommended * 0.90)) {
+      console.log("The dog eats too little.");
+    }
+    else if (dog.recommendedFood > (recommended * 1.10)) {
+      console.log("The dog eats too much");
+    }
+
+<br><br>
+
+OR:
+
+    currentFood > recommendedFood = too much
+    currentFood < recommendedFood = too little
+
+<br><br>
+
+3. Create an array containing all owners of dogs who eat too much (`ownersEatTooMuch`) and an array with all owners of dogs who eat too little (`ownersEatTooLittle`).
+   <br><br>
+
+**Work notes**:
+<br>
+
+1.  check if the current food is too much/little >> `filter()`
+    <br>
+
+        dog.curFood > dog.recommendedFood ? "much" : "little"
+
+    <br>
+
+2.  put all dogs that eat too much in one array >> `push()`
+    <br>
+
+3.  put all dogs that eat too little in onther array >> `push()`
+    <br><br>
+
+**Methods used**:
+
+- `filter()`
+
+- `push()` >> `.push(dog.owners)` because you need only owners
+
+- `flat()` >> create a new array by flattening the old one with nested arrays of owners
+
+<br><br>
+
+4. Log a string to the console for each array created in 3., like this: _"Matilda and Alice and Bob's dogs eat too much!"_ and _"Sarah and John and Michael's dogs eat too little!"_ .
+   <br><br>
+
+**Work notes**:
+<br>
+
+Ennumerate all the owners/elements from the array >> `join()`
+
+It creates and returns a new string by concatenating all of the elements in an array, separated by commas or a specified separator string.
+
+use: `( and )`
+
+<br><br>
+
+5. Log to the console whether there is any dog eating EXACTLY the amount of food that is recommended (just `true` or `false`).
+   <br><br>
+
+**Methods used**:
+
+- `some()`
+
+<br><br>
+
+6. Log to the console whether there is any dog eating an OKAY amount of food (just `true` or `false`).
+   <br><br>
+
+Make the function outside.
+
+**Methods used**:
+
+- `some()`
+
+  <br><br>
+
+7. Create an array containing the dogs that are eating an OKAY amount of food (try to reuse the condition used in 6.).
+   <br><br>
+
+8. Create a shallow copy of the dogs array and sort it by recommended food portion in an ascending order (keep in mind that the portions are inside the array's objects).
+   <br><br>
+
+Get the last element of an array:
+<br>
+
+    array.slice(-1);
+
+<br><br>
+
+_HINT 1_: Use many different tools to solve these challenges, you can use the summary lecture to choose between them.
+<br>
+
+_HINT 2_: Being within a range 10% above and below the recommended portion means:
+<br>
+
+    current > (recommended _ 0.90) && current < (recommended _ 1.10)
+
+<br><br>
+
+- `slice()` >> shallow copy
+  <br>
+
+- `sort()` >> sort by some order (default: ascending)
+
+// a, b (keep order ascending) if a < b
+
+<br>
+
+By selecting `a.recommendedFood` and `b.recommendedFood`, you select the element you want to sort.
+
+<br><br>
+
+Basically, the current portion should be between 90% and 110% of the recommended portion.
+<br><br>
+
+**TEST DATA:**
+<br>
+
+```js
+const dogs = [
+  { weight: 22, curFood: 250, owners: ["Alice", "Bob"] },
+  { weight: 8, curFood: 200, owners: ["Matilda"] },
+  { weight: 13, curFood: 275, owners: ["Sarah", "John"] },
+  { weight: 32, curFood: 340, owners: ["Michael"] },
+];
+```
