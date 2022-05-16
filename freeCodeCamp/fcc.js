@@ -230,3 +230,21 @@ function rangeOfNumbers(startNum, endNum) {
 }
 
 console.log(rangeOfNumbers(1, 10));
+
+// ------------------------ Reverse Array (HackerRank)
+
+const arr = [1, 3, 2, 4, 5];
+
+function reverseArray(arr) {
+  let arrReverse = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    const revertedItemIndex = arr.length - i - 1;
+
+    arrReverse.push(arr[revertedItemIndex]);
+  }
+
+  return arrReverse;
+}
+
+// ------------------------

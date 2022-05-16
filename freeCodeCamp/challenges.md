@@ -1,13 +1,15 @@
 # JavaScript Algorithms and Data Structures
 
+<br>
+
 1. [Golf Code](#1-golf-code)
 2. [Counting Cards](#2-counting-cards)
 3. [Record Collections](#3-record-collection)
 4. [Profile Lookup](#4-profile-lookup)
 5. [Use Recursion to Create a Countdown](#5-use-recursion-to-create-a-countdown)
-   <br>
-   <br>
-   
+
+<br><br>
+
 ---
 
 <br>
@@ -18,8 +20,7 @@ In the game of golf, each hole has a `par`, meaning, the average number of `stro
 <br>
 
 Your function will be passed `par` and `strokes `arguments. Return the correct string according to this table which lists the `strokes` in order of priority; top (highest) to bottom (lowest):
-<br>
-<br>
+<br><br>
 
 | Strokes    | Return         |
 | ---------- | -------------- |
@@ -31,15 +32,53 @@ Your function will be passed `par` and `strokes `arguments. Return the correct s
 | par + 2    | "Double Bogey" |
 | >= par + 3 | "Go Home!"     |
 
-<br>
-<br>
+<br><br>
 
 `par` and `strokes` will always be numeric and positive. We have added an array of all the names for your convenience.
 
-<br>
+<br><br>
+
+**Solution**:
 <br>
 
+```js
+const names = [
+  "Hole-in-one!",
+  "Eagle",
+  "Birdie",
+  "Par",
+  "Bogey",
+  "Double Bogey",
+  "Go Home!",
+];
+
+function golfScore(par, strokes) {
+  if (strokes === 1) {
+    return names[0];
+  } else if (strokes <= par - 2) {
+    return names[1];
+  } else if (strokes === par - 1) {
+    return names[2];
+  } else if (strokes === par) {
+    return names[3];
+  } else if (strokes === par + 1) {
+    return names[4];
+  } else if (strokes === par + 2) {
+    return names[5];
+  } else if (strokes >= par + 3) {
+    return names[6];
+  }
+  return "Change Me";
+}
+
+golfScore(5, 4);
+```
+
+<br><br>
+
 ---
+
+<br>
 
 ## 2. Counting Cards
 
@@ -57,25 +96,63 @@ Having more high cards remaining in the deck favors the player. Each card is ass
 | 0            | 7, 8, 9                |
 | -1           | 10, 'J', 'Q', 'K', 'A' |
 
-<br>
-<br>
+<br><br>
 
 You will write a card counting function. It will receive a `card` parameter, which can be a number or a string, and increment or decrement the global `count` variable according to the card's value (see table). The function will then return a string with the current count and the string `Bet` if the count is positive, or `Hold` if the count is zero or negative. The current count and the player's decision (`Bet` or `Hold`) should be separated by a single space.
 <br>
 
 Example Outputs: `-3 Hold` or 5 `Bet`
-<br>
-<br>
+<br><br>
 
 **Hint**
 Do NOT reset `count` to 0 when value is 7, 8, or 9.
 Do NOT return an array.
 Do NOT include quotes (single or double) in the output.
 
-<br>
+<br><br>
+
+**Solution**:
 <br>
 
+```js
+let count = 0;
+
+function cc(card) {
+  switch (card) {
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+      count++;
+      break;
+
+    case 10:
+    case "J":
+    case "Q":
+    case "K":
+    case "A":
+      count--;
+      break;
+  }
+  if (count > 0) {
+    return count + " Bet";
+  } else {
+    return count + " Hold";
+  }
+}
+console.log(cc(2));
+console.log(cc(3));
+console.log(cc(7));
+console.log(cc("K"));
+console.log(cc("A"));
+```
+
+<br><br>
+
 ---
+
+<br>
 
 ## 3. Record Collection
 
@@ -85,8 +162,7 @@ You are given an object literal representing a part of your musical album collec
 <br>
 
 You start with an `updateRecords` function that takes an object literal, `records`, containing the musical album collection, an `id`, a `prop` (like `artist` or `tracks`), and a `value`. Complete the function using the rules below to modify the object passed to the function.
-<br>
-<br>
+<br><br>
 
 - Your function must always return the entire record collection object.
 
@@ -97,12 +173,10 @@ You start with an `updateRecords` function that takes an object literal, `record
 - If `prop` is `tracks` and `value` isn't an empty string, add `value` to the end of the album's existing `tracks` array.
 
 - If `value` is an empty string, delete the given `prop` property from the album.
-  <br>
-  <br>
+  <br><br>
 
 **Note**: A copy of the `recordCollection` object is used for the tests.
-<br>
-<br>
+<br><br>
 
 **Hints**
 <br>
@@ -112,8 +186,65 @@ For the given id parameter, which is associated with the records object:
 - Use an if...else if chain to check the needed steps.
 - To access the value of a key in this object, you will use `records[id][prop]` (same as `records.id.prop`).
 - You can’t push to an array that doesn’t exist. Use hasOwnProperty to check first.
-  <br>
-  <br>
+  <br><br>
+
+**Solution**:
+<br>
+
+```js
+const recordCollection = {
+  2548: {
+    // id
+    albumTitle: "Slippery When Wet",
+    artist: "Bon Jovi", // prop: value
+    tracks: ["Let It Rock", "You Give Love a Bad Name"],
+  },
+  2468: {
+    albumTitle: "1999",
+    artist: "Prince",
+    tracks: ["1999", "Little Red Corvette"],
+  },
+  1245: {
+    artist: "Robert Palmer",
+    tracks: [],
+  },
+  5439: {
+    albumTitle: "ABBA Gold",
+  },
+};
+
+function updateRecords(records, id, prop, value) {
+  // if prop isn't tracks and value isn't an empty string, update or set that album's prop to value (adding poperty to an object)
+  if (prop != "tracks" && value != "") {
+    records[id][prop] = value;
+  }
+
+  // if prop is tracks but the album doesn't have a tracks property (hasOwnProperty), create an empty array ([]) and add value to it
+  else if (
+    prop === "tracks" &&
+    records - id.hasOwnProperty("tracks") === false
+  ) {
+    records.id.prop = [value];
+  }
+
+  // if prop is tracks and value isn't an empty string, add value to the end of the album's existing tracks array
+  else if (prop === "tracks" && value !== "") {
+    records.id.prop.push(value);
+  }
+
+  // if value is an empty string, delete the given prop property from the album
+  else if (value === "") {
+    delete records.id.prop;
+  }
+
+  // your function must always return the entire record collection object
+  return records;
+}
+
+console.log(updateRecords(recordCollection, 5439, "artist", "ABBA"));
+```
+
+<br><br>
 
 ### Relevant links:
 
@@ -133,7 +264,11 @@ For the given id parameter, which is associated with the records object:
 
 - [Javascript Short-Circuit Conditionals](https://medium.com/@amaliesmidth/javascript-short-circuit-conditionals-6606bdeaa30d)
 
+<br><br>
+
 ---
+
+<br>
 
 ## 4. Profile Lookup
 
@@ -152,8 +287,7 @@ The function should check if `name` is an actual contact's `firstName` and the g
 - If `name` does not correspond to any contacts then return the string `No such contact`.
 
 - If `prop` does not correspond to any valid properties of a contact found to match `name` then return the string `No such property`.
-  <br>
-  <br>
+  <br><br>
 
 **Hints**
 <br>
@@ -201,8 +335,7 @@ function lookUpProfile(name, prop) {
 }
 ```
 
-<br>
-<br>
+<br><br>
 
 #### Solution 2: with `in` operator
 
@@ -223,10 +356,11 @@ function lookUpProfile(name, prop) {
 }
 ```
 
-<br>
-<br>
+<br><br>
 
 ---
+
+<br>
 
 ## 4. Use Recursion to Create a Count Down
 
@@ -263,13 +397,36 @@ At first, this seems counterintuitive since the value of `n` **decreases**, but 
 
 We have defined a function called `countdown `with one parameter (`n`). The function should use recursion to return an array containing the integers `n` through 1 based on the `n` parameter. If the function is called with a number less than 1, the function should return an empty array. For example, calling this function with `n = 5` should return the array `[5, 4, 3, 2, 1]`. Your function must use recursion by calling itself and must not use loops of any kind.
 
+<br><br>
+
+**Solution**:
 <br>
-<br>
+
+```js
+function countdown(n) {
+  // base case
+  if (n < 0) {
+    return [];
+
+    // recursive call
+  } else {
+    const count = countdown(n - 1);
+    count.unshift(n);
+    return count;
+  }
+}
+
+console.log(countdown(1)); // [1, 0]
+console.log(countdown(5)); // [ 5, 4, 3, 2, 1, 0 ]
+console.log(countdown(10)); // [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+console.log(countdown(-2)); // []
+```
+
+<br><br>
 
 [About Recursion](https://forum.freecodecamp.org/t/freecodecamp-challenge-guide-use-recursion-to-create-a-countdown/305925/2)
 
-<br>
-<br>
+<br><br>
 
 ---
 
@@ -281,8 +438,126 @@ Continuing from the previous challenge, we provide you another opportunity to cr
 <br>
 
 We have defined a function named `rangeOfNumbers` with two parameters. The function should return an array of integers which begins with a number represented by the `startNum` parameter and ends with a number represented by the `endNum` parameter. The starting number will always be less than or equal to the ending number. Your function must use recursion by calling itself and not use loops of any kind. It should also work for cases where both `startNum` and `endNum` are the same.
+
+<br><br>
+
+```js
+// solution 1
+
+function rangeOfNumbers(startNum, endNum) {
+  return startNum === endNum
+    ? [startNum]
+    : rangeOfNumbers(startNum, endNum - 1).concat(endNum);
+}
+
+// solution 2
+
+function rangeOfNumbers(startNum, endNum) {
+  if (endNum - startNum === 0) {
+    return [endNum];
+  } else {
+    var numbers = rangeOfNumbers(startNum, endNum - 1);
+    numbers.push(endNum);
+    return numbers;
+  }
+}
+
+// solution 3
+
+function rangeOfNumbers(startNum, endNum) {
+  if (startNum == endNum) {
+    return [endNum];
+  } else {
+    const arr = rangeOfNumbers(startNum + 1, endNum);
+    arr.unshift(startNum);
+    return arr;
+  }
+}
+
+console.log(rangeOfNumbers(1, 10));
+
+// my solution
+
+function countdown(n) {
+  // base case
+  if (n < 0) {
+    return [];
+
+    // recursive call
+  } else {
+    const count = countdown(n - 1);
+    count.unshift(n);
+    return count;
+  }
+}
+
+console.log(countdown(1)); // [1, 0]
+console.log(countdown(5)); // [ 5, 4, 3, 2, 1, 0 ]
+console.log(countdown(10)); // [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+console.log(countdown(-2)); // []
+```
+
+<br><br>
+
+---
+
+## 6. Reverse array (HackerRank)
+
 <br>
+
+Given an array of integers, reverse the given array in plave using an index and loop rather than a built-in function.
 <br>
+
+**Example**
+
+`arr = [1, 3, 2, 4, 5]`
+<br>
+
+Return the array `[5, 4, 2, 3, 1]` which is the reverse of the input array.
+<br>
+
+**Function Description**
+<br>
+
+Complete the function `reverseArray` in the editor below.
+
+`reverseArray` has the following parameter(s):
+int `arr[n]`: an array of integers
+
+**Return**
+`int[n]`: the array in reverse order
+<br>
+
+**Constrains**
+<br>
+
+- 1 <= n <= 100
+- 0 <= arr <= 100
+  <br><br>
+
+### Input format for custom testing
+
+<br>
+
+The first line contains an integer, `n`, the number of elements in `arr`.
+
+Each line `i` of the `n` subsequent lines (where `0 <= i < n`) contains an integer, `arr[i]`.
+<br><br>
+
+### Sample Case
+
+<br>
+
+INPUT: 5 / 1 3 2 4 5
+OUTPUT: 5 4 2 3 1
+<br>
+
+**Explanation:**
+<br>
+
+The input array is `[1, 3, 2, 4, 5]`, so the reverse of the input array is `[5, 4, 2, 3, 1]`.
+
+<br><br>
 
 ---
 
