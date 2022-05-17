@@ -175,7 +175,7 @@ ___
 **HEAP (hrpa):** unstructured memory pool which stores all the objects the app needs
 <p>&nbsp;</p>
 
-![JS engine](img/01-js-engine.png)
+![JS engine](../img/01-js-engine.png)
 <p>&nbsp;</p>
 
 
