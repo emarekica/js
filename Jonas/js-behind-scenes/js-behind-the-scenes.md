@@ -175,7 +175,7 @@ ___
 **HEAP (hrpa):** unstructured memory pool which stores all the objects the app needs
 <p>&nbsp;</p>
 
-![JS engine](../img/01-js-engine.png)
+![JS engine](./../../img/img/01-js-engine.png)
 <p>&nbsp;</p>
 
 
@@ -183,7 +183,7 @@ ___
 How is the code compiled to machine code so it can be executed?
 <p>&nbsp;</p>
 
-![Compilation vs Interpretation](img/02-compilation-interpretation.png)
+![Compilation vs Interpretation](./../../img/02-compilation-interpretation.png)
 <p>&nbsp;</p>
 
  **COMPILATION**
@@ -223,7 +223,7 @@ Entire code is compiled into machine code at once and executed right away.
 
 <p>&nbsp;</p>
 
-![JIT steps](img/03-jit-steps.png)
+![JIT steps](./../../img/03-jit-steps.png)
 
 <p>&nbsp;</p>
 
@@ -272,7 +272,7 @@ ___
 ****RUNTIME IN THE BROWSER (mostly used)****
 <p>&nbsp;</p>
 
-![JS runtime](img/04-js-runtime.png)
+![JS runtime](./../../img/04-js-runtime.png)
 <p>&nbsp;</p>
 
 **Runtime is a container including all the things we need to use JS** 
@@ -311,7 +311,7 @@ Example of CALLBACK QUEUE: callback function from DOM event listener
   - EVENT LOOP
 <p>&nbsp;</p>
 
-![JS runtime in Node](img/05-js-runtime-node.png)
+![JS runtime in Node](./../../img/05-js-runtime-node.png)
 <p>&nbsp;</p> 
  
 ___
@@ -331,7 +331,7 @@ Where?
 compilation > creation of GLOBAL EXECUTION CONTEXT for top-level code
 <p>&nbsp;</p>
 
-![Excution Context](img/06-execution-context.png)
+![Excution Context](./../../img/06-execution-context.png)
 <p>&nbsp;</p>
 
 1. step: **Creation of global execution context (EC)**
@@ -365,7 +365,7 @@ Callback loop provides them.
 ### WHAT IS EXECUTION CONTEXT MADE OF?
 <p>&nbsp;</p>
 
-![Execution context detail](img/07-execution-context-detail.png)
+![Execution context detail](./../../img/07-execution-context-detail.png)
 <p>&nbsp;</p>
 
 **1. VARIABLE ENVIRONMENT**
@@ -410,7 +410,7 @@ __Exception: arrow functions () => {}__
   = "place" where execution contexts get stacked on top of each other, to keep track of where we are in the execution
 <p>&nbsp;</p>
 
-![Call Stack](img/08-callstack.png)
+![Call Stack](./../../img/08-callstack.png)
 <p>&nbsp;</p>
 
   - execution context on the top is the on that is running
@@ -451,7 +451,7 @@ HOW DOES IT WORK?
 ### SCOPING
 <p>&nbsp;</p>
 
-![Scope chain](img/09-scope-concepts.png)
+![Scope chain](./../../img/09-scope-concepts.png)
 <p>&nbsp;</p>
 
   - Where do variables live?
@@ -480,7 +480,7 @@ Scoping is controlled/ way variables are organised and accessed is entirely cont
 In case of functions, it is the same because functions are just values stored in variables.
 <p>&nbsp;</p>
 
-![Types of scope](img/10-types-of-scope.png)
+![Types of scope](./../../img/10-types-of-scope.png)
 <p>&nbsp;</p>
 
 * GLOBAL SCOPE
@@ -548,7 +548,7 @@ console.log(millenial); // Reference error
 ### SCOPE CHAIN 
 <p>&nbsp;</p>
 
-![Scope chain](img/11-scope-chain.png)
+![Scope chain](./../../img/11-scope-chain.png)
 <p>&nbsp;</p>
 
 **Every scope has access to the variables from all the outer scopes.**
@@ -580,7 +580,7 @@ Scope chain does not work SIDEWAYS nor DOWN, only UP.
   It has nothing to do with order in which functions are called and executed in the call stack.
 <p>&nbsp;</p>
 
-![Scopechain VS Call stack](img/12-scopechain-vs-callstack.png)
+![Scopechain VS Call stack](./../../img/12-scopechain-vs-callstack.png)
 <p>&nbsp;</p>
 
 [Execution vs Lexical vs Variable environment](https://medium.com/@bdov_/javascript-typescript-execution-vs-lexical-vs-variable-environment-37ff3f264831)
@@ -591,7 +591,7 @@ ___
 ## Scoping in practice
 <p>&nbsp;</p>
 
-![Scope chain summary](img/scope-chain-summary.png)
+![Scope chain summary](./../../img/scope-chain-summary.png)
 <p>&nbsp;</p>
 
 Function `calcAge()` is defined in a global scope.
@@ -782,7 +782,7 @@ ___
 ### HOISTING
 <br>
 
-![hoisting](img/13-hoisting.png)
+![hoisting](./../../img/13-hoisting.png)
 
 Makes some types of variables accessible/usable in the code before they are declared.
 
@@ -906,7 +906,7 @@ If we try to use them before they are declared, we get error.
 **TDZ**
 <br>
 	
-![TDZ](img/14-tdz.png)
+![TDZ](./../../img/14-tdz.png)
 <br>
 
 Variable can be declared (without value) in the TDZ, but it won't be accessible before the line where it is initialised (added value).
@@ -1075,7 +1075,7 @@ ___
 ## The _this_ keyword
 <p>&nbsp;</p>
 	
-![this keyword](img/15-this-keyword.png)
+![this keyword](./../../img/15-this-keyword.png)
 
 EXECUTION CONTEXT: 
 
@@ -1505,7 +1505,7 @@ ___
 ## Primitives vs. Objects (Primitive vs. Reference Types)
 <br>
 	  
-![primitives objects](img/16-primitives-objects-jsengine.png)
+![primitives objects](./../../img/16-primitives-objects-jsengine.png)
 <br>
 
 **PRIMITIVES vs OBJECTS (Primitive vs Reference type)**
@@ -1581,7 +1581,7 @@ When we declare a variable `const age = 30;`, here is what happens inside JS Eng
 <br>
 <br>
 	  
-![Storing objects in Heap](img/18-heap2.png)
+![Storing objects in Heap](./../../img/18-heap2.png)
 <br>
 <br>	  
 	  
@@ -1614,7 +1614,7 @@ We don't reassign a new value to the existing address.
 3. memory address references to the **memory address of the object in the heap** (used as its value)
 <br>
 	  
-![Heap](img/17-heap.png)
+![Heap](./../../img/17-heap.png)
 <br>
 
 **in the HEAP:**
