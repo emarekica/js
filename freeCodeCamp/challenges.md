@@ -610,6 +610,89 @@ console.log(
 
 ---
 
+<br>
+
+## 8. Iterate Through the Keys of an Object
+
+<br>
+
+Use a `for...in` statement within this function to loop through the users object passed into the function and return the number of users whose `online` property is set to `true`. An example of a users object which could be passed to `countOnline` is shown below. Each user will have an `online` property with either a `true` or `false` value.
+
+<br><br>
+
+```js
+const users = {
+  Alan: {
+    online: false,
+  },
+  Jeff: {
+    online: true,
+  },
+  Sarah: {
+    online: false,
+  },
+};
+
+function countOnline(usersObj) {
+  let onlineUsers = [];
+
+  for (let user in usersObj) {
+    if (usersObj[user].online === true) {
+      onlineUsers.push(user);
+    }
+  }
+
+  return onlineUsers.length;
+}
+
+console.log(countOnline(users));
+```
+
+<br><br>
+
+---
+
+<br>
+
+## 8. Modify an Array Stored in an Object
+
+<br>
+
+The `user` object contains three keys. The `data` key contains five keys, one of which contains an array of `friends`. We've started writing a function `addFriend`. Finish writing it so that it takes a `user` object and adds the name of the `friend` argument to the array stored in `user.data.friend`s and returns that array.
+
+`user` must be referenced with the first parameter given to the `addFriend()` function
+
+<br><br>
+
+```js
+let user = {
+  name: "Kenneth",
+  age: 28,
+  data: {
+    username: "kennethCodesAllDay",
+    joinDate: "March 26, 2016",
+    organization: "freeCodeCamp",
+    friends: ["Sam", "Kira", "Tomo"],
+    location: {
+      city: "San Francisco",
+      state: "CA",
+      country: "USA",
+    },
+  },
+};
+
+function addFriend(userObj, friend) {
+  user.data.friends.push(friend);
+  return userObj.data.friends;
+}
+
+console.log(addFriend(user, "Pete"));
+```
+
+<br><br>
+
+---
+
 ### Resources
 
 [JavaScript Algorithms and Data Structures](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/)
