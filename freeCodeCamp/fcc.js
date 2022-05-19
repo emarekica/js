@@ -1,3 +1,5 @@
+"use strict";
+
 // // ------------------------ Golf Code
 
 // const names = [
@@ -246,5 +248,3 @@ function reverseArray(arr) {
 
   return arrReverse;
 }
-
-// ------------------------

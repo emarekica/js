@@ -561,6 +561,55 @@ The input array is `[1, 3, 2, 4, 5]`, so the reverse of the input array is `[5, 
 
 ---
 
+<br>
+
+## 7. Iterate Through Items of Array Using For Loop
+
+<br>
+
+**basic-algorithms.js**
+<br>
+
+`filteredArray` takes `arr`, a nested array, and `elem` as arguments, and returns a new array.
+`elem` represents an element that may or may not be present on one or more of the arrays nested within `arr`.
+<br><br>
+
+Modify the function, using a `for` loop, to return a filtered version of the passed array such that any array nested within `arr` containing `elem` has been removed.
+<br><br>
+
+```js
+function filteredArray(arr, elem) {
+  let newArr = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    // compare any element of the arra to the "elem" with indexOf(); -1 indicates it doesn't exist
+    // arr[i] accesses the VALUE of the element on the "i" position
+    if (arr[i].indexOf(elem) === -1) {
+      // if a match is NOT found then newArr have that entire subarray added.
+      return;
+    }
+  }
+
+  return newArr;
+}
+
+console.log(
+  filteredArray(
+    [
+      [3, 2, 3],
+      [1, 6, 3],
+      [3, 13, 26],
+      [19, 3, 9],
+    ],
+    3
+  )
+);
+```
+
+<br><br>
+
+---
+
 ### Resources
 
 [JavaScript Algorithms and Data Structures](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/)
