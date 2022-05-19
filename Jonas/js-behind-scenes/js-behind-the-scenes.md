@@ -175,6 +175,10 @@ _A strongly-typed programming language is one in which each type of data (such a
 **CALL STACK:** where the code is executed using execution contexts
 **HEAP (hrpa):** unstructured memory pool which stores all the objects the app needs
 
+<<<<<<< HEAD
+=======
+![JS engine](./../../img/img/01-js-engine.png)
+>>>>>>> b4c3f7cf7f079a13fccfa00b70f9e009352fb1a4
 <p>&nbsp;</p>
 
 ![JS engine](/../../img/01-js-engine.png)
@@ -187,8 +191,12 @@ How is the code compiled to machine code so it can be executed?
 
 <p>&nbsp;</p>
 
+<<<<<<< HEAD
 ![Compilation vs Interpretation](img/02-compilation-interpretation.png)
 
+=======
+![Compilation vs Interpretation](./../../img/02-compilation-interpretation.png)
+>>>>>>> b4c3f7cf7f079a13fccfa00b70f9e009352fb1a4
 <p>&nbsp;</p>
 
 **COMPILATION**
@@ -228,7 +236,7 @@ Entire code is compiled into machine code at once and executed right away.
 
 <p>&nbsp;</p>
 
-![JIT steps](img/03-jit-steps.png)
+![JIT steps](./../../img/03-jit-steps.png)
 
 <p>&nbsp;</p>
 
@@ -279,8 +287,12 @@ They are separated from the main thread that is executing the code.
 
 <p>&nbsp;</p>
 
+<<<<<<< HEAD
 ![JS runtime](img/04-js-runtime.png)
 
+=======
+![JS runtime](./../../img/04-js-runtime.png)
+>>>>>>> b4c3f7cf7f079a13fccfa00b70f9e009352fb1a4
 <p>&nbsp;</p>
 
 **Runtime is a container including all the things we need to use JS**
@@ -320,8 +332,12 @@ Example of CALLBACK QUEUE: callback function from DOM event listener
 - EVENT LOOP
 <p>&nbsp;</p>
 
+<<<<<<< HEAD
 ![JS runtime in Node](img/05-js-runtime-node.png)
 
+=======
+![JS runtime in Node](./../../img/05-js-runtime-node.png)
+>>>>>>> b4c3f7cf7f079a13fccfa00b70f9e009352fb1a4
 <p>&nbsp;</p> 
  
 ___
@@ -345,8 +361,12 @@ compilation > creation of GLOBAL EXECUTION CONTEXT for top-level code
 
 <p>&nbsp;</p>
 
+<<<<<<< HEAD
 ![Excution Context](img/06-execution-context.png)
 
+=======
+![Excution Context](./../../img/06-execution-context.png)
+>>>>>>> b4c3f7cf7f079a13fccfa00b70f9e009352fb1a4
 <p>&nbsp;</p>
 
 1. step: **Creation of global execution context (EC)**
@@ -378,8 +398,12 @@ Callback loop provides them.
 
 <p>&nbsp;</p>
 
+<<<<<<< HEAD
 ![Execution context detail](img/07-execution-context-detail.png)
 
+=======
+![Execution context detail](./../../img/07-execution-context-detail.png)
+>>>>>>> b4c3f7cf7f079a13fccfa00b70f9e009352fb1a4
 <p>&nbsp;</p>
 
 **1. VARIABLE ENVIRONMENT**
@@ -423,7 +447,12 @@ How will it know where it currently is in the execution?
 
 <p>&nbsp;</p>
 
+<<<<<<< HEAD
 ![Call Stack](img/08-callstack.png)
+=======
+![Call Stack](./../../img/08-callstack.png)
+<p>&nbsp;</p>
+>>>>>>> b4c3f7cf7f079a13fccfa00b70f9e009352fb1a4
 
 <p>&nbsp;</p>
 
@@ -468,8 +497,12 @@ HOW DOES IT WORK?
 
 <p>&nbsp;</p>
 
+<<<<<<< HEAD
 ![Scope chain](img/09-scope-concepts.png)
 
+=======
+![Scope chain](./../../img/09-scope-concepts.png)
+>>>>>>> b4c3f7cf7f079a13fccfa00b70f9e009352fb1a4
 <p>&nbsp;</p>
 
 - Where do variables live?
@@ -499,8 +532,12 @@ In case of functions, it is the same because functions are just values stored in
 
 <p>&nbsp;</p>
 
+<<<<<<< HEAD
 ![Types of scope](img/10-types-of-scope.png)
 
+=======
+![Types of scope](./../../img/10-types-of-scope.png)
+>>>>>>> b4c3f7cf7f079a13fccfa00b70f9e009352fb1a4
 <p>&nbsp;</p>
 
 - GLOBAL SCOPE
@@ -571,8 +608,12 @@ console.log(millenial); // Reference error
 
 <p>&nbsp;</p>
 
+<<<<<<< HEAD
 ![Scope chain](img/11-scope-chain.png)
 
+=======
+![Scope chain](./../../img/11-scope-chain.png)
+>>>>>>> b4c3f7cf7f079a13fccfa00b70f9e009352fb1a4
 <p>&nbsp;</p>
 
 **Every scope has access to the variables from all the outer scopes.**
@@ -607,8 +648,12 @@ It has nothing to do with order in which functions are called and executed in th
 
 <p>&nbsp;</p>
 
+<<<<<<< HEAD
 ![Scopechain VS Call stack](img/12-scopechain-vs-callstack.png)
 
+=======
+![Scopechain VS Call stack](./../../img/12-scopechain-vs-callstack.png)
+>>>>>>> b4c3f7cf7f079a13fccfa00b70f9e009352fb1a4
 <p>&nbsp;</p>
 
 [Execution vs Lexical vs Variable environment](https://medium.com/@bdov_/javascript-typescript-execution-vs-lexical-vs-variable-environment-37ff3f264831)
@@ -621,8 +666,12 @@ It has nothing to do with order in which functions are called and executed in th
 
 <p>&nbsp;</p>
 
+<<<<<<< HEAD
 ![Scope chain summary](img/scope-chain-summary.png)
 
+=======
+![Scope chain summary](./../../img/scope-chain-summary.png)
+>>>>>>> b4c3f7cf7f079a13fccfa00b70f9e009352fb1a4
 <p>&nbsp;</p>
 
 Function `calcAge()` is defined in a global scope.
@@ -822,7 +871,7 @@ function printAge() {
 
 <br>
 
-![hoisting](img/13-hoisting.png)
+![hoisting](./../../img/13-hoisting.png)
 
 Makes some types of variables accessible/usable in the code before they are declared.
 
@@ -947,7 +996,12 @@ If we try to use them before they are declared, we get error.
 
 **TDZ**
 <br>
+<<<<<<< HEAD
 ![TDZ](img/14-tdz.png)
+=======
+	
+![TDZ](./../../img/14-tdz.png)
+>>>>>>> b4c3f7cf7f079a13fccfa00b70f9e009352fb1a4
 <br>
 
 Variable can be declared (without value) in the TDZ, but it won't be accessible before the line where it is initialised (added value).
@@ -1117,7 +1171,7 @@ ___
 
 <p>&nbsp;</p>
 	
-![this keyword](img/15-this-keyword.png)
+![this keyword](./../../img/15-this-keyword.png)
 
 EXECUTION CONTEXT:
 
@@ -1556,7 +1610,7 @@ This keyword is not so important in ES6, there is better way of dealing with arg
 
 <br>
 	  
-![primitives objects](img/16-primitives-objects-jsengine.png)
+![primitives objects](./../../img/16-primitives-objects-jsengine.png)
 <br>
 
 **PRIMITIVES vs OBJECTS (Primitive vs Reference type)**
@@ -1632,8 +1686,13 @@ They are stored differently.
 When we declare a variable `const age = 30;`, here is what happens inside JS Engine and computer's memory:
 <br>
 <br>
+<<<<<<< HEAD
 
 ![Storing objects in Heap](img/18-heap2.png)
+=======
+	  
+![Storing objects in Heap](./../../img/18-heap2.png)
+>>>>>>> b4c3f7cf7f079a13fccfa00b70f9e009352fb1a4
 <br>
 <br>
 
@@ -1665,9 +1724,15 @@ We don't reassign a new value to the existing address.
 1. created unique identifier
 2. points to new memory address
 3. memory address references to the **memory address of the object in the heap** (used as its value)
+<<<<<<< HEAD
    <br>
 
 ![Heap](img/17-heap.png)
+=======
+<br>
+	  
+![Heap](./../../img/17-heap.png)
+>>>>>>> b4c3f7cf7f079a13fccfa00b70f9e009352fb1a4
 <br>
 
 **in the HEAP:**
