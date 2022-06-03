@@ -7,15 +7,16 @@
 1. [Converting and checking numbers](#1-converting-and-checking-numbers)
 2. [Math and Rounding](#2-math-and-rounding)
 3. [The Remainder Operator](#3-the-remainder-operator)
-4. [Working with BigInt](#4-working-with-bigint)
-5. [Creating Dates](#5-creating-dates)
-6. [Adding dates to Bankist app](#6-adding-dates-to-bankist-app)
-7. [Operations with Dates](#7-operations-with-dates)
-8. [Internationalizing Dates INTL](#8-internationalizing-dates-intl)
-9. [Internationalizing Numbers INTL](#9-internationalizing-numbers-intl)
-10. [Timers, setTimeout and setInterval](#10-timers-settimeout-and-setinterval)
-11. [Implementing a Countdown timer](#11-implementing-a-countdown-timer)
-12. [Resources](#12-resources)
+4. [Numeric separators](#4-numeric-separators)
+5. [Working with BigInt](#5-working-with-bigint)
+6. [Creating Dates](#6-creating-dates)
+7. [Adding dates to Bankist app](#7-adding-dates-to-bankist-app)
+8. [Operations with Dates](#8-operations-with-dates)
+9. [Internationalizing Dates INTL](#9-internationalizing-dates-intl)
+10. [Internationalizing Numbers INTL](#10-internationalizing-numbers-intl)
+11. [Timers, setTimeout and setInterval](#11-timers-settimeout-and-setinterval)
+12. [Implementing a Countdown timer](#12-implementing-a-countdown-timer)
+13. [Resources](#13-resources)
 
 <br><br>
 
@@ -478,13 +479,704 @@ const calcDisplaySummary = function (acc) {
 
 <br>
 
+`%`
+
+Returns remainder of a division. It always takes the sign of the dividend.
+<br>
+
+**syntax**: `x % y`
+<br>
+
+_dividend = djeljenik_
+_divisor = djelitelj_
+_sign = predznak_
+<br><br>
+
+**examples**:
+<br>
+
+```js
+// Remainder with positive dividend
+
+13 % 5; //  3
+1 % -2; //  1
+1 % 2; //  1
+2 % 3; //  2
+(5.5 % 2) - // 1.5
+  // Remainder with negative dividend
+
+  (13 % 5) - // -3
+  (1 % 2) - // -1
+  (4 % 2); // -0
+
+// Remainder with NaN
+
+NaN % 2; // NaN
+
+// Remainder with Infinity
+
+Infinity % 2; // NaN
+Infinity % 0; // NaN
+Infinity % Infinity; // NaN
+```
+
+<br><br>
+
+To obtain a **modulo in JavaScript**, in place of `a % n`, use `((a % n ) + n ) % n`.
+
+<br><br>
+
+### **Check if a number is even or odd**
+
+<br>
+
+Number is EVEN if divisible by 2, remainder 0.
+<br><br>
+
+```js
+// even
+console.log(6 % 2); // 0
+console.log(6 / 2); // 3 (integer)
+
+// odd
+console.log(7 % 2); // 1
+console.log(7 / 2); // 3.5
+
+// long version
+// const isEven = n => {
+//   if (n % 2 === 0) {
+//     return true;
+//   } else {
+//   return false;
+// }
+// };
+
+const isEven = (n) => n % 2 === 0;
+
+console.log(isEven(7)); // false
+console.log(isEven(24)); // true
+console.log(isEven(215)); // false
+```
+
+<br><br>
+
+When remainder is zero, it means the first number is completely divisible by the second one.
+
+Whenever you need to do something every n-th time, use remainder `%`.
+<br>
+
+- every 2nd time >> `x % 2 === 0`
+
+- every 3rd time >> `x % 3 === 0`
+  <br>
+
+`x % n === 0`
+
 <br><br>
 
 ---
 
 <br>
 
-## 4. Working with BigInt
+## 4. Numeric separators
+
+<br>
+
+`_`
+
+<br>
+
+Format numbers to be easier to read and understand. Separators that we place anywhere in large numbers.
+
+<br>
+
+**example**: represent a diameter of Solar system
+<br>
+
+    // 287,460,000,000
+    const diameterConfusing = 287460000000;
+    const diameterSimple = 287_460_000_000;
+
+<br><br>
+
+The JS Engine ignores underscores.
+<br>
+
+    // in Console
+    287460000000
+
+<br><br>
+
+### **Use `_` to give meaning to certain parts of numbers**
+
+<br>
+
+    // const priceInCents = 349_99;
+    // console.log(priceInCents);
+
+    const price = 349_99;
+    console.log(price); // 34999
+
+<br><br>
+
+same number, different meaning
+<br>
+
+    const transferFee1 = 15_00;
+    const transferFee2 = 1_500;
+
+<br><br>
+
+### **Restrictions**
+
+<br>
+
+    const PI = 3.14_15; // allowed
+
+    // illegal
+    // const PI = _3.1415 // error, now allowed
+    // const PI = 3._1415
+    // const PI = 3.14__15
+    // const PI = 3.1415_
+
+    console.log(PI);
+
+<br><br>
+
+### **Converting string containing `_` to a number**
+
+<br>
+
+    console.log(Number('23000')); // 23000
+
+    console.log(Number('23_000')); // NaN
+    console.log(parseInt('23_000')); // 23
+
+<br><br>
+
+`_` works only if you use it in the code.
+
+If you need to store a number in a string (API) or if you get a number as a string from an API, don't use `_` because JS won't parse that number correctly from the string.
+
+<br><br>
+
+---
+
+## 5. Working with BigInt
+
+<br>
+
+Special type of integers introduced in ES2020.
+
+A primitive wrapper object used to represent and manipulate primitive `bigint` values — which are too large to be represented by the `number` primitive.
+
+It is not used as much in practice.
+<br><br>
+
+Numbers are internally represented by 64 bits = there are exactly 64 `0` and `1` representing any given number.
+
+But only 53 are used to store digits themselves. The rest are used to store position of the decimal point and the sign.
+
+That means there is a limit of how big a number can be.
+
+It can be calculated.
+<br><br>
+
+    console.log(2 ** 53 - 1); // 4503599627370495
+    console.log(Number.MAX_SAFE_INTEGER); // 4503599627370495
+
+<br><br>
+
+It is stored in the namespace as `MAX_SAFE_INTEGER`.
+
+Any integer larger than this can't be represented accurately.
+<br>
+
+    // unsafe / incorrectly represented numbers
+    console.log(2 ** 53 + 1); // 9007199254740992
+    console.log(2 ** 53 + 2); // 9007199254740994
+
+<br><br>
+
+`BigInt` is a new primitive introduced to store numbers as large as we want.
+
+`n` transforms regular into bigInt number.
+
+Sometimes `BigInt()` constructor function is used (without `new`).
+<br><b>r
+
+```js
+console.log(230693456343049568904345667976896788567);
+// 2.3069345634304955e+38
+
+console.log(230693456343049568904345667976896788567n);
+// 230693456343049568904345667976896788567n = BigInt number accurately displayed
+
+console.log(BigInt(23069345634));
+// 23069345634n = BigInt
+```
+
+<br><br>
+
+### **Operations**
+
+<br>
+
+All usual operators work the same.
+<br><br>
+
+```js
+console.log(10000n + 10000n); // 20000n
+
+console.log(2344567050695609704596049567n * 100000000000n);
+// 234456705069560970459604956700000000000n
+```
+
+`BigInt` can't be mixed with regular numbers.
+<br>
+
+    const hugeNum = 345665938592039345786938475063n;
+    const regularNum = 49;
+
+    console.log(hugeNum + regularNum); // Error: Cannot mix BigInt and other types
+
+<br><br>
+
+You have to convert `regularNum` to `BigInt` with constructor function.
+<br><br>
+
+**Math operations don't work.**
+<br>
+
+    console.log(Math.sqrt(16n)); // error
+
+<br><br>
+
+**2 exceptions**:
+<br>
+
+1. **logical operators** `===`, `==`
+   <br><br>
+
+```js
+console.log(20n > 15); // true
+
+console.log(20n === 20); // false; === does no type coercion
+console.log(20n == 20); // true
+console.log(20n == "20"); // true
+
+console.log(typeof 20n); // bigint
+console.log(typeof 20); // number
+```
+
+2. **string concatenation**
+   <br><br>
+
+```js
+console.log(hugeNum + " is really BIG!");
+// 345665938592039345786938475063 is really BIG
+```
+
+<br><br>
+
+**Divisions**
+<br>
+
+    console.log(10n / 3n); // 3n, cuts decimal part
+    console.log(10 / 3); // 3.3333333333333335
+
+<br><br>
+
+--
+
+<br>
+
+## 6. Creating Dates
+
+<br>
+
+### 1. **Create a date**
+
+<br>
+
+- 4 ways
+
+- all use `new Date()` constructor function
+
+- can accept different parameters
+  <br><br>
+
+a. **get current date/time with** `Date()`
+<br><br>
+
+```js
+const now = new Date();
+console.log(now);
+// Fri Jun 03 2022 10:11:09 GMT+0200 (Central European Summer Time)
+```
+
+<br><br>
+
+b. **parse date from a string (unreliable if you write it yourself)**
+<br><br>
+
+```js
+console.log(new Date("Jun 03 2022 10:11:43"));
+// Fri Jun 03 2022 10:11:43 GMT+0200 (Central European Summer Time)
+
+console.log(new Date("December 24 2015"));
+// Thu Dec 24 2015 00:00:00 GMT+0100 (Central European Standard Time)
+```
+
+<br><br>
+
+c. **year, month, day, hour and seconds can be passed into the constructor**
+<br>
+
+Month in JS is zero-based.
+<br>
+
+```js
+console.log(new Date(2040, 12, 5, 12, 7, 49));
+// Sat Jan 05 2041 12:07:49 GMT+0100 (Central European Standard Time)
+```
+
+<br><br>
+
+**JS automatically corrects the day.**
+If you write Nov 31, it will correct it to Nov 30 because Nov has 30 days.
+<br>
+
+```js
+console.log(new Date(2040, 10, 31));
+// Sat Dec 01 2040 00:00:00 GMT+0100 (Central European Standard Time)
+```
+
+<br><br>
+
+**UNIX TIME**
+
+**January 1st, 1970 at 00:00:00 UTC** is referred to as the Unix epoch.
+<br>
+
+Early versions of unix measured system time in 1/60 s intervals. This meant that a 32-bit unsigned integer could only represent a span of time less than 829 days. For this reason, the time represented by the number 0 (called the epoch) had to be set in the very recent past. As this was in the early 1970s, the epoch was set to 1971-1-1.
+<br>
+
+Later, the system time was changed to increment every second, which increased the span of time that could be represented by a 32-bit unsigned integer to around 136 years. As it was no longer so important to squeeze every second out of the counter, the epoch was rounded down to the nearest decade, thus becoming 1970-1-1. One must assume that this was considered a bit neater than 1971-1-1.
+<br>
+
+Note that a 32-bit signed integer using 1970-1-1 as its epoch can represent dates up to 2038-1-19, on which date it will wrap around to 1901-12-13.
+
+<br><br>
+
+d) **Passing into constructor function milliseconds passed since the beginning of the Unix time (Jan 1, 1970)**.
+<br><br>
+
+```js
+console.log(new Date(0));
+// dates.js:29 Thu Jan 01 1970 01:00:00 GMT+0100 (Central European Standard Time)
+
+// 3 days later
+console.log(new Date(3 * 24 * 60 * 60 * 1000));
+// Sun Jan 04 1970 01:00:00 GMT+0100 (Central European Standard Time)
+```
+
+<br><br>
+
+**timestamp in Console = milliseconds that passed since 1-1-1970**
+<br><br>
+
+    3 * 24 * 60 * 60 * 1000
+    259200000 // timestamp of the day 3
+
+<br><br>
+
+Get the timestamp for a date with `getTime()` method.
+
+<br><br>
+
+**Dates are special type of object >> have methods**.
+
+Use methods to get or set components of the date.
+
+<br><br>
+
+### 2. **Working with dates**
+
+<br><br>
+
+```js
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+// Thu Nov 19 2037 15:23:00 GMT+0100 (Central European Standard Time)
+
+// methods
+console.log(future.getFullYear()); // 2037
+console.log(future.getMonth()); // 10; zero based
+console.log(future.getDate()); // 19
+console.log(future.getDay()); // 4; day of the week; 0 = Sunday, 4 = Thursday
+console.log(future.getHours()); // 15
+console.log(future.getMinutes()); // 23
+console.log(future.getSeconds()); // 0
+```
+
+<br><br>
+
+String that follows ISO standard:
+<br>
+
+    console.log(future.toISOString()); // 2037-11-19T14:23:00.000Z
+
+<br><br>
+
+`toISOString()` is useful to convert date object into string and store it.
+
+<br><br>
+
+**Getting timestamp**
+<br><br>
+
+```js
+console.log(future.getTime()); // 2142253380000
+
+// new date based on the timestamp
+
+console.log(new Date(2142253380000));
+// Thu Nov 19 2037 15:23:00 GMT+0100 (Central European Standard Time)
+```
+
+<br><br>
+
+Method for getting timestamp for right now:
+<br>
+
+    console.log(Date.now()); // 1654257065809
+
+<br><br>
+
+`set` versions of methods:
+<br><br>
+
+```js
+future.setFullYear(2040);
+console.log(future);
+// Mon Nov 19 2040 15:23:00 GMT+0100 (Central European Standard Time)
+
+future.setMonth(0);
+console.log(future);
+// Mon Jan 19 2040 15:23:00 GMT+0100 (Central European Standard Time)
+
+future.setDate(15);
+console.log(future);
+// Sun Jan 15 2040 15:23:00 GMT+0100 (Central European Standard Time)
+
+future.setHours(13);
+console.log(future);
+// Sun Jan 15 2040 13:23:00 GMT+0100 (Central European Standard Time)
+
+future.setMinutes(15);
+console.log(future);
+// Sun Jan 15 2040 13:15:00 GMT+0100 (Central European Standard Time)
+```
+
+<br><br>
+
+---
+
+<br>
+
+## 7. Adding dates to Bankist app
+
+<br>
+
+- date in current balance
+
+- date in all the movements
+
+<br><br>
+
+**Fake always logged in**
+<br>
+
+```js
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100; // makes UI visible
+```
+
+<br><br>
+
+**Create Current balance Date**
+<br>
+
+HTML: `class="date"`
+
+JS: `const labelDate = document.querySelector('.date');`
+<br><br>
+
+```js
+const now = new Date(); // = right now
+labelDate.textContent = now;
+
+// displays: As of Fri Jun 03 2022 16:16:36 GMT+0200 (Central European Summer Time)
+
+// day/month/year format
+
+const day = now.getDate();
+const month = now.getMonth() + 1; // because it is zero-based
+const year = now.getFullYear();
+const hour = now.getHours();
+const min = now.getMinutes();
+
+labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
+```
+
+<br><br>
+
+**This creates static time.**
+
+For tracking actual time, we need a **timer**.
+
+<br><br>
+
+**"padding" the number with zero**
+<br>
+
+**syntax**: `padStart(length, what you are padding with)`
+<br><br>
+
+```js
+const day = `${now.getDate()}`.padStart(2, "0");
+const month = `${now.getMonth() + 1}`.padStart(2, 0);
+```
+
+<br><br>
+
+**Use dates on the** `Movements`
+<br><br>
+
+in `displayMovements()`:
+<br>
+
+- pass in the whole account, not just movements + change everywhere where it is used
+
+- add another HTML content to the `forEach()` loop in the function
+  <br><br>
+
+```js
+movs.forEach(function (mov, i) {
+    // check if deposit or withdrawal
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    // creating one row of movements
+    const html = `
+      <div class="movements__row">
+        <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div>
+
+        // date
+        <div class="movements__date">${displayDate}</div>
+
+        <div class="movements__value">${mov.toFixed(2)}€</div>
+      </div>
+    `;
+```
+
+<br><br>
+
+The date comes from `account.movementDates`.
+
+<br><br>
+
+Common technique for looping over two arrays at the same time:
+
+- call `forEach()` on one of them (`movements`)
+
+- use current index `i` to reach the data of some other array (`movementsDates`)
+
+It is at the same position because we are using the same index.
+<br><br>
+
+```js
+movs.forEach(function (mov, i) {
+  const type = mov > 0 ? "deposit" : "withdrawal";
+
+  // loop over another array
+  const date = new Date(acc.movementsDates[i]);
+
+  const day = `${date.getDate()}`.padStart(2, "0");
+  const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  const year = date.getFullYear();
+  const hour = `${now.getHours()}`.padStart(2, 0);
+  const min = `${now.getHours()}`.padStart(2, 0);
+
+  const displayDate = `${day}/${month}/${year}`;
+
+  const html = `
+    <div class="movements__row">
+      ...
+      <div class="movements__date">${displayDate}</div>
+      ...
+    </div>
+  `;
+});
+```
+
+<br><br>
+
+**Add a date when requesting a loan/making a new transfer**
+<br>
+
+Whenever there is a new loan request or a new transfer, push a new value into the `movements` array (amount) and into the `movementsDates` (date).
+
+JS will convert a new date into nicely formatted string.
+<br><br>
+
+```js
+btnTransfer.addEventListener('click', function (e) {
+  ...
+
+  if (...) {
+    ...
+
+    // ADD TRANSFER DATE
+     currentAccount.movementsDates.push(new Date()toISOString());
+     receiver.movementsDates.push(new Date()toISOString());
+    ...
+  }
+});
+```
+
+<br><br>
+
+Add the same thing to the `btnLoan`.
+<br><br>
+
+```js
+
+btnLoan.addEventListener('click', function (e) {
+  ...
+
+  if (...) {
+    ...
+
+    // add loan date
+    currentAccount.movementsDates.push(new Date().toISOString());
+
+    ...
+  }
+  ...
+});
+```
+
+<br><br>
+
+---
+
+<br>
+
+## 8. Operations with Dates
 
 <br>
 
@@ -494,7 +1186,7 @@ const calcDisplaySummary = function (acc) {
 
 <br>
 
-## 5. Creating Dates
+## 9. Internationalizing Dates INTL
 
 <br>
 
@@ -504,7 +1196,7 @@ const calcDisplaySummary = function (acc) {
 
 <br>
 
-## 6. Adding dates to Bankist app
+## 10. Internationalizing Numbers INTL
 
 <br>
 
@@ -514,7 +1206,7 @@ const calcDisplaySummary = function (acc) {
 
 <br>
 
-## 7. Operations with Dates
+## 11. Timers, setTimeout and setInterval
 
 <br>
 
@@ -524,7 +1216,7 @@ const calcDisplaySummary = function (acc) {
 
 <br>
 
-## 8. Internationalizing Dates INTL
+## 12. Implementing a Countdown timer
 
 <br>
 
@@ -534,36 +1226,14 @@ const calcDisplaySummary = function (acc) {
 
 <br>
 
-## 9. Internationalizing Numbers INTL
-
-<br>
-
-<br><br>
-
----
-
-<br>
-
-## 10. Timers, setTimeout and setInterval
-
-<br>
-
-<br><br>
-
----
-
-<br>
-
-## 11. Implementing a Countdown timer
-
-<br>
-
-<br><br>
-
----
-
-<br>
-
-### 12. Resources
+### 13. Resources
 
 - [JS Numbers and Dates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_dates)
+
+- [MDN modulo %](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Remainder)
+
+- [MDN bigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)
+
+```
+
+```
