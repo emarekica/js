@@ -1180,6 +1180,85 @@ btnLoan.addEventListener('click', function (e) {
 
 <br>
 
+Whenever we convert date to a number, result is **timestamp in milliseconds**.
+
+Then, we can do calculations with milliseconds.
+<br>
+
+Convert milliseconds to days, hours etc.
+<br>
+
+    // milliseconds >> days
+
+    number / (1000 * 60 * 60 * 24)
+
+<br><br>
+
+For precise calculations and edge-cases use [Moment.js](https://momentjs.com/).
+
+<br><br>
+
+`Math.abs` takes the absolute value.
+<br>
+
+function that calculates how many days have passed between two dates:
+<br>
+
+```js
+const calcDaysPast = (date1, date2) =>
+  Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
+
+const days1 = calcDaysPast(new Date(2037, 3, 4), new Date(2037, 3, 14));
+console.log(days1); // 864000000 milliseconds > 10 days
+```
+
+<br><br>
+
+`Math.round()` when you have hour:minute and don't want it.
+<br>
+
+```js
+const days2 = calcDaysPastWithHourMinute(
+  new Date(2037, 3, 4, 10, 4),
+  new Date(2037, 3, 14, 4, 15)
+);
+console.log(days2); // 864000000 milliseconds > 10 days
+```
+
+<br><br>
+
+**BANKIST**
+<br>
+
+If a movement happens today, instead of current date, display _today_.
+
+If it happened yesterday, display _yesterday_.
+
+If it happened x days ago, display _x days ago_.
+<br><br>
+
+```js
+const formatMovementDate = function (date) {
+  const calcDaysPassed = (date1, date2) =>
+    Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 25));
+
+  // calculating days passed
+  const daysPassed = calcDaysPassed(new Date(), date);
+  console.log(daysPassed);
+
+  if (daysPassed === 0) return "Today";
+  if (daysPassed === 1) return "Yesterday";
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+  else {
+    const day = `${date.getDate()}`.padStart(2, "0");
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  }
+};
+```
+
 <br><br>
 
 ---
@@ -1189,6 +1268,135 @@ btnLoan.addEventListener('click', function (e) {
 ## 9. Internationalizing Dates INTL
 
 <br>
+
+JS has new **internationalization API**.
+
+Allows easy date and number formatting according to different languages.
+<br>
+
+The `Intl` object is the namespace for the ECMAScript Internationalization API, which provides language sensitive string comparison, number formatting, and date and time formatting. The `Intl` object provides access to several constructors as well as functionality common to the internationalization constructors and other language sensitive functions.
+<br>
+
+We can make API support different languages around the world.
+
+Currencies and dates are differently represented in Europe, US and Asia.
+
+<br><br>
+
+`DateTimeFormat()`
+<br>
+
+Most straight-forward way to format date/time.
+<br><br>
+
+**syntax**:
+<br>
+
+    new Intl.DateTimeFormat()
+    new Intl.DateTimeFormat(locales)
+    new Intl.DateTimeFormat(locales, options)
+
+<br><br>
+
+Accepts `locale` string ("language, country").
+
+It will create a **formater** for the chosen language in the chosen country.
+<br><br>
+
+    const now = new Date();"
+    labelDate.textContent = new Intl.DateTimeFormat("en-US");
+
+<br><br>
+
+Call `format(date you want to format)` on formater.
+<br><br>
+
+    labelDate.textContent = new Intl.DateTimeFormat("en-US").format(now);
+
+<br><br>
+
+[ISO Language Code Table](http://www.lingoes.net/en/translator/langcode.htm)
+
+<br><br>
+
+**Customize date/time formatting**
+<br>
+
+Display also **time** by providing `options` object to the function.
+<br><br>
+
+```js
+const options = {
+  hour: "numeric",
+  minute: "numeric",
+  day: "numeric",
+  month: "long", // "numeric", 2-digit
+  year: "numeric",
+  weekday: "short", // "short", "narrow"
+};
+
+labelDate.textContent = new Intl.DateTimeFormat("ens-GB", options).format(now);
+```
+
+<br><br>
+
+**Get `locale` from user's browser**
+<br>
+
+```js
+const locale = navigator.language;
+
+labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(now);
+```
+
+<br><br>
+
+**BANKIST**
+<br>
+
+**Set current date to browser's locale.**
+
+Each account has `locale` manually defined, so access that with `currentAccount.locale`.
+<br><br>
+
+```js
+btnLogin.addEventListener("click", function (e) {
+    ...
+
+    const now = new Date(); // = right now
+
+
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      day: "numeric",
+      month: "numeric", // "long", 2-digit
+      year: "numeric",
+      // weekday: "short", // "short", "narrow"
+    };
+
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format(now);
+```
+
+<br><br>
+
+**Set locale to dates in Movements**
+<br><br>
+
+```js
+const formatMovementDate = function (date, locale) {
+    ...
+
+    if (daysPassed === 0) return "Today";
+  if (daysPassed === 1) return "Yesterday";
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+  else {
+
+    return new Intl.DateTimeFormat(locale).format(date);
+```
 
 <br><br>
 
@@ -1200,6 +1408,142 @@ btnLoan.addEventListener('click', function (e) {
 
 <br>
 
+3 different options for a style:
+<br>
+
+- `unit`
+
+- `percent`
+
+- `currency`
+  <br><br>
+
+```js
+const num = 43534985.23;
+
+const options2 = {
+  style: "unit", // percent, currency
+  unit: "celsius",
+};
+
+console.log("US: ", new Intl.NumberFormat("en-US", options2).format(num)); // US:  43,534,985.23 °C
+console.log("DE: ", new Intl.NumberFormat("de-DE", options2).format(num)); // DE:  43.534.985,23 °C
+console.log("CRO: ", new Intl.NumberFormat("hr-HR", options2).format(num)); // CRO:  43.534.985,23 °C
+console.log("Syria: ", new Intl.NumberFormat("ar-SY", options2).format(num)); // Syria:  ٤٣٬٥٣٤٬٩٨٥٫٢٣
+
+// from the browser
+console.log(
+  navigator.language,
+  new Intl.NumberFormat(navigator.language).format(num)
+);
+// en-GB 43,534,985.23
+```
+
+<br><br>
+
+    style: "unit"
+    unit: "miles-per-hour" / "kilometers-per-hour"
+
+    style: "percent"
+    unit: /     >> ignored, loggs "%"
+
+    style: "currency"
+    unit: /     >> ignored
+    currency: "EUR"
+
+<br><br>
+
+**turn on/off Grouping**
+<br><br>
+
+```js
+const options2 = {
+  style: "unit", // percent, currency
+  unit: "celsius",
+  useGrouping: true,
+};
+
+// In console:
+// US:  43,534,985.23°C
+// intl.js:60 DE:  43.534.985,23 °C
+// intl.js:61 CRO:  43.534.985,23 °C
+
+const options2 = {
+  style: "unit", // percent, currency
+  unit: "celsius",
+  useGrouping: false,
+};
+
+// In console:
+// US:  43534985.23°C
+// intl.js:60 DE:  43534985,23 °C
+// intl.js:61 CRO:  43534985,23 °C
+```
+
+<br><br>
+
+**BANKIST**
+<br><br>
+
+`displayMovements()`
+<br><br>
+
+```js
+const displayMovements = function (acc, sort = false) {
+    ...
+
+    movs.forEach(function (mov, i) {
+    ...
+
+    const formattedMovement = new Intl.NumberFormat(acc.locale, {
+      style: "currency",
+      currency: acc.currency,
+    }).format(mov);
+
+    const html =
+        ...
+        <div class="movements__value">${formattedMovement}</div>
+    }
+}
+```
+
+<br><br>
+
+**Change currency in the current balance and in statistics**
+<br>
+
+Create a new function outside which will take care of formatting currencies.
+<br><br>
+
+```js
+// formats currencies
+const formatCurrency = function (value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currency,
+  }).format(value);
+};
+```
+
+<br><br>
+
+Use it in:
+<br><br>
+
+- `calcDisplayBalance()`
+
+- `calcDisplayMovements()`
+
+- `calcDisplaySummary()`
+  <br><br>
+
+as:
+<br>
+
+```js
+formatCurrency(acc.balance, acc.locale, acc.currency);
+```
+
 <br><br>
 
 ---
@@ -1209,6 +1553,171 @@ btnLoan.addEventListener('click', function (e) {
 ## 11. Timers, setTimeout and setInterval
 
 <br>
+
+Two types of timers in JS:
+<br>
+
+1. `setTimeout()` >> runs just once
+
+2. `setInterval()` >> runs forever until you stop it
+
+<br><br>
+
+### 1. `setTimeout()`
+
+<br><br>
+
+Use it to execute code at some point in the future.
+
+Receives a callback.
+
+Second argument is amount of **milliseconds that will pass until this function is called**.
+
+    1 sec = 1000 millisec
+
+<br><br>
+
+**syntax**:
+<br>
+
+    setTimeout(code)
+    setTimeout(code, delay)
+
+    setTimeout(functionRef)
+    setTimeout(functionRef, delay)
+    setTimeout(functionRef, delay, param1)
+
+<br><br>
+
+**example**: ordering pizza
+<br>
+
+We have scheduled the function call for 3 seconds (3000 milliseconds) later.
+<br><br>
+
+```js
+setTimeout(() => console.log("Here is your pizza."), 3000);
+console.log("Waiting...");
+
+// in Console:
+// Waiting...
+// "Here is your pizza."
+```
+
+<br><br>
+
+**The execution of the code doesn't stop when it reaches** `setTimeout()`. It registers the callback that is ought to be executed later (in 3 secs) and goes on. It is called **asynchronous javascript**.
+
+<br><br>
+
+**How to pass in arguments into the callback function when it is not us who is calling it, but the setTimeout() function is calling it?**
+<br>
+
+All the arguments passed in after the delay will be arguments to the callback function.
+<br><br>
+
+```js
+setTimeout(
+  (ingr1, ingr2) =>
+    console.log(`Here is your pizza with ${ingr1} and ${ingr2}.`),
+  3000,
+  "olives",
+  "garlic"
+);
+console.log("Waiting...");
+
+// In Console:
+// Waiting...
+// Here is your pizza with olives and garlic.
+```
+
+<br><br>
+
+**Cancel the timer until the delay has passed**
+<br><br>
+
+`clearTimeout()` deletes the `setTimeout()` timer.
+<br><br>
+
+```js
+const ingredients = ["olives", "garlic"];
+
+const pizzaTimer = setTimeout(
+  (ingr1, ingr2) =>
+    console.log(`Here is your pizza with ${ingr1} and ${ingr2}.`),
+  3000,
+  ...ingredients
+);
+console.log("Waiting...");
+
+if (ingredients.includes("garlic")) clearTimeout(pizzaTimer);
+```
+
+<br><br>
+
+**BANKIST**
+<br><br>
+
+Simulate aproval of the loan, use `setTimeout()`.
+<br>
+
+`btnLoan.eventListener()`
+<br><br>
+
+```js
+btnLoan.addEventListener("click", function (e) {
+  e.preventDefault();
+  const amount = Math.floor(inputLoanAmount.value);
+
+  if (
+    amount > 0 &&
+    currentAccount.movements.some((mov) => mov >= amount * 0.1)
+  ) {
+    setTimeout(function () {
+      // add positive movement to the current user
+      currentAccount.movements.push(amount);
+
+      // add loan date
+      currentAccount.movementsDates.push(new Date().toISOString());
+
+      // Update UI
+      updateUI(currentAccount);
+    }, 2500);
+  }
+
+  inputLoanAmount.value = "";
+});
+```
+
+<br><br>
+
+### 2. `setInterval()
+
+<br><br>
+
+Used to run a function over and over again (every 5 sec, every 10 min).
+<br>
+
+**syntax**:
+<br><br>
+
+    setInterval(code)
+    setInterval(code, delay)
+    setInterval(func)
+    setInterval(func, delay)
+    setInterval(func, delay, arg0, arg1, /* ... ,*/ argN)
+
+<br><br>
+
+Executed every second.
+<br>
+
+```js
+setInterval(function () {
+  const now = new Date();
+  console.log(now);
+}, 1000);
+```
 
 <br><br>
 
@@ -1234,6 +1743,14 @@ btnLoan.addEventListener('click', function (e) {
 
 - [MDN bigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)
 
-```
+- [Moment.js](https://momentjs.com/)
 
-```
+- [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
+
+- [Intl.DateTimeFormat() constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat)
+
+- [ISO Language Code Table](http://www.lingoes.net/en/translator/langcode.htm)
+
+- [setTimeout() timer](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
+
+- [setInterval() timer](https://developer.mozilla.org/en-US/docs/Web/API/setInterval)
