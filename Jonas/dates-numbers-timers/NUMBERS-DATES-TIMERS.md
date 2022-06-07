@@ -703,7 +703,7 @@ Any integer larger than this can't be represented accurately.
 `n` transforms regular into bigInt number.
 
 Sometimes `BigInt()` constructor function is used (without `new`).
-<br><b>r
+<br><br>
 
 ```js
 console.log(230693456343049568904345667976896788567);
@@ -787,7 +787,7 @@ console.log(hugeNum + " is really BIG!");
 
 <br><br>
 
---
+---
 
 <br>
 
@@ -811,6 +811,7 @@ a. **get current date/time with** `Date()`
 
 ```js
 const now = new Date();
+
 console.log(now);
 // Fri Jun 03 2022 10:11:09 GMT+0200 (Central European Summer Time)
 ```
@@ -874,7 +875,7 @@ d) **Passing into constructor function milliseconds passed since the beginning o
 
 ```js
 console.log(new Date(0));
-// dates.js:29 Thu Jan 01 1970 01:00:00 GMT+0100 (Central European Standard Time)
+// Thu Jan 01 1970 01:00:00 GMT+0100 (Central European Standard Time)
 
 // 3 days later
 console.log(new Date(3 * 24 * 60 * 60 * 1000));
@@ -907,6 +908,7 @@ Use methods to get or set components of the date.
 
 ```js
 const future = new Date(2037, 10, 19, 15, 23);
+
 console.log(future);
 // Thu Nov 19 2037 15:23:00 GMT+0100 (Central European Standard Time)
 
@@ -1199,9 +1201,9 @@ For precise calculations and edge-cases use [Moment.js](https://momentjs.com/).
 <br><br>
 
 `Math.abs` takes the absolute value.
-<br>
+<br><br>
 
-function that calculates how many days have passed between two dates:
+Function that calculates how many days have passed between two dates:
 <br>
 
 ```js
@@ -1335,7 +1337,7 @@ const options = {
   weekday: "short", // "short", "narrow"
 };
 
-labelDate.textContent = new Intl.DateTimeFormat("ens-GB", options).format(now);
+labelDate.textContent = new Intl.DateTimeFormat("en-GB", options).format(now);
 ```
 
 <br><br>
@@ -1391,9 +1393,9 @@ const formatMovementDate = function (date, locale) {
     ...
 
     if (daysPassed === 0) return "Today";
-  if (daysPassed === 1) return "Yesterday";
-  if (daysPassed <= 7) return `${daysPassed} days ago`;
-  else {
+    if (daysPassed === 1) return "Yesterday";
+    if (daysPassed <= 7) return `${daysPassed} days ago`;
+    else {
 
     return new Intl.DateTimeFormat(locale).format(date);
 ```
@@ -1426,10 +1428,17 @@ const options2 = {
   unit: "celsius",
 };
 
-console.log("US: ", new Intl.NumberFormat("en-US", options2).format(num)); // US:  43,534,985.23 °C
-console.log("DE: ", new Intl.NumberFormat("de-DE", options2).format(num)); // DE:  43.534.985,23 °C
-console.log("CRO: ", new Intl.NumberFormat("hr-HR", options2).format(num)); // CRO:  43.534.985,23 °C
-console.log("Syria: ", new Intl.NumberFormat("ar-SY", options2).format(num)); // Syria:  ٤٣٬٥٣٤٬٩٨٥٫٢٣
+console.log("US: ", new Intl.NumberFormat("en-US", options2).format(num));
+// US:  43,534,985.23 °C
+
+console.log("DE: ", new Intl.NumberFormat("de-DE", options2).format(num));
+// DE:  43.534.985,23 °C
+
+console.log("CRO: ", new Intl.NumberFormat("hr-HR", options2).format(num));
+// CRO:  43.534.985,23 °C
+
+console.log("Syria: ", new Intl.NumberFormat("ar-SY", options2).format(num));
+// Syria:  ٤٣٬٥٣٤٬٩٨٥٫٢٣
 
 // from the browser
 console.log(
@@ -1691,7 +1700,7 @@ btnLoan.addEventListener("click", function (e) {
 
 <br><br>
 
-### 2. `setInterval()
+### 2. `setInterval()`
 
 <br><br>
 
@@ -1728,6 +1737,99 @@ setInterval(function () {
 ## 12. Implementing a Countdown timer
 
 <br>
+
+Make a timer that logs out user after a set period of time.
+<br><br>
+
+`btnLogin.addEventListener()`
+<br><br>
+
+Create a function outside of the event listener, it will start logout timer.
+<br><br>
+
+```js
+const logOutTimer = function () {
+  // Set time to 5 min
+  let time = 120;
+
+  // Call timer every second
+  setInterval(function () {
+    // convert to min:sec
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+
+    // In each callback call, print remaining time to UI
+    labelTimer.textContent = `${min}:${sec}`;
+
+    // Remove 1 sec from each function all
+    // time = time - 1;
+    time--;
+
+    // When time = 0 sec, stop timer
+    if (time === 0) {
+      clearInterval(timer);
+    }
+    labelWelcome.textContent = "Log in to get started";
+    containerApp.style.opacity = 0;
+
+    // stop timer from being -num
+  }, 1000);
+};
+```
+
+<br><br>
+
+Use it in login function `btnLogin.addEventListener()` and delete if it already exists.
+<br>
+
+Have it as a **global variable** so it is accessible when users are logged out and can be cleared if needed.
+<br>
+
+    let timer;
+
+<br><br>
+
+Return timer value from the `logOutTimer()`.
+<br><br>
+
+```js
+const logOutTimer = function () {
+    ...
+
+    const timer = setInterval(tick, 1000);
+    return timer;
+};
+```
+
+Use it in login function `btnLogin.addEventListener()` and delete if it already exists.
+<br><br>
+
+```js
+btnLogin.addEventListener('click', function (e) {
+    ...
+
+    // TIMER
+    // if there already is a timer from other user, clear it
+    if (timer) clearInterval(timer);
+
+    // set new timer for the new user
+    timer = logOutTimer();
+```
+
+<br><br>
+
+Reset timer whenever user does transfer or requests a loan.
+<br><br>
+
+```js
+btnTransfer.addEventListener('click', function (e) {
+    ...
+
+    // Reset timer
+    clearInterval(timer);
+    timer = logOutTimer();
+}
+```
 
 <br><br>
 
