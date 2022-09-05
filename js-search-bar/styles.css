@@ -1,0 +1,73 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #6393a6;
+  color: #f2cbbd;
+}
+
+label {
+  margin: 1em 1em 0.5em 1em;
+  text-align: center;
+  font-family: "Alegreya SC", serif;
+  font-size: 3em;
+}
+
+input {
+  background-color: #4e7686;
+  color: #fff;
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 1.5em;
+  letter-spacing: 0.2em;
+  border: none;
+  border-radius: 5px;
+  margin: 2em 3em;
+  padding: 1em;
+}
+
+.search-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  /* use it with flex same as with grid */
+  gap: 0.25rem;
+}
+
+input {
+  font-size: 1rem;
+}
+
+.user-cards {
+  margin: 2em 3em;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1em;
+  margin-top: 1rem;
+}
+
+.card {
+  border: 2px solid #4e7686;
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 0.5rem;
+}
+
+.card > .header {
+  margin-bottom: 0.25rem;
+  font-family: "Alegreya SC", serif;
+  font-size: 1.4em;
+}
+
+.card > .body {
+  font-size: 1rem;
+  color: #fff;
+  font-family: "Alegreya Sans", sans-serif;
+  word-wrap: break-word;
+}
+
+.hide {
+  display: none;
+}
