@@ -4,52 +4,46 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="modal.css" />
-    <title>Modal example</title>
+    <link rel="stylesheet" href="modal-img.css" />
+    <title>Modal with images</title>
   </head>
-
   <body>
-    <h1>Modals the <em>easy</em> way</h1>
-    <p>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit alias
-      dicta quibusdam cumque ipsa ipsum reiciendis animi.
-    </p>
-    <p>
-      Alias, architecto sapiente nostrum id, sed explicabo numquam aspernatur
-      ratione qui excepturi repellat porro.
-    </p>
-    <p>
-      Fugiat ratione impedit officiis? Eligendi sapiente culpa tenetur esse quo
-      reiciendis illum vero nisi!
-    </p>
-    <p>
-      Sequi quo animi, nostrum laboriosam veritatis consequatur. Eos cumque unde
-      porro explicabo provident?
-    </p>
-    <button class="button open-button">open modal</button>
+    <div class="gallery">
+      <div class="img-container">
+        <img
+          src="https://images.unsplash.com/photo-1575147143931-e5fef6562c78?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0NTgxNDMyOA&ixlib=rb-1.2.1&q=80&w=400"
+          alt="Volvo sedan on the road"
+          data-original="https://images.unsplash.com/photo-1575147143931-e5fef6562c78?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0NTgxNDMyOA&ixlib=rb-1.2.1&q=80&w=400"
+        />
+      </div>
 
-    <dialog class="modal" id="modal">
-      <h2>An interesting title</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum esse
-        nisi, laboriosam illum temporibus ipsam?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, quo.
-      </p>
-      <button class="button close-button">close modal</button>
-      <form class="form" method="dialog">
-        <label>Your name <input type="text" /></label>
-        <label>Your email <input type="email" /></label>
-        <button class="button" type="submit">submit form</button>
-      </form>
-    </dialog>
+      <div class="img-container">
+        <img
+          src="https://images.unsplash.com/photo-1605299535260-f47f73df1b3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0NTgxNDQ3Nw&ixlib=rb-1.2.1&q=80&w=400"
+          alt="Volvo rear view mirror"
+          data-original="https://images.unsplash.com/photo-1605299535260-f47f73df1b3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0NTgxNDQ3Nw&ixlib=rb-1.2.1&q=80&w=400"
+        />
+      </div>
 
-    <!-- <form class="form" method="dialog">
-      <label>Your name <input type="text" /></label>
-      <label>Your email <input type="email" /></label>
-      <button class="button" type="submit">submit form</button>
-    </form> -->
-    <script src="modal.js"></script>
+      <div class="img-container">
+        <img
+          src="https://images.unsplash.com/photo-1605299534911-c5641341ce73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0NTgxNDQ3Nw&ixlib=rb-1.2.1&q=80&w=400"
+          alt="Volvo driving wheel"
+          data-original="https://images.unsplash.com/photo-1605299534911-c5641341ce73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0NTgxNDQ3Nw&ixlib=rb-1.2.1&q=80&w=400"
+        />
+      </div>
+    </div>
+
+    <!--  modal for imgs  -->
+    <div class="modal">
+      <img
+        src="https://images.unsplash.com/photo-1575147143931-e5fef6562c78?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0NTgxNDMyOA&ixlib=rb-1.2.1&q=80&w=400"
+        alt=""
+        class="img-modal"
+      />
+
+      <p class="caption">This is test caption.</p>
+    </div>
+    <script src="modal-img.js"></script>
   </body>
 </html>
