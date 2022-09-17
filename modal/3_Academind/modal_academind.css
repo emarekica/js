@@ -45,6 +45,12 @@ button:active {
 }
 
 /* The Modal */
+
+/* 
+toggle "display: none" in CSS and "display: block" in JS to show/hide modal 
+"display: none" doesn't hide it, but REMOVE it from the layout
+*/
+
 .modal {
   display: none;
   position: fixed;
