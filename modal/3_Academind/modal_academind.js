@@ -11,7 +11,7 @@ const textEdit = document.querySelector(".modal textarea");
 const quote = "A Modal Component on a Webpage - how hard could it be?";
 
 // if user changes the input of the quote, it is stored here
-const editedQuote = "";
+let editedQuote = "";
 
 function updateParagraph() {
   // loads the value of quote into the <p>
