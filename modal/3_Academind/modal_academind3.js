@@ -83,3 +83,5 @@ editValueButton.addEventListener("click", function () {
 
 // https://wesbos.com/template-strings-html
 // https://medium.com/samsung-internet-dev/html-and-templates-javascript-template-literals-2d7494ea3e6
+
+// fali innerHTML
