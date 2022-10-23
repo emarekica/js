@@ -17,8 +17,8 @@
 9. [If-else statements](#9-if-else-statements)
 10. [Strings](#10-strings)
 11. [Dates](#11-dates)
-12. [](#12-dom-mode)
-13. []()
+12. [DOM mode](#12-dom-mode)
+13. [Element methods](#13-element-methods)
 14. []()
 
 <br><hr /><br>
