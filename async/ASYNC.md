@@ -17,7 +17,7 @@ function makeRequest(location) {
     if (location === "Google") {
       resolve("Google says 'Hi!'.");
     } else {
-      reject("We can only talk Google.");
+      reject("We can only talk to Google.");
     }
   });
 }
@@ -74,7 +74,7 @@ If you _query_ Facebook instead of Google, it gives this output:
 <br>
 
     Making request to Facebook.
-    We can only talk Google.
+    We can only talk to Google.
 
 <br><br>
 
@@ -196,7 +196,7 @@ async function doWork() {
 
 - use `await` keyword before all asynchronous code that is going to be executed
 
-- use `thy/catch` to handle errors
+- use `try/catch` to handle errors
 
 <br><hr /><br>
 
@@ -211,7 +211,7 @@ function makeRequest(location) {
     if (location === "Google") {
       resolve("Google says 'Hi!'.");
     } else {
-      reject("We can only talk Google.");
+      reject("We can only talk to Google.");
     }
   });
 }
