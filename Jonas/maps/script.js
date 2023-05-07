@@ -24,65 +24,17 @@ const inputCadence = document.querySelector(".form__input--cadence");
 const inputElevation = document.querySelector(".form__input--elevation");
 
 let map, mapEvent;
+let workout;
 
-// parent class
-// takes in data common to both workouts: coordinates, distance & duration
-class Workout {
-  // date when object is created
-  date = new Date();
-
-  // unique identifier
-  // usually library takes care of this class field
-  id = (Date.now + "").slice(-10); // returns timestamp
-
-  constructor(coords, distance, duration) {
-    this.coords = coords; // [latitude, longitude]
-    this.distance = distance; // km
-    this.duration = duration; // min
-  }
-}
-
-class Running extends Workout {
-  constructor(cords, distance, duration, cadence) {
-    super(cords, distance, duration);
-    this.cadence = cadence;
-    this.calcPace();
-  }
-
-  calcPace() {
-    // min/km
-    this.pace = this.duration / this.distance;
-    return this.pace;
-  }
-}
-class Cycling extends Workout {
-  constructor(cords, distance, duration, elevationGain) {
-    super(cords, distance, duration, elevationGain);
-    this.elevationGain = elevationGain;
-    this.calcSpeed();
-  }
-
-  calcSpeed() {
-    // km/h
-    this.speed = this.distance / (this.duration / 60);
-    return this.speed;
-  }
-}
-
-// testing classes
-
-const run1 = new Running([39, -12], 5.2, 24, 178);
-const cycling1 = new Cycling([39, -12], 27, 95, 523);
-
-console.log(run1, cycling1);
-
-// App architecture ----------------------
+// App architecture
 class App {
   // private class field = private instance properties that are going to be present on all instances of the class
   #map;
   #mapEvent;
+  #workouts = [];
 
   constructor() {
+    // this.workouts = [];
     this._getPosition();
 
     // event handler for submitting form > listen for "submit" event > display marker
@@ -144,7 +96,6 @@ class App {
 
   _newWorkout(e) {
     e.preventDefault();
-
     // (...x) returns array
     // every() returns true if condition is true for all elements in the array
     const validInputs = (...inputs) =>
@@ -155,7 +106,8 @@ class App {
     // Get data from the form
     const type = inputType.value;
     const distance = +inputDistance.value; // '+' at the beginning converts it to a number
-    const duration = +inputDuration.ariaValueText;
+    const duration = +inputDuration.value;
+    const { lat, lng } = this.#mapEvent.latlng;
 
     // For running create Running object
     if (type === "running") {
@@ -163,14 +115,13 @@ class App {
 
       // Check if data is valid with GUARD CLAUSE: if the distance is not a number
       if (
-        // !Number.isFinite(distance) ||
-        // !Number.isFinite(duration) ||
-        // !Number.isFinite(cadence)
         !validInputs(distance, duration, cadence) ||
         !allPositive(distance, duration, cadence)
       ) {
         return alert("Inputs have to be positive numbers!");
       }
+
+      workout = new Running([lat, lng], distance, duration, cadence);
     }
 
     // For cycling create Cycling object
@@ -180,32 +131,19 @@ class App {
       // Check if data is valid
       if (
         !validInputs(distance, duration, elevation) ||
-        !allPositive(distance, duration))
-        {
+        !allPositive(distance, duration)
+      ) {
         return alert("Inputs have to be positive numbers!");
       }
+
+      workout = new Cycling([lat, lng], distance, duration, elevation);
     }
 
     // Add new object to Workout array
-
-    // Render workout on map as a marker
-    const { lat, lng } = this.#mapEvent.latlng;
-    L.marker([lat, lng])
-      .addTo(this.#map)
-      .bindPopup(
-        // add a new object
-        L.popup({
-          maxWidth: 250,
-          minWidth: 100,
-          autoClose: false,
-          closeOnClick: false,
-          className: "running-popup",
-        })
-      )
-      .setPopupContent("Workout")
-      .openPopup();
+    this.#workouts.push(workout);
 
     // Render new workout on the list
+    this.renderWorkoutMarker(workout);
 
     // Hide the form, clear input fields
     inputDistance.value =
@@ -214,8 +152,78 @@ class App {
       inputElevation.value =
         "";
   }
+
+  // Render workout on map as a marker
+  renderWorkoutMarker(workout) {
+    L.marker([lat, lng])
+      .addTo(this.#map)
+      .bindPopup(
+
+        // add a new object
+        L.popup({
+          maxWidth: 250,
+          minWidth: 100,
+          autoClose: false,
+          closeOnClick: false,
+          // className: "running-popup",
+          className: `${type}-popup`,
+        })
+      )
+      .setPopupContent(workout.distance )
+      .openPopup();
+  }
 }
 
 const app = new App();
 
+// parent class, takes in data common to both workouts: coordinates, distance & duration
+class Workout {
+  // date when object is created
+  date = new Date();
+
+  // usually library takes care of this class field
+  id = (Date.now + "").slice(-10); // returns timestamp
+
+  constructor(coords, distance, duration) {
+    this.coords = coords; // [latitude, longitude]
+    this.distance = distance; // km
+    this.duration = duration; // min
+  }
+}
+
+class Running extends Workout {
+  constructor(cords, distance, duration, cadence) {
+    super(cords, distance, duration);
+    this.cadence = cadence;
+    this.calcPace();
+  }
+
+  calcPace() {
+    // min/km
+    this.pace = this.duration / this.distance;
+    return this.pace;
+  }
+}
+class Cycling extends Workout {
+  constructor(cords, distance, duration, elevationGain) {
+    super(cords, distance, duration, elevationGain);
+    this.elevationGain = elevationGain;
+    this.calcSpeed();
+  }
+
+  calcSpeed() {
+    // km/h
+    this.speed = this.distance / (this.duration / 60);
+    return this.speed;
+  }
+}
+
+// testing classes
+
+const run1 = new Running([39, -12], 5.2, 24, 178);
+const cycling1 = new Cycling([39, -12], 27, 95, 523);
+
+console.log(run1, cycling1);
+
+///////////////////////////////////////////
 // library for map: https://leafletjs.com/
