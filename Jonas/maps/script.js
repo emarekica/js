@@ -1,20 +1,5 @@
 "use strict";
 
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
 const form = document.querySelector(".form");
 const containerWorkouts = document.querySelector(".workouts");
 const inputType = document.querySelector(".form__input--type");
@@ -140,10 +125,13 @@ class App {
     }
 
     // Add new object to Workout array
+    // #not accessible from outside
     this.#workouts.push(workout);
 
     // Render new workout on the list
-    this.renderWorkoutMarker(workout);
+    // _not intended to be, but accessible from outside
+    this._renderWorkoutMarker(workout);
+    this._renderWorkout(workout);
 
     // Hide the form, clear input fields
     inputDistance.value =
@@ -154,7 +142,7 @@ class App {
   }
 
   // Render workout on map as a marker
-  renderWorkoutMarker(workout) {
+  _renderWorkoutMarker(workout) {
     L.marker(workout.coords)
       .addTo(this.#map)
       .bindPopup(
@@ -171,6 +159,58 @@ class App {
       )
       .setPopupContent(workout.distance )
       .openPopup();
+  }
+
+  _renderWorkout(workout) {
+    let html = `
+      <li class="workout workout--${workout.type}" data-id="${workout.id }">
+          <h2 class="workout__title">${workout.description}</h2>
+          <div class="workout__details">
+            <span class="workout__icon">${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'}</span>
+            <span class="workout__value">${workout.distance}</span>
+            <span class="workout__unit">km</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⏱</span>
+            <span class="workout__value">${workout.duration}</span>
+            <span class="workout__unit">min</span>
+          </div>
+    `;
+
+    if(workout.type === 'running') {
+      html += `
+        <div class="workout__details">
+          <span class="workout__icon">⚡️</span>
+          <span class="workout__value">${workout.pace.toFixed(1)}</span>
+          <span class="workout__unit">min/km</span>
+        </div>
+        <div class="workout__details">
+          <span class="workout__icon">🦶🏼</span>
+          <span class="workout__value">${workout.cadence}</span>
+          <span class="workout__unit">spm</span>
+        </div>
+      </li>
+      `;
+    }
+
+    if(workout.type === 'cycling') {
+      html += `
+        <div class="workout__details">
+          <span class="workout__icon">⚡️</span>
+          <span class="workout__value">${workout.speed.toFixed(1)}</span>
+          <span class="workout__unit">km/h</span>
+        </div>
+        <div class="workout__details">
+          <span class="workout__icon">⛰</span>
+          <span class="workout__value">${workout.elevationGain}</span>
+          <span class="workout__unit">m</span>
+        </div>
+      </li>
+      `;
+
+      // adding sibling element after end of the form
+      form.insertAdjacentHTML('afterend', html);
+    }
   }
 }
 
@@ -189,6 +229,17 @@ class Workout {
     this.distance = distance; // km
     this.duration = duration; // min
   }
+
+  _setDescription() {
+    const months = [
+      // prettier-ignore
+      "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December",
+    ];
+
+    // workout type first character to upper case" and workout type starting from position one (the rest of the letters)
+    // months[] retrieves any value from "months" array
+    this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${months[this.date.getMonth()]} ${this.date.getDate()}`;
+  }
 }
 
 class Running extends Workout {
@@ -198,6 +249,7 @@ class Running extends Workout {
     super(cords, distance, duration);
     this.cadence = cadence;
     this.calcPace();
+    this._setDescription();
   }
 
   calcPace() {
@@ -214,6 +266,7 @@ class Cycling extends Workout {
     this.elevationGain = elevationGain;
     // this.type = 'cycling';
     this.calcSpeed();
+    this._setDescription();
   }
 
   calcSpeed() {
