@@ -9,7 +9,6 @@ const inputCadence = document.querySelector(".form__input--cadence");
 const inputElevation = document.querySelector(".form__input--elevation");
 
 let map, mapEvent;
-let workout;
 
 // App architecture
 class App {
@@ -19,12 +18,15 @@ class App {
   #workouts = [];
 
   constructor() {
-    // this.workouts = [];
+    // Get user's position
     this._getPosition();
 
     // event handler for submitting form > listen for "submit" event > display marker
     form.addEventListener("submit", this._newWorkout.bind(this));
     inputType.addEventListener("change", this._toggleElevationField);
+
+    // when there is no element to add event listener to, delegate event: add it to the parent element
+    containerWorkouts.addEventListener('click', this._moveToPopup);
   }
 
   // GEOLOCATION
@@ -40,16 +42,15 @@ class App {
   }
 
   _loadMap(position) {
-    // position parameters
     const { latitude } = position.coords;
     const { longitude } = position.coords;
-    console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
 
     const coords = [latitude, longitude];
 
     // MAP OBJECT: used for getting coordinates on click
     this.#map = L.map("map").setView(coords, 13);
 
+    // map layout
     L.tileLayer("https://tile.opentopomap.org/{z}/{x}/{y}.png", {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -58,6 +59,10 @@ class App {
     // Handling click on map
     // Leaflet will call map function with special map event created by Leaflet
     this.#map.on("click", this._showForm.bind(this));
+
+    this.#workouts.forEach(work => {
+      this._renderWorkoutMarker(work);
+    });
   }
 
   _showForm(mapEvent) {
@@ -72,15 +77,26 @@ class App {
     inputDistance.focus();
   }
 
+  _hideForm() {
+    // empty inputs
+    inputDistance.value = inputDuration.value = inputCadence.value = inputElevation.value = '';
+
+    form.style.display = "none";
+    form.classList.add("hidden");
+
+    // return display back to grid so you can insert another workout
+    setTimeout(() => form.style.display = "grid", 1000);
+
+  }
+
   _toggleElevationField() {
     // toggle cadence/distance on selecting running/cycling
     // select closest parent
-    inputElevation.closest(".form__row").classList.toggle("form__row--hidden");
-    inputCadence.closest(".form__row").classList.toggle("form__row--hidden");
+    inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+    inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
   }
 
   _newWorkout(e) {
-    e.preventDefault();
     // (...x) returns array
     // every() returns true if condition is true for all elements in the array
     const validInputs = (...inputs) =>
@@ -88,13 +104,16 @@ class App {
 
     const allPositive = (...inputs) => inputs.every((inp) => inp > 0);
 
+    e.preventDefault();
+
     // Get data from the form
     const type = inputType.value;
     const distance = +inputDistance.value; // '+' at the beginning converts it to a number
     const duration = +inputDuration.value;
     const { lat, lng } = this.#mapEvent.latlng;
+    let workout;
 
-    // For running create Running object
+    // create Running object
     if (type === "running") {
       const cadence = +inputCadence.value;
 
@@ -128,17 +147,15 @@ class App {
     // #not accessible from outside
     this.#workouts.push(workout);
 
-    // Render new workout on the list
-    // _not intended to be, but accessible from outside
+    // Render workout on map as marker
+    // _accessible from the outside
     this._renderWorkoutMarker(workout);
+
+    // Render workout on list
     this._renderWorkout(workout);
 
     // Hide the form, clear input fields
-    inputDistance.value =
-      inputDuration.value =
-      inputCadence =
-      inputElevation.value =
-        "";
+    this._hideForm();
   }
 
   // Render workout on map as a marker
@@ -153,31 +170,32 @@ class App {
           minWidth: 100,
           autoClose: false,
           closeOnClick: false,
-          // className: "running-popup",
           className: `${workout.type}-popup`,
         })
       )
-      .setPopupContent(workout.distance )
+      .setPopupContent(`${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'} ${workout.description}`)
       .openPopup();
   }
 
   _renderWorkout(workout) {
     let html = `
-      <li class="workout workout--${workout.type}" data-id="${workout.id }">
-          <h2 class="workout__title">${workout.description}</h2>
-          <div class="workout__details">
-            <span class="workout__icon">${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'}</span>
-            <span class="workout__value">${workout.distance}</span>
-            <span class="workout__unit">km</span>
-          </div>
-          <div class="workout__details">
-            <span class="workout__icon">⏱</span>
-            <span class="workout__value">${workout.duration}</span>
-            <span class="workout__unit">min</span>
-          </div>
+      <li class="workout workout--${workout.type}" data-id="${workout.id}">
+        <h2 class="workout__title">${workout.description}</h2>
+        <div class="workout__details">
+          <span class="workout__icon">
+          ${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'}
+          </span>
+          <span class="workout__value">${workout.distance}</span>
+          <span class="workout__unit">km</span>
+        </div>
+        <div class="workout__details">
+          <span class="workout__icon">⏱</span>
+          <span class="workout__value">${workout.duration}</span>
+          <span class="workout__unit">min</span>
+        </div>
     `;
 
-    if(workout.type === 'running') {
+    if (workout.type === 'running')
       html += `
         <div class="workout__details">
           <span class="workout__icon">⚡️</span>
@@ -191,9 +209,8 @@ class App {
         </div>
       </li>
       `;
-    }
 
-    if(workout.type === 'cycling') {
+    if (workout.type === 'cycling')
       html += `
         <div class="workout__details">
           <span class="workout__icon">⚡️</span>
@@ -208,13 +225,16 @@ class App {
       </li>
       `;
 
-      // adding sibling element after end of the form
-      form.insertAdjacentHTML('afterend', html);
+    form.insertAdjacentHTML('afterend', html);
+    }
+
+    // match the object you're looking for
+    // closest is opposite of query selector
+    _moveToPopup(e) {
+      const workoutElement = e.target.closest(".workout");
+      console.log(workoutElement);
     }
   }
-}
-
-const app = new App();
 
 // parent class, takes in data common to both workouts: coordinates, distance & duration
 class Workout {
@@ -264,7 +284,6 @@ class Cycling extends Workout {
   constructor(cords, distance, duration, elevationGain) {
     super(cords, distance, duration, elevationGain);
     this.elevationGain = elevationGain;
-    // this.type = 'cycling';
     this.calcSpeed();
     this._setDescription();
   }
@@ -282,6 +301,9 @@ const run1 = new Running([39, -12], 5.2, 24, 178);
 const cycling1 = new Cycling([39, -12], 27, 95, 523);
 
 console.log(run1, cycling1);
+
+
+const app = new App();
 
 ///////////////////////////////////////////
 // library for map: https://leafletjs.com/
