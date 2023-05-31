@@ -183,3 +183,18 @@ inputType.addEventListener("change", function () {
 ```
 
 <br><hr /><br>
+
+### Delegating events
+<br>
+
+When you have no element to attach your event listener to, delegate the event to the closest parent.
+
+- Use method `closest()`.
+
+- Read the `id` from that element and set the event listener to it.
+
+**reading an id from an element**: `element.dataset.id`;
+<br>
+
+`const workout = this.#workouts.find(work => work.id === workoutElement.dataset.id);`
+<br><br>

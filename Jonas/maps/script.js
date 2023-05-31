@@ -1,20 +1,19 @@
 "use strict";
 
-const form = document.querySelector(".form");
-const containerWorkouts = document.querySelector(".workouts");
-const inputType = document.querySelector(".form__input--type");
-const inputDistance = document.querySelector(".form__input--distance");
-const inputDuration = document.querySelector(".form__input--duration");
-const inputCadence = document.querySelector(".form__input--cadence");
-const inputElevation = document.querySelector(".form__input--elevation");
-
-let map, mapEvent;
+const form = document.querySelector('.form');
+const containerWorkouts = document.querySelector('.workouts');
+const inputType = document.querySelector('.form__input--type');
+const inputDistance = document.querySelector('.form__input--distance');
+const inputDuration = document.querySelector('.form__input--duration');
+const inputCadence = document.querySelector('.form__input--cadence');
+const inputElevation = document.querySelector('.form__input--elevation');
 
 // App architecture
 class App {
-  // private class field = private instance properties that are going to be present on all instances of the class
+  // private class field = private instance properties that are going to be present on all instances of the class = class fields
   #map;
   #mapEvent;
+  #mapZoomLevel = 13;
   #workouts = [];
 
   constructor() {
@@ -22,23 +21,22 @@ class App {
     this._getPosition();
 
     // event handler for submitting form > listen for "submit" event > display marker
-    form.addEventListener("submit", this._newWorkout.bind(this));
-    inputType.addEventListener("change", this._toggleElevationField);
+    form.addEventListener('submit', this._newWorkout.bind(this));
+    inputType.addEventListener('change', this._toggleElevationField);
 
     // when there is no element to add event listener to, delegate event: add it to the parent element
-    containerWorkouts.addEventListener('click', this._moveToPopup);
+    containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
   }
 
   // GEOLOCATION
   _getPosition() {
-    if (navigator.geolocation) {
+    if (navigator.geolocation)
       navigator.geolocation.getCurrentPosition(
         this._loadMap.bind(this),
         function () {
-          alert("Could not get your position.");
+          alert('Could not get your position');
         }
       );
-    }
   }
 
   _loadMap(position) {
@@ -48,7 +46,7 @@ class App {
     const coords = [latitude, longitude];
 
     // MAP OBJECT: used for getting coordinates on click
-    this.#map = L.map("map").setView(coords, 13);
+    this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
 
     // map layout
     L.tileLayer("https://tile.opentopomap.org/{z}/{x}/{y}.png", {
@@ -58,7 +56,7 @@ class App {
 
     // Handling click on map
     // Leaflet will call map function with special map event created by Leaflet
-    this.#map.on("click", this._showForm.bind(this));
+    this.#map.on('click', this._showForm.bind(this));
 
     this.#workouts.forEach(work => {
       this._renderWorkoutMarker(work);
@@ -79,13 +77,14 @@ class App {
 
   _hideForm() {
     // empty inputs
-    inputDistance.value = inputDuration.value = inputCadence.value = inputElevation.value = '';
+    inputDistance.value = inputDuration.value = inputCadence.value = inputElevation.value =
+      '';
 
     form.style.display = "none";
     form.classList.add("hidden");
 
     // return display back to grid so you can insert another workout
-    setTimeout(() => form.style.display = "grid", 1000);
+    setTimeout(() => (form.style.display = "grid"), 1000);
 
   }
 
@@ -100,9 +99,9 @@ class App {
     // (...x) returns array
     // every() returns true if condition is true for all elements in the array
     const validInputs = (...inputs) =>
-      inputs.every((inp) => Number.isFinite(inp));
+      inputs.every(inp => Number.isFinite(inp));
 
-    const allPositive = (...inputs) => inputs.every((inp) => inp > 0);
+    const allPositive = (...inputs) => inputs.every(inp => inp > 0);
 
     e.preventDefault();
 
@@ -114,31 +113,28 @@ class App {
     let workout;
 
     // create Running object
-    if (type === "running") {
+    if (type === 'running') {
       const cadence = +inputCadence.value;
 
       // Check if data is valid with GUARD CLAUSE: if the distance is not a number
-      if (
-        !validInputs(distance, duration, cadence) ||
-        !allPositive(distance, duration, cadence)
-      ) {
-        return alert("Inputs have to be positive numbers!");
-      }
+      if (!validInputs(distance, duration, cadence) ||
+          !allPositive(distance, duration, cadence)
+      )
+        return alert('Inputs have to be positive numbers!');
 
       workout = new Running([lat, lng], distance, duration, cadence);
     }
 
     // For cycling create Cycling object
-    if (type === "cycling") {
-      const elevation = +inputElevation.value;
+      if (type === 'cycling') {
+        const elevation = +inputElevation.value;
 
       // Check if data is valid
       if (
         !validInputs(distance, duration, elevation) ||
         !allPositive(distance, duration)
-      ) {
-        return alert("Inputs have to be positive numbers!");
-      }
+      )
+        return alert('Inputs have to be positive numbers!');
 
       workout = new Cycling([lat, lng], distance, duration, elevation);
     }
@@ -160,31 +156,35 @@ class App {
 
   // Render workout on map as a marker
   _renderWorkoutMarker(workout) {
-    L.marker(workout.coords)
+      L.marker(workout.coords)
       .addTo(this.#map)
       .bindPopup(
 
-        // add a new object
-        L.popup({
-          maxWidth: 250,
-          minWidth: 100,
-          autoClose: false,
-          closeOnClick: false,
-          className: `${workout.type}-popup`,
-        })
-      )
-      .setPopupContent(`${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'} ${workout.description}`)
-      .openPopup();
+      // add a new object
+      L.popup({
+        maxWidth: 250,
+        minWidth: 100,
+        autoClose: false,
+        closeOnClick: false,
+        className: `${workout.type}-popup`,
+      })
+    )
+    .setPopupContent(
+      `${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'} ${workout.description}`
+    )
+    .openPopup();
   }
 
   _renderWorkout(workout) {
+
+    console.log(workout.id);
     let html = `
       <li class="workout workout--${workout.type}" data-id="${workout.id}">
         <h2 class="workout__title">${workout.description}</h2>
         <div class="workout__details">
-          <span class="workout__icon">
-          ${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'}
-          </span>
+          <span class="workout__icon">${
+            workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'
+          }</span>
           <span class="workout__value">${workout.distance}</span>
           <span class="workout__unit">km</span>
         </div>
@@ -210,7 +210,7 @@ class App {
       </li>
       `;
 
-    if (workout.type === 'cycling')
+      if (workout.type === 'cycling')
       html += `
         <div class="workout__details">
           <span class="workout__icon">⚡️</span>
@@ -232,7 +232,28 @@ class App {
     // closest is opposite of query selector
     _moveToPopup(e) {
       const workoutElement = e.target.closest(".workout");
+
+      // read closest element's ID and select it out of workouts array
       console.log(workoutElement);
+
+      if(!workoutElement) return;
+
+
+      // get workout data out of workouts array
+      const workout = this.#workouts.find(work => work.id === workoutElement.dataset.id);
+      console.log(workout);
+
+      // take the coordinates from that element and move the map to that position
+      // setView method is from Leaflet: setView(<LatLng> center, <Number> zoom, <Zoom/pan options> options object)
+      this.#map.setView(workout.coords, this.#mapZoomLevel, {
+        animate: true,
+        pan: {
+          duration: 1,
+        },
+      });
+
+      // using the public interface
+       workout.click();
     }
   }
 
@@ -242,7 +263,10 @@ class Workout {
   date = new Date();
 
   // usually library takes care of this class field
-  id = (Date.now + "").slice(-10); // returns timestamp
+  // id = (Date.now + "").slice(-10); // returns timestamp
+  id = (Date.now() + '').slice(-10); // returns timestamp
+
+  clicks = 0;
 
   constructor(coords, distance, duration) {
     this.coords = coords; // [latitude, longitude]
@@ -259,6 +283,10 @@ class Workout {
     // workout type first character to upper case" and workout type starting from position one (the rest of the letters)
     // months[] retrieves any value from "months" array
     this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${months[this.date.getMonth()]} ${this.date.getDate()}`;
+  }
+
+  click() {
+    this.clicks++;
   }
 }
 
