@@ -364,3 +364,40 @@ const app = new App();
 
 ///////////////////////////////////////////
 // library for map: https://leafletjs.com/
+
+///////////////////////////////////////////
+// improvements
+
+// edit, delete one or delete all workouts from the UI
+
+// rebuild Running and Cycling object from local storage (restore prototype chain)
+
+// _getLocalStorage() {
+//   const data = JSON.parse(localStorage.getItem('workouts'));
+
+//   if (!data) return;
+//   this.#workouts = data;
+//   this.#workouts.forEach(workout => {
+//     workout =
+//       workout.type === 'running'
+//         ? Object.setPrototypeOf(workout, Running.prototype)
+//         : Object.setPrototypeOf(workout, Cycling.prototype);
+//         console.log(workout);
+//     this._renderWorkout(workout);
+//   });
+// }
+
+// more realistic Error and Confirmation Messages
+
+// ability to position the map to show all workouts (leaflet library; zoom out? )
+
+// ability to draw lines and shapes instead of points
+
+// geocode location from coordinates (async)
+
+
+// https://github.com/mdblj/Mapty
+
+// https://github.com/Blackbox1985/Workout-Tracer
+// https://workout-tracer.netlify.app/
+
