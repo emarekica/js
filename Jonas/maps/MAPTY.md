@@ -197,4 +197,17 @@ When you have no element to attach your event listener to, delegate the event to
 <br>
 
 `const workout = this.#workouts.find(work => work.id === workoutElement.dataset.id);`
+<br><hr /><br>
+
+### object >> string >> object
+<br>
+
+`JSON.stringify(keyName, keyValue)` converts object to string
+<br>
+
+`JSON.parse()` converts string to object
 <br><br>
+
+**This process looses the prototype chain!**
+
+<br><hr /><br>

@@ -20,12 +20,17 @@ class App {
     // Get user's position
     this._getPosition();
 
+    // code executed when the app loads >> Get data from localStorage
+     this._getLocalStorage();
+
+    // EVENT HANDLERS
     // event handler for submitting form > listen for "submit" event > display marker
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
 
     // when there is no element to add event listener to, delegate event: add it to the parent element
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
+
   }
 
   // GEOLOCATION
@@ -61,6 +66,9 @@ class App {
     this.#workouts.forEach(work => {
       this._renderWorkoutMarker(work);
     });
+
+    // render workout markers
+    this.#workouts.forEach(work => this._renderWorkoutMarker(work));
   }
 
   _showForm(mapEvent) {
@@ -152,6 +160,9 @@ class App {
 
     // Hide the form, clear input fields
     this._hideForm();
+
+    // set localStorage to all workouts
+    this._setLocalStorage();
   }
 
   // Render workout on map as a marker
@@ -177,7 +188,6 @@ class App {
 
   _renderWorkout(workout) {
 
-    console.log(workout.id);
     let html = `
       <li class="workout workout--${workout.type}" data-id="${workout.id}">
         <h2 class="workout__title">${workout.description}</h2>
@@ -234,14 +244,10 @@ class App {
       const workoutElement = e.target.closest(".workout");
 
       // read closest element's ID and select it out of workouts array
-      console.log(workoutElement);
-
       if(!workoutElement) return;
-
 
       // get workout data out of workouts array
       const workout = this.#workouts.find(work => work.id === workoutElement.dataset.id);
-      console.log(workout);
 
       // take the coordinates from that element and move the map to that position
       // setView method is from Leaflet: setView(<LatLng> center, <Number> zoom, <Zoom/pan options> options object)
@@ -253,8 +259,34 @@ class App {
       });
 
       // using the public interface
-       workout.click();
+      // workout.click();
     }
+
+    _setLocalStorage() {
+      // using localStorage API that the browser provides
+      // setItem(keyName, keyValue)
+      // convert object (workouts) to string with JSON.stringify()
+      localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+    };
+
+    _getLocalStorage() {
+      // convert the string back to object with JSON.parse()
+       const data = JSON.parse(localStorage.getItem('workouts'));
+
+      // check if there is data in localStorage
+      if(!data) return;
+
+      // sets workouts array to the data before, data from "data" is now in the workouts array, which is initially empty at the app load
+      this.#workouts = data;
+
+      this.#workouts.forEach(work => this._renderWorkout(work));
+    };
+
+    // delete workouts
+    reset() {
+      localStorage.removeItem('workouts');
+      location.reload();
+    };
   }
 
 // parent class, takes in data common to both workouts: coordinates, distance & duration
@@ -327,9 +359,6 @@ class Cycling extends Workout {
 
 const run1 = new Running([39, -12], 5.2, 24, 178);
 const cycling1 = new Cycling([39, -12], 27, 95, 523);
-
-console.log(run1, cycling1);
-
 
 const app = new App();
 
