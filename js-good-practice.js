@@ -1,3 +1,25 @@
+// *** Destructuring assignment
+
+// Longhand array destructuring assignment
+let numbers = [1, 2, 3];
+let a = numbers[0];
+let b = numbers[1];
+let c = numbers[2];
+
+// Shorthand array destructuring assignment
+let numbers2 = [1, 2, 3];
+let [x, y, z] = numbers;
+
+// Longhand object destructuring assignment
+let person = { name: 'John', age: 30 };
+let name = person.name;
+let age = person.age;
+
+// Shorthand object destructuring assignment
+let person2 = { name: 'John', age: 30 };
+let { name2, age2 } = person;
+
+
 // *** CONST instead of VAR
 
 // *** COMMENTS: don't write what you do, write WHY you do it
@@ -35,14 +57,14 @@ console.log(piano?.info?.length); // undefined
 
 // NO: With magic numbers
 const validatePassword1 = () => {
-  if (passwort.length > 7) console.log("Your password is acceptable.");
+  if (password.length > 7) console.log("Your password is acceptable.");
 };
 
 // YES: Without magic numbers
 const MIN_PASS_SIZE = 7;
 
 const validatePassword2 = () => {
-  if (passwort.length > MIN_PASS_SIZE)
+  if (password.length > MIN_PASS_SIZE)
     console.log("Your password is acceptable.");
 };
 
