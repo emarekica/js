@@ -4,6 +4,7 @@
 3. [Pagination](#3-pagination)
 4. [Parts of HTTP request](#4-parts-of-http-request)
 5. [Working with API](#5-working-with-api)
+6. [Promise](#6-promise)
 
 ## 1. AJAX vs ASYNC
 <br>
@@ -316,8 +317,35 @@ Here are a few key aspects to consider when working with an API:
 By studying the API documentation and understanding the specifics of the API you are working with, you'll gain the necessary insights to construct requests, handle responses, and parse the data effectively. It allows you to write code that can properly interact with the API and extract the desired information for your application or use case.
 <br><hr /><br>
 
+## 6. Promise
+<br>
 
+Object used as placeholder for future result of async operation.
 
+- remove the need for events and callbacks to handle async results
+
+- can be **chained** instead of nesting >> avoiding _callback hell_
+
+<br><br>
+
+**Lifecycle of a promise**
+
+- time sensitive (change over time)
+- can be in different states (impossible to change it)
+- only **settled once**
+
+<br>
+
+1. _pending_ (async task still in the background, no result value available)
+
+2. _settled_: _fulfilled_ (successfully resulted in value), _rejected_ (error during async task)
+<br><br>
+
+**consuming a promise**
+<br>
+
+`fetch()` function builds a promise and returns it to us to consume the promise (we don't build them ourselves)
+<br><br>
 
 
 
