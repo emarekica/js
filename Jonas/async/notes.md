@@ -5,6 +5,7 @@
 4. [Parts of HTTP request](#4-parts-of-http-request)
 5. [Working with API](#5-working-with-api)
 6. [Promise](#6-promise)
+7. [Handling rejected promises](#7-handling-rejected-promises)
 
 ## 1. AJAX vs ASYNC
 <br>
@@ -38,14 +39,16 @@ Fetch API, introduced in modern browsers, provides a more modern and flexible wa
 <br><br>
 
 Here are a few notable differences between XMLHttpRequest and Fetch API:
+<br>
 
-Syntax: XMLHttpRequest has a more complex and verbose syntax, while Fetch API has a simpler and more intuitive syntax.
+_Syntax_: XMLHttpRequest has a more complex and verbose syntax, while Fetch API has a simpler and more intuitive syntax.
 
-Promises: Fetch API uses promises, which makes it easier to handle asynchronous operations and provides a more consistent way of dealing with responses and errors. Promises are represented by the `then()` method.
+_Promises_: Fetch API uses promises, which makes it easier to handle asynchronous operations and provides a more consistent way of dealing with responses and errors. Promises are represented by the `then()` method.
 
-Response Object: Fetch API provides a built-in Response object that represents the response received from the server. It offers methods like `json()`, `text()`, and `blob()` to extract and parse the response data conveniently.
+_Response Object_: Fetch API provides a built-in Response object that represents the response received from the server. It offers methods like `json()`, `text()`, and `blob()` to extract and parse the response data conveniently.
 
-Cross-Origin Requests: Fetch API follows the same-origin policy strictly, meaning that it does not send cookies or authentication headers unless specified. XMLHttpRequest, on the other hand, includes cookies and authentication headers by default for requests made to the same origin.
+_Cross-Origin Requests_: Fetch API follows the same-origin policy strictly, meaning that it does not send cookies or authentication headers unless specified. XMLHttpRequest, on the other hand, includes cookies and authentication headers by default for requests made to the same origin.
+<br><br>
 
 Overall, while both XMLHttpRequest and Fetch API can be used to achieve similar goals, Fetch API is generally considered the preferred choice for making AJAX requests in modern JavaScript due to its simplicity, promise-based approach, and enhanced features.
 
@@ -84,13 +87,12 @@ xhr.onerror = function() {
 xhr.send();
 ```
 
----
+<br><hr /><br>
 
 Fetch API example:
 <br>
 
 ```js
- // Make a GET request using Fetch API
 fetch('https://api.example.com/data')
   .then(function(response) {
     if (response.ok) {
@@ -117,7 +119,6 @@ Request with Headers:
 <br>
 
 ```js
-// Make a GET request with custom headers
 fetch('https://api.example.com/data', {
   headers: {
     'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
@@ -227,7 +228,7 @@ Pagination is typically implemented using parameters in the API request, such as
 Here's a simplified example of how pagination works:
 <br>
 
-1. Initial Request:
+1. **Initial Request**:
 
 You send an API request to retrieve the first page of data. The request may look something like this:
 <br>
@@ -252,16 +253,16 @@ In this example:
 `page=1` indicates that you want the first page, and limit=10 specifies that you want to retrieve 10 items per page.
 <br><br>
 
-2. API Response:
+2. **API Response**:
 
 The API responds with the requested data, containing the first 10 items. Along with the data, the response may include additional information, such as the total number of items available and the number of pages.
 <br>
 
-3. Handling the Response:
+3. **Handling the Response**:
 You process the received data, display it, or perform any necessary operations. Additionally, you can extract information from the response, such as the total number of items or the number of pages, to build a pagination UI for the user.
 <br>
 
-4. Requesting Next Page:
+4. **Requesting Next Page**:
 If the user wants to see the next page of data, you send another request with an incremented page number, like this:
 <br>
 
@@ -345,7 +346,94 @@ Object used as placeholder for future result of async operation.
 <br>
 
 `fetch()` function builds a promise and returns it to us to consume the promise (we don't build them ourselves)
+<br><hr /><br>
+
+
+**Common error**
+<br>
+
+Chaining promise directly onto new nested promise.
+
+<br>
+
+Error:
+<br>
+
+```js
+  .then(data => {
+    renderCountry(data[0]);
+
+    const neighbor = data[0].borders?.[0];
+
+    if(!neighbor) return;
+
+    return fetch(`https://restcountries.com/v3.1/name/${neighbor}`);
+
+    // Error
+    fetch(`https://restcountries.com/v3.1/name/${neighbor}`).then(response => response.json()
+  );
+  });
+```
+
 <br><br>
 
+Correct:
+<br>
 
+```js
+.then(data => {
+    renderCountry(data[0]);
+
+    const neighbor = data[0].borders?.[0];
+
+    if(!neighbor) return;
+
+    return fetch(`https://restcountries.com/v3.1/name/${neighbor}`);
+  })
+  .then(response => response.json())
+  .then(data => renderCountry(data, 'neighbor')
+);
+
+
+```
+
+<br><hr /><br>
+
+## Handling rejected promises
+<br>
+
+- 1st callback function is always called for the fulfilled promise
+- 2nd callback called when the promise is rejected
+
+```js
+const getCountryData = function(country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+
+  .then(
+    response => response.json(),
+    error => alert(err)
+    )
+  .then(data => {
+    renderCountry(data[0]);
+
+    const neighbor = data[0].borders?.[0];
+
+    if(!neighbor) return;
+
+    // Country 2
+    return fetch(`https://restcountries.com/v3.1/name/${neighbor}`);
+  })
+  .then(response => response.json())
+  .then(data => renderCountry(data, 'neighbor'));
+
+};
+```
+
+<br><br>
+
+Errors propagate down the chain until they are caught.
+If they are not, we get "uncaught error" in the Console.
+<br>
+
+Error is an object and can be created with a constructor.
 
