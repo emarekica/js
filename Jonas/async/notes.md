@@ -6,6 +6,18 @@
 5. [Working with API](#5-working-with-api)
 6. [Promise](#6-promise)
 7. [Handling rejected promises](#7-handling-rejected-promises)
+8. [Manually rejecting promises](#8-manually-rejecting-promises)
+
+<br /><hr /><br />
+
+`json()`
+<br>
+
+It returns a promise which resolves with the result of parsing the body text as `JSON`.
+
+Note that despite the method being named `json()`, the **result is not JSON** but is instead the result of taking JSON as input and parsing it to produce a JavaScript object.
+
+<br /><hr /><br />
 
 ## 1. AJAX vs ASYNC
 <br>
@@ -437,3 +449,102 @@ If they are not, we get "uncaught error" in the Console.
 
 Error is an object and can be created with a constructor.
 
+<br><hr/><br>
+
+## 8. Manually rejecting promises
+<br>
+
+Promise returned by this handler will be a **rejected promise**.
+<br>
+
+```js
+  .then( response => {
+    console.log(response);
+
+    // manually throwing error/rejecting promise
+    if(!response.ok) {
+      throw new Error(`Country not found (${response.status})`);
+    }
+
+    response.json(); // for fulfilled promise
+  })
+```
+
+<br>
+
+It will propagate to the `catch()`handler.
+
+<br>
+
+```js
+  .catch(error => {
+    console.log(`${error}`);
+    renderError(`Something went wrong: ${error.message}. Try again! `);
+  })
+```
+
+<br><br>
+
+Whole function:
+<br>
+
+```js
+const getCountryData = function(country) {
+
+  // Country 1
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+
+  .then( response => {
+    console.log(response);
+
+    // manually throwing error/rejecting promise
+    if(!response.ok) {
+      throw new Error(`Country not found (${response.status})`);
+    }
+
+    response.json(); // for fulfilled promise
+  })
+
+  // returns new promise
+  .then(data => {
+    renderCountry(data[0]);
+
+    // const neighbor = data[0].borders?.[0];
+    const neighbor = "asdfasdf";
+
+    if(!neighbor) return;
+
+    // Country 2
+    // Whatever is returned from this promise becomes fulfilled value of this promise
+    return fetch(`https://restcountries.com/v3.1/name/${neighbor}`);
+  })
+
+  // receives value of the promise of the previous then() method = RESPONSE
+  // response is fulfilled value of a fetch
+  // it becomes body = data stored in the body
+  .then(response => response.json())
+
+  // handles data stored in the body from previous then()
+  .then(data => renderCountry(data, 'neighbor'))
+
+  // ERROR handling
+  .catch(error => {
+    console.log(`${error}`);
+    renderError(`Something went wrong: ${error.message}. Try again! `);
+  })
+
+  // its callback function is called no matter what happens with the promise
+  .finally(() => {
+    countriesContainer.style.opacity = 1;
+  });
+};
+
+// Call the function whenever the user clicks on a button
+btn.addEventListener('click', function() {
+  getCountryData('portugal');
+});
+
+getCountryData("asdfasdfasdf");
+```
+
+<br><hr/><br>
