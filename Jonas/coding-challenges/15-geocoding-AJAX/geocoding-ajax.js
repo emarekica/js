@@ -30,22 +30,15 @@ TEST COORDINATES 2: -33.933, 18.474
 ///////////////////////////////////////
 // NEW GEOCODING WEBSITES - geocode.xyz does not work
 
-1.
-
-bigdatacloud.com
-https://www.bigdatacloud.com/docs/api/free-reverse-geocode-to-city-api?gclid=Cj0KCQiA1KiBBhCcARIsAPWqoSprMqo82bw_NEvU6YLf6sBntK0WIW4SGO7Q4g698h5OCU39omojYxMaAgCREALw_wcB
-
-    fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`)
-
-OR
-
 nominatim.org
 
 - it's not fast but it works
 - no need to make an account
+- docs: https://nominatim.org/release-docs/develop/api/Search/
 
     fetch(`https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${lat}&lon=${long}&zoom=10`)
 
+    fetch(``)
 */
 
 function whereAmI(lat, lng) {
@@ -54,7 +47,7 @@ function whereAmI(lat, lng) {
   )
     .then((response) => {
       if (!response.ok) {
-        throw new Error("There was an error in network response");
+        throw new Error("There was an error in network response"); // Rejects the promise
       }
 
       // Unpacks the response object
@@ -66,22 +59,33 @@ function whereAmI(lat, lng) {
     // In this case, the API response is a GeoJSON object representing the location data
     // Log the data to the console for further processing
     console.log(data);
+    console.log(`You are in ${data.features[0].properties.display_name}`);
+
+    // PART 2 - Render the country using the received data
+    // Fetch data from the countries API using the extracted information
+    return fetch(`https://nominatim.openstreetmap.org/search?q=${data.country}&format=json`);
+    })
+
+    // Handle the response and extract the relevant country information
+    .then(response => {
+      if(!response.ok) {
+        throw new Error("There was an error fetching country data");
+      }
+
+      // unpacks the response
+      return response.json();
+    })
+    // from the unpacked response
+    .then(countryData => {
+      // console.log(countryData);
+      console.log(`Country Data:`, countryData[0]);
     })
 
   .catch(error => {
     console.log('Fetch error:', error);
   })
-
-  // PART 2 - Render the country using the received data
-  // Fetch data from the countries API using the extracted information
-
-  // .then() - Handle the response and extract the relevant country information
-
-  // .then() - Render the country to the console
-
-  // .catch() - Log any errors that occur during the fetch
 }
 
 const location1 = whereAmI(52.508, 13.381);
-// const location2 = whereAmI(19.037, 72.873);
-// const location3 = whereAmI(-33.933, 18.474);
+const location2 = whereAmI(19.037, 72.873);
+const location3 = whereAmI(-33.933, 18.474);
