@@ -25,9 +25,6 @@ It specifies the format in which we want the response from the API. In this case
 This is another query parameter, a placeholder for the latitude & longitude value of the GPS coordinates that will be replaced with the actual value at runtime.
 <br><br>
 
-`&lon=${long}`
-<br><br>
-
 `&zoom=10`
 <br>
 
@@ -37,7 +34,7 @@ The higher the zoom level, the more detailed the map will be.
 
 This URL is used to make a reverse geocoding request to the Nominatim service. It takes the latitude and longitude values as input and requests information about the location corresponding to those coordinates in the GeoJSON format. The response from the API will contain details about the location, such as city, country, and other relevant information.
 
-For example, if you were to replace ${lat} with the latitude value 52.508 and ${long} with the longitude value 13.381, the final URL would look like:
+For example, if you were to replace `${lat}` with the latitude value 52.508 and `${long}` with the longitude value 13.381, the final URL would look like:
 
 ```js
 https://nominatim.openstreetmap.org/reverse?format=geojson&lat=52.508&lon=13.381&zoom=10
@@ -116,17 +113,17 @@ fetch(apiUrl)
 ## `then()` VS `catch()` block
 <br>
 
-The first `then()` block and the catch block in the code serve different purposes and handle different types of errors:
+The first `then()` block and the `catch()` block in the code serve different purposes and handle different types of errors:
 <br><br>
 
-First `then()` Block:
+First `then()` block:
 
 In the first `then()` block, the code checks if the network response is not okay by evaluating the `response.ok` property. If the response status code is not in the range of **200-299** (which typically indicates a successful response), it means there was an error with the network request. In this case, the code throws an error using the throw statement. Throwing an error in this `then()` block effectively signals that something went wrong with the fetch request, and the Promise chain will skip directly to the nearest `catch()` block.
 <br><br>
 
-`catch()` Block:
+`catch()` block:
 
-The `catch()` block is executed if any error occurs in the entire Promise chain, including errors thrown in any of the preceding `then()` blocks. If an error is thrown in any of the `then()` blocks, the Promise chain will skip the subsequent `then()` blocks and go directly to the nearest catch block.
+The `catch()` block is executed if any error occurs in the entire Promise chain, including errors thrown in any of the preceding `then()` blocks. If an error is thrown in any of the `then()` blocks, the Promise chain will skip the subsequent `then()` blocks and go directly to the nearest `catch()` block.
 <br><br>
 
 In summary:
@@ -135,7 +132,7 @@ The first `then()` block checks for a network error and throws an error if the r
 
 The `catch()` block handles any error that occurs during the entire Promise chain, whether it's a network error (thrown in the first `then()` block) or any other error thrown in any of the `then()` blocks.
 
-Using this structure allows you to have a specific error handling mechanism for fetch-related errors (in the first `then()` block) and a more general error handling approach for any other errors that might occur during the Promise chain (in the catch block). This way, you can differentiate between different types of errors and handle them appropriately.
+Using this structure allows you to have a specific error handling mechanism for fetch-related errors (in the first `then()` block) and a more general error handling approach for any other errors that might occur during the Promise chain (in the `catch()` block). This way, you can differentiate between different types of errors and handle them appropriately.
 
 <br><br>
 
