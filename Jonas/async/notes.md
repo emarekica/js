@@ -8,6 +8,7 @@
 7. [Handling rejected promises](#7-handling-rejected-promises)
 8. [Manually rejecting promises](#8-manually-rejecting-promises)
 9. [Creating a promise](#9-creating-a-promise)
+10. [Promisifying Geolocation](#10-promisifying-geolocation)
 
 <br /><hr /><br />
 
@@ -687,3 +688,7 @@ wait(2).then(() => {
 Promise.resolve('Resolved again!').then(res => console.log(res));
 Promise.reject(new Error('Problem!')).catch(err => console.error(err));
 ```
+
+<br><br>
+## 10. Promisifying Geolocation
+<br>
