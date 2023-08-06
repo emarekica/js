@@ -611,3 +611,41 @@ If your task is already promise-based, you likely do not need the `Promise()` co
 <br>
 
 [MDN Promise constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/Promise)
+
+<br><hr /><br>
+
+### "Promisifying"
+<br>
+
+Converting callback-based async behavior to promise based.
+
+**Pattern:**
+<br>
+
+```js
+const lotteryPromise = new Promise(function(resolve, reject){
+
+  console.log('Lottery draw is happening...');
+
+  // async part
+  setTimeout(function() {
+    if(Math.random() >= 0.5) {
+      resolve('You win! :)');
+    } else {
+      reject(new Error('You lost. :('));
+    }
+  }, 2000);
+});
+
+// consuming promise
+lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
+```
+
+<br><br>
+
+In practice, most of the time we consume promises.
+
+Promises are **built to wrap old callback-based functions into promises.**
+
+A function is created that creates and returns a promise. It encapsulates the async behavior further.
+<br><br>
