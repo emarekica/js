@@ -7,6 +7,7 @@
 6. [Promise](#6-promise)
 7. [Handling rejected promises](#7-handling-rejected-promises)
 8. [Manually rejecting promises](#8-manually-rejecting-promises)
+9. [Creating a promise](#9-creating-a-promise)
 
 <br /><hr /><br />
 
@@ -16,8 +17,6 @@
 It returns a promise which resolves with the result of parsing the body text as `JSON`.
 
 Note that despite the method being named `json()`, the **result is not JSON** but is instead the result of taking JSON as input and parsing it to produce a JavaScript object.
-
-<br /><hr /><br />
 
 ## 1. AJAX vs ASYNC
 <br>
@@ -212,7 +211,7 @@ fetch('https://api.example.com/data')
   });
 ```
 
-<br><hr /><br>
+<br><br>
 
 ## 2. Payload and parameters
 <br>
@@ -225,7 +224,7 @@ fetch('https://api.example.com/data')
 
 Both payload and request parameters are methods for sending data to the server, but they differ in where the data is included. Payload is typically included in the request body, while request parameters are included in the URL or as part of the request headers, depending on the API's requirements and conventions.
 
-<br><hr /><br>
+<br><br>
 
 ## 3. Pagination
 
@@ -290,7 +289,7 @@ By using pagination, you can control the amount of data retrieved at a time, red
 
 It's important to note that pagination implementations may vary across different APIs. Some APIs may use different parameter names, such as offset and limit, or provide additional parameters for sorting or filtering the data. Always refer to the API documentation for the specific pagination approach and parameters supported by the API you're working with.
 
-<br><hr /><br>
+<br><br>
 
 ## 4. Parts of HTTP request
 <br>
@@ -307,7 +306,7 @@ Query parameters are commonly used in APIs for various purposes, such as filteri
 <br><br>
 
 It's worth noting that the handling and interpretation of query parameters are specific to the API you're working with. The API documentation should provide details on the supported parameters, their names, and their expected values.
-<br><hr /><br>
+<br><br>
 
 ## 5. Working with API
 <br>
@@ -328,7 +327,7 @@ Here are a few key aspects to consider when working with an API:
 <br><br>
 
 By studying the API documentation and understanding the specifics of the API you are working with, you'll gain the necessary insights to construct requests, handle responses, and parse the data effectively. It allows you to write code that can properly interact with the API and extract the desired information for your application or use case.
-<br><hr /><br>
+<br><br>
 
 ## 6. Promise
 <br>
@@ -409,9 +408,9 @@ Correct:
 
 ```
 
-<br><hr /><br>
+<br><br>
 
-## Handling rejected promises
+## 7. Handling rejected promises
 <br>
 
 - 1st callback function is always called for the fulfilled promise
@@ -449,7 +448,7 @@ If they are not, we get "uncaught error" in the Console.
 
 Error is an object and can be created with a constructor.
 
-<br><hr/><br>
+<br><br>
 
 ## 8. Manually rejecting promises
 <br>
@@ -547,4 +546,68 @@ btn.addEventListener('click', function() {
 getCountryData("asdfasdfasdf");
 ```
 
-<br><hr/><br>
+<br><br>
+
+## 9. Creating a promise
+<br>
+
+Promise can be created with:
+
+1. `fetch()` function
+
+2. constructor `new Promise(function(){resolve, reject})` function
+
+<br><br>
+
+**syntax:**
+
+```js
+new Promise(executor)
+```
+<br>
+
+`executor`
+> A function to be executed by the constructor. It receives two functions as parameters: `resolve()` and `reject()`. Any errors thrown in the executor will cause the promise to be rejected, and the return value will be neglected.
+<br>
+
+`resolve()`
+> used to set the promise as fulfilled >>> the result is available in `then()` handler
+<br>
+
+`reject()`
+> used to set the promise as rejected >>> the result is available in `catch()` handler
+
+<br><br>
+
+The `executor` is custom code that ties an outcome in a callback to a promise. You, the programmer, write the executor. Its signature is expected to be:
+
+```js
+function executor(resolveFunc, rejectFunc) {
+  // Typically, some asynchronous operation that accepts a callback,
+}
+```
+
+**Example:**
+<br>
+
+```js
+const promise1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('foo');
+  }, 300);
+});
+
+promise1.then((value) => {
+  console.log(value);
+  // Expected output: "foo"
+});
+
+console.log(promise1);
+// Expected output: [object Promise]
+```
+<br><br>
+
+If your task is already promise-based, you likely do not need the `Promise()` constructor.
+<br>
+
+[MDN Promise constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/Promise)
