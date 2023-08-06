@@ -649,3 +649,41 @@ Promises are **built to wrap old callback-based functions into promises.**
 
 A function is created that creates and returns a promise. It encapsulates the async behavior further.
 <br><br>
+
+Similar to `fetch()`, this creates and returns a promise.
+<br>
+
+```js
+const wait = function(seconds) {
+
+  // create & return promise
+  // timer cannot fail >> no need for "reject"
+  return new Promise(function(resolve) {
+    setTimeout(resolve, seconds * 1000)
+  });
+};
+
+// creates promise that waits 2 secs and resolves
+// does not receive resolved value
+wait(2).then(() => {
+  console.log('I waited for 2 secs')
+
+  // returns new promise; just like fetch()
+  return wait(1);
+  })
+
+  // handles newly created promise
+  .then(() => console.log('I waited for 1 second'));
+```
+
+<br>
+
+### Create fulfilled / rejected promise immediately
+<br>
+
+- with [static methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/Promise#specifications) on Promise constructor
+
+```js
+Promise.resolve('Resolved again!').then(res => console.log(res));
+Promise.reject(new Error('Problem!')).catch(err => console.error(err));
+```
