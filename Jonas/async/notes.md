@@ -9,7 +9,8 @@
 8. [Manually rejecting promises](#8-manually-rejecting-promises)
 9. [Creating a promise](#9-creating-a-promise)
 10. [Promisifying Geolocation](#10-promisifying-geolocation)
-11. [Async Await]()
+11. [Async Await](#11-async-await)
+12. [Error handling with try...catch](#12-error-handling-with-trycatch-statement)
 
 <br /><hr /><br />
 
@@ -730,8 +731,38 @@ const whereAmI = async function(country) {
 }
 ```
 
+<br><br>
+
+## 12. Error handling with `try...catch` statement
 <br>
 
+Has nothing to do with `async` / `await`, but can be used to handle errors in `async` functions.
 
+Simple example:
 
+```js
+try {
+  let y = 1;
+  const x = 2;
+
+  x = 3;
+} catch(error) {
+  alert(error.message);
+}
+```
+
+<br>
+
+Handle errors in `async` functions:
+
+```js
+const myAsyncFunction = async function() {
+  try {
+    // function body
+  }
+  catch(err) {
+    console.log(err);
+  }
+}
+```
 

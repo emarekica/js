@@ -33,32 +33,57 @@ const getPosition = function () {
 
 const whereAmI = async function() {
 
-  // geolocation
-  const position = await getPosition();
-  const { latitude: lat, longitude: lng } = position.coords;
+  // error handling
+  try {
+    // geolocation
+    const position = await getPosition();
+    const { latitude: lat, longitude: lng } = position.coords;
 
-  // reversed geocoding API
-  const geoResponse = await fetch(
-    `https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${lat}&lon=${lng}&zoom=10`
-  );
-  const dataGeo = geoResponse.json();
+    // reversed geocoding API
+    const geoResponse = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${lat}&lon=${lng}&zoom=10`
+    );
 
-  console.log(dataGeo);
+    // error handling
+    if(!geoResponse.ok) throw(new Error('There was a problem with geo response.'));
 
-  // country data
+    const dataGeo = geoResponse.json();
+    if(!dataGeo.ok) throw(new Error('There was a problem with data geo.'));
 
-  // the same:
-  // 1. get the promise fulfilled value
-  // fetch(`https://nominatim.openstreetmap.org/search?q=${country}&format=json`).then(result => console.log(result));
-  // 2. get the JSON (returns promise)
-  // response.json();
+    console.log(dataGeo);
 
-  // await stops code execution at this point until promise fulfilled
-  const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${dataGeo.country}&format=json`); // 1.
-  const data = await response.json(); // 2.
+    // country data
 
-  renderCountry(data[0]);
+    // the same:
+    // 1. get the promise fulfilled value
+    // fetch(`https://nominatim.openstreetmap.org/search?q=${country}&format=json`).then(result => console.log(result));
+    // 2. get the JSON (returns promise)
+    // response.json();
+
+    // await stops code execution at this point until promise fulfilled
+    const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${dataGeo.country}&format=json`); // 1.
+    const data = await response.json(); // 2.
+
+    renderCountry(data[0]);
+  }
+  catch(error) {
+    console.log(error.message);
+    renderError('Something went wrong: ${error.message}');
+  }
 }
 
 whereAmI();
 console.log('first ');
+
+
+// ERROR HANDLING
+// simple example
+
+// try {
+//   let y = 1;
+//   const x = 2;
+
+//   x = 3;
+// } catch(error) {
+//   alert(error.message);
+// }
