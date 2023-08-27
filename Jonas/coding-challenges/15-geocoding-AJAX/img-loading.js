@@ -10,8 +10,6 @@ When the image is done loading, append it to the DOM element with the 'images' c
 The fulfilled value should be the image element itself.
 In case there is an error loading the image ('error' event), reject the promise.
 
-If this part is too tricky for you, just watch the first part of the solution.
-
 PART 2
 2. Consume the promise using .then and also add an error handler;
 3. After the image has loaded, pause execution for 2 seconds using the wait function we created earlier;

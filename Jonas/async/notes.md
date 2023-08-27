@@ -9,6 +9,7 @@
 8. [Manually rejecting promises](#8-manually-rejecting-promises)
 9. [Creating a promise](#9-creating-a-promise)
 10. [Promisifying Geolocation](#10-promisifying-geolocation)
+11. [Async Await]()
 
 <br /><hr /><br />
 
@@ -692,5 +693,45 @@ Promise.reject(new Error('Problem!')).catch(err => console.error(err));
 <br><br>
 ## 10. Promisifying Geolocation
 <br>
+
+## 11. Async Await
+<br>
+
+Only about consuming promises.
+
+<br><br>
+
+Async function performs in the background while performing the code inside of it.
+When it is done, **it automatically returns a promise**.
+
+Inside `async` function there can be 1 or more `await` functions.
+
+`await` stops code execution at its point until promise is fulfilled, but because `await` is running in the background, it is not blocking the call stack.
+
+Removes the need for `then()`.
+But it is **syntactic sugar over `then()` in promises.** They are still used, but in a different way.
+<br>
+
+This is the same...
+
+```js
+const whereAmI = async function(country) {
+  const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${country}&format=json`);
+}
+```
+
+<br>
+
+As this:
+
+```js
+const whereAmI = async function(country) {
+  fetch(`https://nominatim.openstreetmap.org/search?q=${country}&format=json`).then(result => console.log(result));
+}
+```
+
+<br>
+
+
 
 
