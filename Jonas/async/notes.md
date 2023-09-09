@@ -11,6 +11,7 @@
 10. [Promisifying Geolocation](#10-promisifying-geolocation)
 11. [Async Await](#11-async-await)
 12. [Error handling with try...catch](#12-error-handling-with-trycatch-statement)
+13. [Returning values from async function](#13-returning-values-from-async-function)
 
 <br /><hr /><br />
 
@@ -766,3 +767,5 @@ const myAsyncFunction = async function() {
 }
 ```
 
+## 13. Returning values from async function
+<br>
