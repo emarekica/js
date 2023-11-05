@@ -767,5 +767,92 @@ const myAsyncFunction = async function() {
 }
 ```
 
-## 13. Returning values from async function
+## 13. Promise combinators
 <br>
+
+Promise combinators are higher-order functions in JavaScript that allow you to work with multiple promises in a more organized and efficient way. They provide a way to coordinate and manage asynchronous operations when dealing with promises.
+
+Promise combinators are useful for managing and coordinating multiple asynchronous operations, allowing you to handle different scenarios, such as waiting for all promises to complete, reacting to the first promise that settles, or collecting the results and error reasons of all promises.
+
+There are three primary promise combinators in JavaScript: `Promise.all()`, `Promise.race()` (2 mostly used), and `Promise.allSettled()`.
+
+<br><br>
+
+### `Promise.all()`
+
+<br>
+
+Takes an iterable (such as an array or any other iterable object) of promises and returns a new promise.
+**It resolves when all the input promises in the iterable have resolved, and it rejects if any of the input promises are rejected.** The result is an array of the resolved values in the same order as the input promises.
+
+It is useful when you want to wait for multiple asynchronous operations to complete before performing some action.
+For example, if you have several HTTP requests to different endpoints and you want to process the data when all requests are successful.
+<br>
+
+```js
+const promises = [promise1, promise2, promise3];
+
+Promise.all(promises)
+  .then((results) => {
+    // All promises have resolved successfully
+    console.log(results);
+  })
+  .catch((error) => {
+    // At least one promise was rejected
+    console.error(error);
+  });
+
+```
+<br>
+
+### `Promise.race()`
+<br>
+
+Takes an iterable of promises but resolves or rejects as soon as the first promise in the iterable settles (either resolves or rejects).
+**It returns a new promise with the same settled value as the first promise to settle.**
+
+Useful when you want to respond as soon as the first promise is settled, for example, when you want to use the data from the fastest responding server.
+Also used for long-running or never-ending promises.
+<br>
+
+```js
+const promises = [promise1, promise2, promise3];
+
+Promise.race(promises)
+  .then((firstResult) => {
+    // The first promise to settle (resolve or reject)
+    console.log(firstResult);
+  })
+  .catch((error) => {
+    // If the first promise rejects
+    console.error(error);
+  });
+```
+<br>
+
+### `Promise.allSettled()`
+<br>
+
+Takes an iterable of promises and returns a new promise. Unlike `Promise.all()`, it does not short-circuit when a promise is rejected. Instead, **it waits for all the promises in the iterable to settle (either resolve or reject) and then provides an array of objects representing the result of each promise, including the status (fulfilled or rejected) and the value or reason.**
+
+Useful when you want to collect the results of multiple asynchronous operations, even if some of them fail. For example, if you're validating multiple user inputs and want to know the validation status of each input.
+<br>
+
+```js
+const promises = [promise1, promise2, promise3];
+
+Promise.allSettled(promises)
+  .then((results) => {
+    results.forEach((result) => {
+      if (result.status === 'fulfilled') {
+        console.log('Fulfilled:', result.value);
+      } else if (result.status === 'rejected') {
+        console.log('Rejected:', result.reason);
+      }
+    });
+  });
+
+```
+<br>
+
+**settled** promise means the value is available, no matter if the promise is rejected or fulfilled.
