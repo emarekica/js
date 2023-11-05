@@ -19,7 +19,7 @@ const getJSON = function (url, errorMsg = "Something went wrong") {
     getJSON(`https://restcountries.com/v3.1/name/italy`)
   ]);
 
-  console.log(response[0]);
+  // console.log(response[0]);
 })();
 
 // example: Promise.race() against timeout
@@ -34,9 +34,9 @@ const timeout = function(sec) {
 
 Promise.race([
   getJSON(`https://restcountries.com/v3.1/name/germany`),
-  timeout(1),
+  timeout(5),
 ])
-  .then(res => console.log(response[0]))
+  .then(response => console.log(response[0]))
   .catch(error => console.log(error));
 
 
@@ -47,5 +47,34 @@ Promise.race([
 
 // if user has bad internet connection, fetch() might take too long to be useful
 
-// allSettled
-// any
+// Promise.allSettled
+// receives array of promises
+// returns array of all results of all promises
+// never short-circuits
+
+Promise.allSettled([
+  Promise.resolve('Success'),
+  Promise.reject('Error'),
+  Promise.resolve('Success')
+]).then(response => console.log(response));
+
+
+Promise.all([
+  Promise.resolve('Success'),
+  Promise.reject('Error'),
+  Promise.resolve('Success')
+])
+  .then(response => console.log(response))
+  .catch(error => console.log(error));
+
+// Promise.any
+// returns first fulfilled promise
+// ignores rejected promises
+
+Promise.any([
+  Promise.resolve('Success'),
+  Promise.reject('Error'),
+  Promise.resolve('Success')
+])
+  .then(response => console.log(response))
+  .catch(error => console.log(error));
